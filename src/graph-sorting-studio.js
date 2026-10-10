@@ -9,7 +9,7 @@ import { COMBINATIONS, ROAD_TYPES, ROAD_TAG, SORTING_STORAGE_KEY, addCrossingJun
 
 const $ = (s) => document.querySelector(s);
 const escape = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-const DEFAULT_FILE = "campus-sorted.json";
+const DEFAULT_FILE = "routes.json";
 let started = false, map, toast;
 let hasGraph = false, pendingDeletion = null, nearMisses = null, reviewTarget = null;
 let doc = { elements: [] }, undo = [], redo = [];
@@ -25,7 +25,7 @@ export function showGraphSorting(showToast) {
 
 function start() {
   started = true;
-  $("#sorting-actions").innerHTML = `<button id="sorting-import">${icon("upload")} Upload graph</button><button id="sorting-download">${icon("download")} Download</button><input id="sorting-file" type="file" accept=".json,application/json" hidden>`;
+  $("#sorting-actions").innerHTML = `<button id="sorting-repo">Load repo data</button><button id="sorting-import">${icon("upload")} Upload graph</button><button id="sorting-download">${icon("download")} Download</button><input id="sorting-file" type="file" accept=".json,application/json" hidden>`;
   $("#sorting-workspace").innerHTML = `
     <aside class="sidebar sorting-sidebar" aria-label="Graph sorting controls">
       <div class="sidebar-top"><div class="eyebrow">PATH STUDIO / STEP 02</div><div class="title-row"><h1>Graph Sorting</h1><span class="count" id="sorting-count">0</span></div><p class="muted">Choose who can use each road.</p>
@@ -64,6 +64,7 @@ function start() {
   setupBasemap(map, $("#sorting-basemap"), { overlay: () => ({ type: "FeatureCollection", features: ways(doc).map((way) => ({ type: "Feature", properties: { color: displayStyle(way).color }, geometry: { type: "LineString", coordinates: way.geometry.map((p) => [p.lon, p.lat]) } })) }) });
   new ResizeObserver(() => map.invalidateSize()).observe($("#sorting-map"));
   $("#sorting-copy").onclick = () => copyGraph();
+  $("#sorting-repo").onclick = () => loadRepo();
   $("#sorting-import").onclick = () => $("#sorting-file").click();
   $("#sorting-file").onchange = async (event) => {
     const file = event.target.files[0]; event.target.value = "";
@@ -175,7 +176,7 @@ function start() {
   try {
     const saved = JSON.parse(localStorage.getItem(SORTING_STORAGE_KEY) ?? "null");
     if (saved?.doc) { doc = checkSortingSnapshot(toText(saved.doc)); hasGraph = true; }
-    else copyGraph(false);
+    else loadRepo(false);
   } catch (error) { toast(`Could not restore the sorting draft: ${error.message}`); }
   render(); fit();
 }
@@ -201,6 +202,15 @@ function replace(next) {
   undo = []; redo = []; doc = next; selectedWay = selectedNode = operation = null;
   search = ""; filter = "all"; $("#sorting-search").value = ""; $("#sorting-filter").value = "all";
   persist(); render(); fit();
+}
+async function loadRepo(ask = true) {
+  if (ask && !canReplace()) return;
+  try {
+    const response = await fetch(`./${DEFAULT_FILE}`, { cache: "no-cache" });
+    if (!response.ok) throw new Error(`Could not load ${DEFAULT_FILE} from the repo.`);
+    replace(checkSortingSnapshot(await response.text()));
+    if (ask) toast(`Loaded ${ways(doc).length} roads from the repo.`);
+  } catch (error) { toast(error.message); }
 }
 function copyGraph(ask = true) {
   act(() => {
@@ -235,7 +245,7 @@ function render() {
 function renderList() {
   const shown = ways(doc).filter((way) => (filter === "all" || roadMask(way) === Number(filter)) && `${wayName(way)} ${way.id} ${way.nodes.join(" ")}`.toLowerCase().includes(search));
   $("#sorting-shown").textContent = `${shown.length} shown`;
-  $("#sorting-list").innerHTML = shown.length ? shown.map((way) => `<button class="point-row ${way.id === selectedWay ? "selected" : ""}" data-road="${way.id}" aria-pressed="${way.id === selectedWay}"><i class="sorting-swatch" style="background:${displayStyle(way).color}"></i><span class="point-row-text"><strong>${escape(wayName(way))}</strong><small>${escape(displayStyle(way).label)} · ${edgeCount(way)} edge(s)</small></span>${icon("arrow")}</button>`).join("") : `<div class="empty-list"><strong>${ways(doc).length ? "No matching roads" : "Ready for your graph"}</strong><p>${ways(doc).length ? "Try another search or filter." : "Copy from Graphing or upload a JSON graph."}</p></div>`;
+  $("#sorting-list").innerHTML = shown.length ? shown.map((way) => `<button class="point-row ${way.id === selectedWay ? "selected" : ""}" data-road="${way.id}" aria-pressed="${way.id === selectedWay}"><i class="sorting-swatch" style="background:${displayStyle(way).color}"></i><span class="point-row-text"><strong>${escape(wayName(way))}</strong><small>${escape(displayStyle(way).label)} · ${edgeCount(way)} edge(s)</small></span>${icon("arrow")}</button>`).join("") : `<div class="empty-list"><strong>${ways(doc).length ? "No matching roads" : "Ready for your graph"}</strong><p>${ways(doc).length ? "Try another search or filter." : "Load repo data, copy from Graphing, or upload a JSON graph."}</p></div>`;
 }
 function renderMap() {
   renderedColorKey = colorKey();

@@ -1,6 +1,6 @@
 import { addPoint, guessMapping, validLocation } from './data.js';
 export const GATE_SORTING_STORAGE_KEY = 'stripes-gate-sorting-v1';
-export const GATE_SORTING_FILE = 'gates-sorted.csv';
+export const GATE_SORTING_FILE = 'gates.csv';
 export const ACCESS_STATES = [
   {value:'',label:'Undefined',color:'#9299a2',key:'3'},
   {value:'yes',label:'Accessible',color:'#2563eb',key:'1'},

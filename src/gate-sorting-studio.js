@@ -17,7 +17,7 @@ export function showGateSorting(showToast) {
 }
 function start() {
   started=true;
-  $('#gate-sorting-actions').innerHTML=`<button id="gate-sort-upload">${icon('upload')} Upload CSV</button><button id="gate-sort-download">${icon('download')} Download CSV</button><input id="gate-sort-file" type="file" accept=".csv,.xlsx" hidden>`;
+  $('#gate-sorting-actions').innerHTML=`<button id="gate-sort-repo">Load repo data</button><button id="gate-sort-upload">${icon('upload')} Upload CSV</button><button id="gate-sort-download">${icon('download')} Download CSV</button><input id="gate-sort-file" type="file" accept=".csv,.xlsx" hidden>`;
   $('#gate-sorting-workspace').innerHTML=`<aside class="sidebar gate-sorting-sidebar" aria-label="Gate accessibility sorting">
     <div class="sidebar-top"><div class="eyebrow">GATE ACCESSIBILITY</div><h1>Gate Studio</h1><p class="muted">Paint accessibility, or edit gates and notes.</p>
       <div class="gate-sort-source"><strong id="gate-sort-source">No points yet</strong><small>Upload a CSV or Excel file of gates. Positions, notes, and sorting save in this browser; Download to keep a copy.</small></div>
@@ -92,6 +92,7 @@ function start() {
   };
   $('#gate-sort-editor').addEventListener('focusin',()=>{historyGroup=null;});
   $('#gate-sort-editor').addEventListener('focusout',()=>{historyGroup=null;});
+  $('#gate-sort-repo').onclick=()=>loadRepo();
   $('#gate-sort-upload').onclick=()=>$('#gate-sort-file').click();
   $('#gate-sort-file').onchange=async e=>{
     const file=e.target.files[0];e.target.value='';
@@ -121,6 +122,17 @@ function start() {
     if(saved?.dataset){dataset=prepareGateSorting(saved.dataset);hasDataset=true;}
   }catch(error){toast(`Could not restore gate sorting: ${error.message}`);}
   render();fit();
+  if(!hasDataset)loadRepo(false);
+}
+async function loadRepo(ask=true){
+  if(busy||(ask&&hasDataset&&!confirm('Replace this draft with gates.csv from the repo? Download your draft first to keep a copy.')))return;
+  try{
+    const response=await fetch(`./${GATE_SORTING_FILE}`,{cache:'no-cache'});
+    if(!response.ok)throw new Error(`Could not load ${GATE_SORTING_FILE} from the repo.`);
+    const [table]=await readFileData(await response.arrayBuffer(),GATE_SORTING_FILE);
+    replace(prepareGateSorting(createDataset(table,guessMapping(table.headers),GATE_SORTING_FILE)));
+    if(ask)toast(`Loaded ${dataset.points.length} points from the repo.`);
+  }catch(error){toast(error.message);}
 }
 function act(task){try{task();}catch(error){toast(error.message);}}
 function persist(){
@@ -152,7 +164,7 @@ function renderBrush(){
 function render(keepEditor=false){
   if(!dataset.points.some(p=>p.id===selectedId))selectedId=null;
   const counts=ACCESS_STATES.map(s=>dataset.points.filter(p=>accessStyle(p,dataset).value===s.value).length);
-  $('#gate-sort-source').textContent=hasDataset?dataset.filename:'Upload a CSV to begin';
+  $('#gate-sort-source').textContent=hasDataset?dataset.filename:'No gates loaded yet';
   $('#gate-sort-progress').textContent=`${counts[1]} accessible · ${counts[2]} not accessible · ${counts[3]} ground floor only · ${counts[0]} undefined`;
   $('#gate-sort-meter').max=dataset.points.length||1;$('#gate-sort-meter').value=dataset.points.length-counts[0];
   const invalid=dataset.points.filter(p=>!validLocation(p.lat,p.lng)).length;

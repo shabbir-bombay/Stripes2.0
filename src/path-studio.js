@@ -22,7 +22,7 @@ import {
 } from "./paths.js";
 
 const STORAGE_KEY = "stripes-path-studio-v1";
-const DEFAULT_FILE = "campus-osm.json";
+const DEFAULT_FILE = "routes.json";
 const SNAP_PIXELS = 12;
 const $ = (selector) => document.querySelector(selector);
 const escape = (value) =>
@@ -45,7 +45,7 @@ export function showPathStudio(showToast) {
 
 function start() {
   started = true;
-  $("#path-actions").innerHTML = `<button id="path-upload">${icon("upload")} Upload file</button><button id="path-download" disabled>${icon("download")} Download file</button><input id="path-file" type="file" accept=".json,application/json" hidden /><button id="path-osm">${icon("globe")} Download from OSM</button>`;
+  $("#path-actions").innerHTML = `<button id="path-repo">Load repo data</button><button id="path-upload">${icon("upload")} Upload file</button><button id="path-download" disabled>${icon("download")} Download file</button><input id="path-file" type="file" accept=".json,application/json" hidden /><button id="path-osm">${icon("globe")} Download from OSM</button>`;
   $("#path-workspace").innerHTML = `
     <aside class="sidebar" aria-label="Path list">
       <div class="sidebar-top"><div class="eyebrow">CAMPUS MAP</div><div class="title-row"><h1>Nodes & paths</h1><span id="path-count" class="count">0</span></div><p class="muted">Walkways and roads from OpenStreetMap.</p>
@@ -180,8 +180,10 @@ function start() {
   } catch {
     localStorage.removeItem(STORAGE_KEY);
   }
+  $("#path-repo").onclick = () => loadRepo();
   render();
   fit();
+  if (!ways(doc).length) loadRepo(false);
 }
 
 const dirty = () => ways(doc).length > 0 && toText(doc) !== connection?.text;
@@ -465,6 +467,18 @@ function download() {
   connection = { name: anchor.download, text: toText(doc) };
   saveDraft();
   render();
+}
+
+// data/ is published with the site, so the repo's copy sits next to the page.
+function loadRepo(ask = true) {
+  if (ask && dirty() && !confirm("Loading replaces the map in this editor, including changes not downloaded yet. Continue?")) return;
+  return run(async () => {
+    const response = await fetch(`./${DEFAULT_FILE}`, { cache: "no-cache" });
+    if (!response.ok) throw new Error(`Could not load ${DEFAULT_FILE} from the repo.`);
+    const next = checkSnapshot(await response.text());
+    replaceDoc(next, { name: DEFAULT_FILE, text: toText(next) });
+    if (ask) toast(`Loaded ${ways(doc).length} paths from the repo.`);
+  });
 }
 
 async function upload(input) {

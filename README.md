@@ -7,7 +7,7 @@ A browser tool for preparing the campus map data that Stripes routes on. It has 
   - **02 Graph Sorting** sets who may use each path.
 - **Gate Studio** marks each building door or gate as accessible or not.
 
-Everything runs in the browser. There is no server and no sign-in. Drafts are saved in this browser's `localStorage`. **Download** is the only durable copy, so download before clearing browser data or switching computers.
+Everything runs in the browser. There is no server and no sign-in.
 
 ```sh
 npm install
@@ -16,13 +16,26 @@ npm test        # unit tests (node --test)
 npm run build   # static site in dist/
 ```
 
+## Data
+
+The campus data lives in this repo:
+- `data/routes.json` is the path graph, used by both Graphing and Graph Sorting.
+- `data/gates.csv` is the gate list, used by Gate Studio.
+
+**Opening.** Each studio opens with these files. **Load repo data** reloads them at any time.
+
+**Drafts.** Edits are kept as a draft in this browser's `localStorage`, and the draft is what you see on your next visit.
+
+**Updating the repo:**
+1. Click **Download**. It saves `routes.json` or `gates.csv` under the same name.
+2. On github.com, open `data/`, choose **Add file → Upload files**, and commit.
+3. The site redeploys with the new data within about a minute.
+
 ## Hosting
 
 Every push to `Campus-Studio` runs `.github/workflows/pages.yml`. It tests and builds the site, then publishes it to GitHub Pages. The build uses relative paths, so it works at any `https://<user>.github.io/<repo>/` address.
 
-**Saving edits to the repo.** GitHub Pages only serves files and cannot write back. To share edited data:
-1. Click **Download** in the studio.
-2. Add the file to the repo on github.com with **Add file → Upload files**.
+The build publishes `data/` alongside the page, as set by `publicDir` in `vite.config.js`. That is how the studios load the repo files.
 
 ## Path Studio: 01 Graphing
 
@@ -44,7 +57,7 @@ Open at `#paths`.
 Open at `#paths/sorting`. It works on a separate draft, so Graphing never changes:
 - **Copy from Graphing** brings in the current graph.
 - **Upload graph** loads a JSON file instead.
-- **Download** saves `campus-sorted.json`.
+- **Download** saves `routes.json`.
 
 1. Roads start gray (unclassified). Click a road or node and pick any mix of **Small cart**, **Large cart**, **Walk** and **Car**, then **Apply road types**. Each of the 15 combinations has a fixed color.
 2. **Color edges (K)** paints one edge at a time with allowed users, path type, ramp, surface or a custom tag. **Insert node (I)** splits an edge.
@@ -84,7 +97,7 @@ Open at `#gates`.
    - drag a dot, or **Move point (M)**;
    - **Add point (A)**;
    - **Delete point (N)**.
-4. **Download CSV** saves `gates-sorted.csv`, with every original column kept and `Accessible` filled in.
+4. **Download CSV** saves `gates.csv`, with every original column kept and `Accessible` filled in.
 
 ## Map styles
 
