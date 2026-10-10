@@ -1,0 +1,22 @@
+{
+  "name": "stripes-campus-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4175 --strictPort",
+    "build": "vite build",
+    "test": "node --test src/*.test.js"
+  },
+  "dependencies": {
+    "@maplibre/maplibre-gl-leaflet": "^0.1.4",
+    "exceljs": "4.4.0",
+    "leaflet": "1.9.4",
+    "leaflet-imageoverlay-rotated": "^0.2.1",
+    "maplibre-gl": "^6.11.2",
+    "papaparse": "5.5.3"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7"
+  }
+}
