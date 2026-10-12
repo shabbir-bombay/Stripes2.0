@@ -1014,7 +1014,10 @@
    },
    "nodes": [
     90932998,
-    4261578954
+    4261578954,
+    91002397,
+    91002398,
+    91002378
    ],
    "geometry": [
     {
@@ -1024,104 +1027,11 @@
     {
      "lat": 37.9745095,
      "lon": -121.3169875
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545870"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1649,
-   "bounds": {
-    "minlat": 37.9742931,
-    "minlon": -121.3171809,
-    "maxlat": 37.9746896,
-    "maxlon": -121.3161562
-   },
-   "nodes": [
-    4261578954,
-    91002397
-   ],
-   "geometry": [
-    {
-     "lat": 37.9745095,
-     "lon": -121.3169875
     },
     {
      "lat": 37.9744288,
      "lon": -121.3167914
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545870"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1652,
-   "bounds": {
-    "minlat": 37.9742931,
-    "minlon": -121.3171809,
-    "maxlat": 37.9746896,
-    "maxlon": -121.3161562
-   },
-   "nodes": [
-    91002397,
-    91002398
-   ],
-   "geometry": [
-    {
-     "lat": 37.9744288,
-     "lon": -121.3167914
     },
-    {
-     "lat": 37.9743597,
-     "lon": -121.3165312
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545870"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1653,
-   "bounds": {
-    "minlat": 37.9742931,
-    "minlon": -121.3171809,
-    "maxlat": 37.9746896,
-    "maxlon": -121.3161562
-   },
-   "nodes": [
-    91002398,
-    91002378
-   ],
-   "geometry": [
     {
      "lat": 37.9743597,
      "lon": -121.3165312
@@ -1140,7 +1050,7 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545870"
+    "stripes:road_types": "car"
    }
   },
   {
@@ -1154,7 +1064,14 @@
    },
    "nodes": [
     2635785574,
-    12089013333
+    12089013333,
+    91002406,
+    2783651098,
+    2783651097,
+    91002404,
+    91002402,
+    4261578956,
+    91002375
    ],
    "geometry": [
     {
@@ -1164,71 +1081,7 @@
     {
      "lat": 37.976463,
      "lon": -121.3102087
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1666,
-   "bounds": {
-    "minlat": 37.9755841,
-    "minlon": -121.3111836,
-    "maxlat": 37.9765241,
-    "maxlon": -121.3101971
-   },
-   "nodes": [
-    12089013333,
-    91002406
-   ],
-   "geometry": [
-    {
-     "lat": 37.976463,
-     "lon": -121.3102087
     },
-    {
-     "lat": 37.9762839,
-     "lon": -121.3102429
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1664,
-   "bounds": {
-    "minlat": 37.9755841,
-    "minlon": -121.3111836,
-    "maxlat": 37.9765241,
-    "maxlon": -121.3101971
-   },
-   "nodes": [
-    91002406,
-    2783651098
-   ],
-   "geometry": [
     {
      "lat": 37.9762839,
      "lon": -121.3102429
@@ -1236,71 +1089,7 @@
     {
      "lat": 37.9761346,
      "lon": -121.3102976
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1662,
-   "bounds": {
-    "minlat": 37.9755841,
-    "minlon": -121.3111836,
-    "maxlat": 37.9765241,
-    "maxlon": -121.3101971
-   },
-   "nodes": [
-    2783651098,
-    2783651097
-   ],
-   "geometry": [
-    {
-     "lat": 37.9761346,
-     "lon": -121.3102976
     },
-    {
-     "lat": 37.976036,
-     "lon": -121.3103609
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1663,
-   "bounds": {
-    "minlat": 37.9755841,
-    "minlon": -121.3111836,
-    "maxlat": 37.9765241,
-    "maxlon": -121.3101971
-   },
-   "nodes": [
-    2783651097,
-    91002404
-   ],
-   "geometry": [
     {
      "lat": 37.976036,
      "lon": -121.3103609
@@ -1308,107 +1097,11 @@
     {
      "lat": 37.975974,
      "lon": -121.3104168
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1654,
-   "bounds": {
-    "minlat": 37.9755841,
-    "minlon": -121.3111836,
-    "maxlat": 37.9765241,
-    "maxlon": -121.3101971
-   },
-   "nodes": [
-    91002404,
-    91002402
-   ],
-   "geometry": [
-    {
-     "lat": 37.975974,
-     "lon": -121.3104168
     },
     {
      "lat": 37.9758011,
      "lon": -121.3106165
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1655,
-   "bounds": {
-    "minlat": 37.9755841,
-    "minlon": -121.3111836,
-    "maxlat": 37.9765241,
-    "maxlon": -121.3101971
-   },
-   "nodes": [
-    91002402,
-    4261578956
-   ],
-   "geometry": [
-    {
-     "lat": 37.9758011,
-     "lon": -121.3106165
     },
-    {
-     "lat": 37.9757255,
-     "lon": -121.3107578
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1656,
-   "bounds": {
-    "minlat": 37.9755841,
-    "minlon": -121.3111836,
-    "maxlat": 37.9765241,
-    "maxlon": -121.3101971
-   },
-   "nodes": [
-    4261578956,
-    91002375
-   ],
-   "geometry": [
     {
      "lat": 37.9757255,
      "lon": -121.3107578
@@ -1428,7 +1121,7 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
+    "stripes:road_types": "car"
    }
   },
   {
@@ -1442,7 +1135,6 @@
    },
    "nodes": [
     90857639,
-    -1608,
     2611848021,
     91008711,
     2622854787,
@@ -1455,10 +1147,6 @@
     {
      "lat": 37.9786496,
      "lon": -121.3114
-    },
-    {
-     "lat": 37.9787514,
-     "lon": -121.3114418
     },
     {
      "lat": 37.9794922,
@@ -1735,7 +1423,11 @@
    },
    "nodes": [
     90933008,
-    90933010
+    90933010,
+    90933012,
+    90827945,
+    90933016,
+    90800086
    ],
    "geometry": [
     {
@@ -1745,77 +1437,7 @@
     {
      "lat": 37.9779665,
      "lon": -121.3185047
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1648,
-   "bounds": {
-    "minlat": 37.977355,
-    "minlon": -121.3186254,
-    "maxlat": 37.9789261,
-    "maxlon": -121.3182659
-   },
-   "nodes": [
-    90933010,
-    90933012
-   ],
-   "geometry": [
-    {
-     "lat": 37.9779665,
-     "lon": -121.3185047
     },
-    {
-     "lat": 37.978241,
-     "lon": -121.3185737
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1647,
-   "bounds": {
-    "minlat": 37.977355,
-    "minlon": -121.3186254,
-    "maxlat": 37.9789261,
-    "maxlon": -121.3182659
-   },
-   "nodes": [
-    90933012,
-    90827945
-   ],
-   "geometry": [
     {
      "lat": 37.978241,
      "lon": -121.3185737
@@ -1823,77 +1445,7 @@
     {
      "lat": 37.9784581,
      "lon": -121.3186111
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1646,
-   "bounds": {
-    "minlat": 37.977355,
-    "minlon": -121.3186254,
-    "maxlat": 37.9789261,
-    "maxlon": -121.3182659
-   },
-   "nodes": [
-    90827945,
-    90933016
-   ],
-   "geometry": [
-    {
-     "lat": 37.9784581,
-     "lon": -121.3186111
     },
-    {
-     "lat": 37.9785404,
-     "lon": -121.3186202
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1630,
-   "bounds": {
-    "minlat": 37.977355,
-    "minlon": -121.3186254,
-    "maxlat": 37.9789261,
-    "maxlon": -121.3182659
-   },
-   "nodes": [
-    90933016,
-    90800086
-   ],
-   "geometry": [
     {
      "lat": 37.9785404,
      "lon": -121.3186202
@@ -1916,7 +1468,7 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
+    "stripes:road_types": "car"
    }
   },
   {
@@ -2084,46 +1636,14 @@
    },
    "nodes": [
     91002375,
-    91002373
+    91002373,
+    91002370
    ],
    "geometry": [
     {
      "lat": 37.9755841,
      "lon": -121.3111836
     },
-    {
-     "lat": 37.975691,
-     "lon": -121.3105842
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "lcn": "proposed",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A41",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "37453900"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1657,
-   "bounds": {
-    "minlat": 37.9755841,
-    "minlon": -121.3111836,
-    "maxlat": 37.9758628,
-    "maxlon": -121.3099082
-   },
-   "nodes": [
-    91002373,
-    91002370
-   ],
-   "geometry": [
     {
      "lat": 37.975691,
      "lon": -121.3105842
@@ -2144,7 +1664,7 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "37453900"
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4846,176 +4366,10 @@
    },
    "nodes": [
     279701208,
-    90827947
-   ],
-   "geometry": [
-    {
-     "lat": 37.9785327,
-     "lon": -121.3179413
-    },
-    {
-     "lat": 37.9785666,
-     "lon": -121.3178297
-    }
-   ],
-   "tags": {
-    "highway": "service",
-    "name": "Uop North Service Road",
-    "service": "parking_aisle",
-    "tiger:cfcc": "A74",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Uop North Service Road",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "258179572"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1633,
-   "bounds": {
-    "minlat": 37.9783568,
-    "minlon": -121.3183619,
-    "maxlat": 37.9807691,
-    "maxlon": -121.3133654
-   },
-   "nodes": [
     90827947,
-    90827949
-   ],
-   "geometry": [
-    {
-     "lat": 37.9785666,
-     "lon": -121.3178297
-    },
-    {
-     "lat": 37.9786951,
-     "lon": -121.3173577
-    }
-   ],
-   "tags": {
-    "highway": "service",
-    "name": "Uop North Service Road",
-    "service": "parking_aisle",
-    "tiger:cfcc": "A74",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Uop North Service Road",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "258179572"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1634,
-   "bounds": {
-    "minlat": 37.9783568,
-    "minlon": -121.3183619,
-    "maxlat": 37.9807691,
-    "maxlon": -121.3133654
-   },
-   "nodes": [
     90827949,
-    2673443420
-   ],
-   "geometry": [
-    {
-     "lat": 37.9786951,
-     "lon": -121.3173577
-    },
-    {
-     "lat": 37.9789754,
-     "lon": -121.3161199
-    }
-   ],
-   "tags": {
-    "highway": "service",
-    "name": "Uop North Service Road",
-    "service": "parking_aisle",
-    "tiger:cfcc": "A74",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Uop North Service Road",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "258179572"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1635,
-   "bounds": {
-    "minlat": 37.9783568,
-    "minlon": -121.3183619,
-    "maxlat": 37.9807691,
-    "maxlon": -121.3133654
-   },
-   "nodes": [
     2673443420,
-    90827951
-   ],
-   "geometry": [
-    {
-     "lat": 37.9789754,
-     "lon": -121.3161199
-    },
-    {
-     "lat": 37.9789911,
-     "lon": -121.3160505
-    }
-   ],
-   "tags": {
-    "highway": "service",
-    "name": "Uop North Service Road",
-    "service": "parking_aisle",
-    "tiger:cfcc": "A74",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Uop North Service Road",
-    "tiger:reviewed": "no",
-    "stripes:road_types": "small_cart;large_cart;car",
-    "stripes:source_way": "258179572"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1636,
-   "bounds": {
-    "minlat": 37.9783568,
-    "minlon": -121.3183619,
-    "maxlat": 37.9807691,
-    "maxlon": -121.3133654
-   },
-   "nodes": [
     90827951,
-    2635785602
-   ],
-   "geometry": [
-    {
-     "lat": 37.9789911,
-     "lon": -121.3160505
-    },
-    {
-     "lat": 37.9792102,
-     "lon": -121.3154387
-    }
-   ],
-   "tags": {
-    "highway": "service",
-    "name": "Uop North Service Road",
-    "service": "parking_aisle",
-    "tiger:cfcc": "A74",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Uop North Service Road",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "258179572"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1637,
-   "bounds": {
-    "minlat": 37.9783568,
-    "minlon": -121.3183619,
-    "maxlat": 37.9807691,
-    "maxlon": -121.3133654
-   },
-   "nodes": [
     2635785602,
     279701209,
     279701210,
@@ -5026,6 +4380,26 @@
     90827958
    ],
    "geometry": [
+    {
+     "lat": 37.9785327,
+     "lon": -121.3179413
+    },
+    {
+     "lat": 37.9785666,
+     "lon": -121.3178297
+    },
+    {
+     "lat": 37.9786951,
+     "lon": -121.3173577
+    },
+    {
+     "lat": 37.9789754,
+     "lon": -121.3161199
+    },
+    {
+     "lat": 37.9789911,
+     "lon": -121.3160505
+    },
     {
      "lat": 37.9792102,
      "lon": -121.3154387
@@ -5067,8 +4441,7 @@
     "tiger:county": "San Joaquin, CA",
     "tiger:name_base": "Uop North Service Road",
     "tiger:reviewed": "no",
-    "stripes:road_types": "small_cart;large_cart;car",
-    "stripes:source_way": "258179572"
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -5636,7 +5009,8 @@
    ],
    "tags": {
     "highway": "service",
-    "service": "parking_aisle"
+    "service": "parking_aisle",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -5807,7 +5181,8 @@
    ],
    "tags": {
     "highway": "service",
-    "service": "parking_aisle"
+    "service": "parking_aisle",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -5961,7 +5336,8 @@
     }
    ],
    "tags": {
-    "highway": "service"
+    "highway": "service",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -6571,7 +5947,6 @@
    "nodes": [
     2673443482,
     2673443465,
-    -1604,
     2673443469
    ],
    "geometry": [
@@ -6582,10 +5957,6 @@
     {
      "lat": 37.9805653,
      "lon": -121.3107925
-    },
-    {
-     "lat": 37.9806522,
-     "lon": -121.3104483
     },
     {
      "lat": 37.9806824,
@@ -7266,7 +6637,8 @@
    "tags": {
     "highway": "service",
     "oneway": "yes",
-    "service": "parking_aisle"
+    "service": "parking_aisle",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
    }
   },
   {
@@ -8072,7 +7444,10 @@
    },
    "nodes": [
     2783651099,
-    2783651102
+    2783651102,
+    2783651101,
+    2783651100,
+    2783651098
    ],
    "geometry": [
     {
@@ -8082,107 +7457,11 @@
     {
      "lat": 37.9761647,
      "lon": -121.3101643
-    }
-   ],
-   "tags": {
-    "highway": "residential",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "273526507"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1659,
-   "bounds": {
-    "minlat": 37.9761346,
-    "minlon": -121.3102976,
-    "maxlat": 37.9761647,
-    "maxlon": -121.3100372
-   },
-   "nodes": [
-    2783651102,
-    2783651101
-   ],
-   "geometry": [
-    {
-     "lat": 37.9761647,
-     "lon": -121.3101643
     },
     {
      "lat": 37.97616,
      "lon": -121.3102187
-    }
-   ],
-   "tags": {
-    "highway": "residential",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "273526507"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1660,
-   "bounds": {
-    "minlat": 37.9761346,
-    "minlon": -121.3102976,
-    "maxlat": 37.9761647,
-    "maxlon": -121.3100372
-   },
-   "nodes": [
-    2783651101,
-    2783651100
-   ],
-   "geometry": [
-    {
-     "lat": 37.97616,
-     "lon": -121.3102187
     },
-    {
-     "lat": 37.9761516,
-     "lon": -121.3102535
-    }
-   ],
-   "tags": {
-    "highway": "residential",
-    "name": "West Mendocino Avenue",
-    "oneway": "yes",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Mendocino",
-    "tiger:name_direction_prefix": "W",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "273526507"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1661,
-   "bounds": {
-    "minlat": 37.9761346,
-    "minlon": -121.3102976,
-    "maxlat": 37.9761647,
-    "maxlon": -121.3100372
-   },
-   "nodes": [
-    2783651100,
-    2783651098
-   ],
-   "geometry": [
     {
      "lat": 37.9761516,
      "lon": -121.3102535
@@ -8202,7 +7481,7 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "273526507"
+    "stripes:road_types": "car"
    }
   },
   {
@@ -8258,7 +7537,8 @@
     "tiger:name_base": "Mendocino",
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
-    "tiger:reviewed": "no"
+    "tiger:reviewed": "no",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -8398,7 +7678,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "turn:lanes:forward": "left||"
+    "turn:lanes:forward": "left||",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -8437,7 +7718,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "turn:lanes:backward": "left||"
+    "turn:lanes:backward": "left||",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -8451,7 +7733,9 @@
    },
    "nodes": [
     90932992,
-    4263074221
+    4263074221,
+    3958660342,
+    90932998
    ],
    "geometry": [
     {
@@ -8461,79 +7745,7 @@
     {
      "lat": 37.9742206,
      "lon": -121.3170415
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "5",
-    "lanes:backward": "3",
-    "lanes:forward": "2",
-    "lcn": "proposed",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "turn:lanes:backward": "left||",
-    "stripes:source_way": "392677554"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1651,
-   "bounds": {
-    "minlat": 37.9740632,
-    "minlon": -121.3171809,
-    "maxlat": 37.9746896,
-    "maxlon": -121.3169895
-   },
-   "nodes": [
-    4263074221,
-    3958660342
-   ],
-   "geometry": [
-    {
-     "lat": 37.9742206,
-     "lon": -121.3170415
     },
-    {
-     "lat": 37.9744154,
-     "lon": -121.317103
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "5",
-    "lanes:backward": "3",
-    "lanes:forward": "2",
-    "lcn": "proposed",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "turn:lanes:backward": "left||",
-    "stripes:source_way": "392677554"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1650,
-   "bounds": {
-    "minlat": 37.9740632,
-    "minlon": -121.3171809,
-    "maxlat": 37.9746896,
-    "maxlon": -121.3169895
-   },
-   "nodes": [
-    3958660342,
-    90932998
-   ],
-   "geometry": [
     {
      "lat": 37.9744154,
      "lon": -121.317103
@@ -8557,7 +7769,7 @@
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
     "turn:lanes:backward": "left||",
-    "stripes:source_way": "392677554"
+    "stripes:road_types": "car"
    }
   },
   {
@@ -8596,7 +7808,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "turn:lanes:forward": "left||"
+    "turn:lanes:forward": "left||",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -8639,7 +7852,8 @@
     "tiger:name_base": "Pershing",
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
-    "tiger:reviewed": "no"
+    "tiger:reviewed": "no",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -9808,7 +9022,9 @@
     2673443415,
     2673443416,
     2673443417,
-    2673443418
+    2673443418,
+    2673443419,
+    2673443420
    ],
    "geometry": [
     {
@@ -9838,56 +9054,7 @@
     {
      "lat": 37.9779649,
      "lon": -121.31576
-    }
-   ],
-   "tags": {
-    "highway": "service",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "665960727"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1639,
-   "bounds": {
-    "minlat": 37.9775189,
-    "minlon": -121.3161199,
-    "maxlat": 37.9789754,
-    "maxlon": -121.3149323
-   },
-   "nodes": [
-    2673443418,
-    2673443419
-   ],
-   "geometry": [
-    {
-     "lat": 37.9779649,
-     "lon": -121.31576
     },
-    {
-     "lat": 37.9785815,
-     "lon": -121.3160472
-    }
-   ],
-   "tags": {
-    "highway": "service",
-    "stripes:source_way": "665960727"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1638,
-   "bounds": {
-    "minlat": 37.9775189,
-    "minlon": -121.3161199,
-    "maxlat": 37.9789754,
-    "maxlon": -121.3149323
-   },
-   "nodes": [
-    2673443419,
-    2673443420
-   ],
-   "geometry": [
     {
      "lat": 37.9785815,
      "lon": -121.3160472
@@ -9899,7 +9066,7 @@
    ],
    "tags": {
     "highway": "service",
-    "stripes:source_way": "665960727"
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -10945,7 +10112,8 @@
     }
    ],
    "tags": {
-    "highway": "service"
+    "highway": "service",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -11207,7 +10375,13 @@
    },
    "nodes": [
     91002370,
-    2783651099
+    2783651099,
+    12089013336,
+    12089013332,
+    2635785574,
+    12089013335,
+    2622854811,
+    90920702
    ],
    "geometry": [
     {
@@ -11217,73 +10391,7 @@
     {
      "lat": 37.9761464,
      "lon": -121.3100372
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "lcn": "yes",
-    "name": "North Kensington Way",
-    "surface": "asphalt",
-    "tiger:cfcc": "A41",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Kensington",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Way",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "1377000543"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1658,
-   "bounds": {
-    "minlat": 37.9758628,
-    "minlon": -121.3104888,
-    "maxlat": 37.9772591,
-    "maxlon": -121.3099082
-   },
-   "nodes": [
-    2783651099,
-    12089013336
-   ],
-   "geometry": [
-    {
-     "lat": 37.9761464,
-     "lon": -121.3100372
     },
-    {
-     "lat": 37.9763508,
-     "lon": -121.3101237
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "lcn": "yes",
-    "name": "North Kensington Way",
-    "surface": "asphalt",
-    "tiger:cfcc": "A41",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Kensington",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Way",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "1377000543"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1665,
-   "bounds": {
-    "minlat": 37.9758628,
-    "minlon": -121.3104888,
-    "maxlat": 37.9772591,
-    "maxlon": -121.3099082
-   },
-   "nodes": [
-    12089013336,
-    12089013332
-   ],
-   "geometry": [
     {
      "lat": 37.9763508,
      "lon": -121.3101237
@@ -11291,75 +10399,7 @@
     {
      "lat": 37.9764713,
      "lon": -121.3101747
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "lcn": "yes",
-    "name": "North Kensington Way",
-    "surface": "asphalt",
-    "tiger:cfcc": "A41",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Kensington",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Way",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "1377000543"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1667,
-   "bounds": {
-    "minlat": 37.9758628,
-    "minlon": -121.3104888,
-    "maxlat": 37.9772591,
-    "maxlon": -121.3099082
-   },
-   "nodes": [
-    12089013332,
-    2635785574
-   ],
-   "geometry": [
-    {
-     "lat": 37.9764713,
-     "lon": -121.3101747
     },
-    {
-     "lat": 37.9765241,
-     "lon": -121.3101971
-    }
-   ],
-   "tags": {
-    "highway": "tertiary",
-    "lcn": "yes",
-    "name": "North Kensington Way",
-    "surface": "asphalt",
-    "tiger:cfcc": "A41",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Kensington",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Way",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "1377000543"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1668,
-   "bounds": {
-    "minlat": 37.9758628,
-    "minlon": -121.3104888,
-    "maxlat": 37.9772591,
-    "maxlon": -121.3099082
-   },
-   "nodes": [
-    2635785574,
-    12089013335,
-    2622854811,
-    90920702
-   ],
-   "geometry": [
     {
      "lat": 37.9765241,
      "lon": -121.3101971
@@ -11388,8 +10428,7 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Way",
     "tiger:reviewed": "no",
-    "stripes:road_types": "car",
-    "stripes:source_way": "1377000543"
+    "stripes:road_types": "car"
    }
   },
   {
@@ -11445,241 +10484,44 @@
    "id": -1,
    "nodes": [
     90800086,
-    90800086
-   ],
-   "geometry": [
-    {
-     "lat": 37.9789261,
-     "lon": -121.3186254
-    },
-    {
-     "lat": 37.9789261,
-     "lon": -121.3186254
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:road_types": "car",
-    "stripes:source_way": "-1"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1629,
-   "nodes": [
     90800086,
-    -2
-   ],
-   "geometry": [
-    {
-     "lat": 37.9789261,
-     "lon": -121.3186254
-    },
-    {
-     "lat": 37.979585,
-     "lon": -121.3185829
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1628,
-   "nodes": [
     -2,
-    -3
-   ],
-   "geometry": [
-    {
-     "lat": 37.979585,
-     "lon": -121.3185829
-    },
-    {
-     "lat": 37.9799117,
-     "lon": -121.3185588
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1627,
-   "nodes": [
     -3,
-    -4
-   ],
-   "geometry": [
-    {
-     "lat": 37.9799117,
-     "lon": -121.3185588
-    },
-    {
-     "lat": 37.9802668,
-     "lon": -121.3185427
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1626,
-   "nodes": [
     -4,
-    -5
-   ],
-   "geometry": [
-    {
-     "lat": 37.9802668,
-     "lon": -121.3185427
-    },
-    {
-     "lat": 37.9805279,
-     "lon": -121.3185494
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1625,
-   "nodes": [
     -5,
-    -6
-   ],
-   "geometry": [
-    {
-     "lat": 37.9805279,
-     "lon": -121.3185494
-    },
-    {
-     "lat": 37.9808134,
-     "lon": -121.3185748
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1624,
-   "nodes": [
     -6,
-    -7
-   ],
-   "geometry": [
-    {
-     "lat": 37.9808134,
-     "lon": -121.3185748
-    },
-    {
-     "lat": 37.9812499,
-     "lon": -121.3186862
-    }
-   ],
-   "tags": {
-    "highway": "secondary",
-    "lanes": "4",
-    "lanes:backward": "2",
-    "lanes:forward": "2",
-    "lcn": "yes",
-    "name": "North Pershing Avenue",
-    "tiger:cfcc": "A45",
-    "tiger:county": "San Joaquin, CA",
-    "tiger:name_base": "Pershing",
-    "tiger:name_direction_prefix": "N",
-    "tiger:name_type": "Ave",
-    "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1623,
-   "nodes": [
     -7,
     2036029341
    ],
    "geometry": [
+    {
+     "lat": 37.9789261,
+     "lon": -121.3186254
+    },
+    {
+     "lat": 37.9789261,
+     "lon": -121.3186254
+    },
+    {
+     "lat": 37.979585,
+     "lon": -121.3185829
+    },
+    {
+     "lat": 37.9799117,
+     "lon": -121.3185588
+    },
+    {
+     "lat": 37.9802668,
+     "lon": -121.3185427
+    },
+    {
+     "lat": 37.9805279,
+     "lon": -121.3185494
+    },
+    {
+     "lat": 37.9808134,
+     "lon": -121.3185748
+    },
     {
      "lat": 37.9812499,
      "lon": -121.3186862
@@ -11702,7 +10544,7 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
+    "stripes:road_types": "car"
    }
   },
   {
@@ -11732,7 +10574,8 @@
     "tiger:name_base": "Mendocino",
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
-    "tiger:reviewed": "no"
+    "tiger:reviewed": "no",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -11822,7 +10665,8 @@
     "tiger:cfcc": "A41",
     "tiger:county": "San Joaquin, CA",
     "tiger:name_base": "Brookside",
-    "tiger:name_type": "Rd"
+    "tiger:name_type": "Rd",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -16030,7 +14874,6 @@
    "nodes": [
     -27,
     -1594,
-    -1604,
     -536,
     -537,
     -538,
@@ -16044,10 +14887,6 @@
     {
      "lat": 37.9808886,
      "lon": -121.310537
-    },
-    {
-     "lat": 37.9806522,
-     "lon": -121.3104483
     },
     {
      "lat": 37.9805935,
@@ -16146,9 +14985,7 @@
     4739307734,
     -630,
     -1522,
-    -1620,
     -633,
-    -1605,
     -557,
     -558,
     -559,
@@ -16210,24 +15047,16 @@
      "lon": -121.3109042
     },
     {
-     "lat": 37.9788513,
-     "lon": -121.3110186
-    },
-    {
      "lat": 37.9788303,
      "lon": -121.3111041
-    },
-    {
-     "lat": 37.9787842,
-     "lon": -121.3112915
     },
     {
      "lat": 37.9787753,
      "lon": -121.3113275
     },
     {
-     "lat": 37.9787964,
-     "lon": -121.3113517
+     "lat": 37.9787943,
+     "lon": -121.3113543
     },
     {
      "lat": 37.9788239,
@@ -16808,7 +15637,18 @@
    "id": -637,
    "nodes": [
     2611848022,
-    -690
+    -690,
+    -693,
+    -638,
+    2611848019,
+    -649,
+    -639,
+    -684,
+    -687,
+    -676,
+    -640,
+    -641,
+    4739283760
    ],
    "geometry": [
     {
@@ -16818,45 +15658,7 @@
     {
      "lat": 37.9799146,
      "lon": -121.3120338
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1617,
-   "nodes": [
-    -690,
-    -693
-   ],
-   "geometry": [
-    {
-     "lat": 37.9799146,
-     "lon": -121.3120338
     },
-    {
-     "lat": 37.9797688,
-     "lon": -121.3119717
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1618,
-   "nodes": [
-    -693,
-    -638
-   ],
-   "geometry": [
     {
      "lat": 37.9797688,
      "lon": -121.3119717
@@ -16864,45 +15666,7 @@
     {
      "lat": 37.9796872,
      "lon": -121.3119369
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1619,
-   "nodes": [
-    -638,
-    2611848019
-   ],
-   "geometry": [
-    {
-     "lat": 37.9796872,
-     "lon": -121.3119369
     },
-    {
-     "lat": 37.9794451,
-     "lon": -121.3118509
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1609,
-   "nodes": [
-    2611848019,
-    -649
-   ],
-   "geometry": [
     {
      "lat": 37.9794451,
      "lon": -121.3118509
@@ -16910,45 +15674,7 @@
     {
      "lat": 37.9791545,
      "lon": -121.3117242
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1610,
-   "nodes": [
-    -649,
-    -639
-   ],
-   "geometry": [
-    {
-     "lat": 37.9791545,
-     "lon": -121.3117242
     },
-    {
-     "lat": 37.9787309,
-     "lon": -121.3115394
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1611,
-   "nodes": [
-    -639,
-    -684
-   ],
-   "geometry": [
     {
      "lat": 37.9787309,
      "lon": -121.3115394
@@ -16956,45 +15682,7 @@
     {
      "lat": 37.978694,
      "lon": -121.3116748
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1612,
-   "nodes": [
-    -684,
-    -687
-   ],
-   "geometry": [
-    {
-     "lat": 37.978694,
-     "lon": -121.3116748
     },
-    {
-     "lat": 37.9786274,
-     "lon": -121.3119194
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1613,
-   "nodes": [
-    -687,
-    -676
-   ],
-   "geometry": [
     {
      "lat": 37.9786274,
      "lon": -121.3119194
@@ -17002,68 +15690,11 @@
     {
      "lat": 37.9785594,
      "lon": -121.3121687
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1614,
-   "nodes": [
-    -676,
-    -640
-   ],
-   "geometry": [
-    {
-     "lat": 37.9785594,
-     "lon": -121.3121687
     },
     {
      "lat": 37.9785321,
      "lon": -121.312269
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1615,
-   "nodes": [
-    -640,
-    -641
-   ],
-   "geometry": [
-    {
-     "lat": 37.9785321,
-     "lon": -121.312269
     },
-    {
-     "lat": 37.9785406,
-     "lon": -121.3123119
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1616,
-   "nodes": [
-    -641,
-    4739283760
-   ],
-   "geometry": [
     {
      "lat": 37.9785406,
      "lon": -121.3123119
@@ -17075,8 +15706,7 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:road_types": "small_cart;large_cart;walk",
-    "stripes:source_way": "-637"
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -17963,12 +16593,12 @@
      "lon": -121.3112652
     },
     {
-     "lat": 37.9785681,
-     "lon": -121.3112108
+     "lat": 37.9785702,
+     "lon": -121.3112095
     },
     {
-     "lat": 37.9785723,
-     "lon": -121.3111545
+     "lat": 37.9785681,
+     "lon": -121.3111532
     },
     {
      "lat": 37.978549,
@@ -19656,6 +18286,7 @@
    ],
    "tags": {
     "highway": "footway",
+    "stripes:road_types": "small_cart;large_cart;walk",
     "stripes:source_way": "-998"
    }
   },
@@ -23369,7 +22000,15 @@
    "nodes": [
     -1421,
     -1454,
-    -1455
+    -1455,
+    -1456,
+    -1457,
+    -1458,
+    -1459,
+    -1460,
+    -1461,
+    -1462,
+    -1454
    ],
    "geometry": [
     {
@@ -23383,44 +22022,7 @@
     {
      "lat": 37.9774877,
      "lon": -121.3176736
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:road_types": "walk",
-    "stripes:source_way": "-1453"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1644,
-   "nodes": [
-    -1455,
-    -1456
-   ],
-   "geometry": [
-    {
-     "lat": 37.9774877,
-     "lon": -121.3176736
     },
-    {
-     "lat": 37.9779148,
-     "lon": -121.3178426
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:source_way": "-1453"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1645,
-   "nodes": [
-    -1456,
-    -1457
-   ],
-   "geometry": [
     {
      "lat": 37.9779148,
      "lon": -121.3178426
@@ -23428,43 +22030,7 @@
     {
      "lat": 37.9779021,
      "lon": -121.317907
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:source_way": "-1453"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1642,
-   "nodes": [
-    -1457,
-    -1458
-   ],
-   "geometry": [
-    {
-     "lat": 37.9779021,
-     "lon": -121.317907
     },
-    {
-     "lat": 37.9780691,
-     "lon": -121.3179794
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:source_way": "-1453"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1641,
-   "nodes": [
-    -1458,
-    -1459
-   ],
-   "geometry": [
     {
      "lat": 37.9780691,
      "lon": -121.3179794
@@ -23472,43 +22038,7 @@
     {
      "lat": 37.978086,
      "lon": -121.3179123
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:source_way": "-1453"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1640,
-   "nodes": [
-    -1459,
-    -1460
-   ],
-   "geometry": [
-    {
-     "lat": 37.978086,
-     "lon": -121.3179123
     },
-    {
-     "lat": 37.9784476,
-     "lon": -121.3180545
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:source_way": "-1453"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1631,
-   "nodes": [
-    -1460,
-    -1461
-   ],
-   "geometry": [
     {
      "lat": 37.9784476,
      "lon": -121.3180545
@@ -23516,43 +22046,7 @@
     {
      "lat": 37.9783736,
      "lon": -121.318363
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:source_way": "-1453"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1632,
-   "nodes": [
-    -1461,
-    -1462
-   ],
-   "geometry": [
-    {
-     "lat": 37.9783736,
-     "lon": -121.318363
     },
-    {
-     "lat": 37.9774179,
-     "lon": -121.317974
-    }
-   ],
-   "tags": {
-    "highway": "footway",
-    "stripes:source_way": "-1453"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1643,
-   "nodes": [
-    -1462,
-    -1454
-   ],
-   "geometry": [
     {
      "lat": 37.9774179,
      "lon": -121.317974
@@ -23564,8 +22058,7 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:road_types": "walk",
-    "stripes:source_way": "-1453"
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -23586,7 +22079,8 @@
     }
    ],
    "tags": {
-    "highway": "footway"
+    "highway": "footway",
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -24052,82 +22546,6 @@
    "tags": {
     "highway": "path",
     "stripes:road_types": "small_cart;walk"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1606,
-   "nodes": [
-    -761,
-    -1605
-   ],
-   "geometry": [
-    {
-     "lat": 37.9785681,
-     "lon": -121.3112108
-    },
-    {
-     "lat": 37.9787842,
-     "lon": -121.3112915
-    }
-   ],
-   "tags": {
-    "highway": "path",
-    "stripes:road_types": "small_cart;large_cart;walk"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1607,
-   "nodes": [
-    -557,
-    -1608,
-    -639
-   ],
-   "geometry": [
-    {
-     "lat": 37.9787753,
-     "lon": -121.3113275
-    },
-    {
-     "lat": 37.9787514,
-     "lon": -121.3114418
-    },
-    {
-     "lat": 37.9787309,
-     "lon": -121.3115394
-    }
-   ],
-   "tags": {
-    "highway": "path",
-    "stripes:road_types": "small_cart;large_cart;walk"
-   }
-  },
-  {
-   "type": "way",
-   "id": -1621,
-   "nodes": [
-    -762,
-    -1622,
-    -1620
-   ],
-   "geometry": [
-    {
-     "lat": 37.9785723,
-     "lon": -121.3111545
-    },
-    {
-     "lat": 37.9786484,
-     "lon": -121.3109265
-    },
-    {
-     "lat": 37.9788513,
-     "lon": -121.3110186
-    }
-   ],
-   "tags": {
-    "highway": "path",
-    "stripes:road_types": "small_cart;large_cart;walk"
    }
   }
  ]
