@@ -4232,7 +4232,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545870"
+    "stripes:source_way": "10545870",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4267,7 +4268,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545870"
+    "stripes:source_way": "10545870",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4302,7 +4304,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545870"
+    "stripes:source_way": "10545870",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4337,7 +4340,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545870"
+    "stripes:source_way": "10545870",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4373,7 +4377,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
+    "stripes:source_way": "10545871",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4409,7 +4414,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
+    "stripes:source_way": "10545871",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4445,7 +4451,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
+    "stripes:source_way": "10545871",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4481,7 +4488,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
+    "stripes:source_way": "10545871",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4517,7 +4525,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
+    "stripes:source_way": "10545871",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4553,7 +4562,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
+    "stripes:source_way": "10545871",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4589,7 +4599,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
+    "stripes:source_way": "10545871",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -4625,7 +4636,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "10545871"
+    "stripes:source_way": "10545871",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -5415,7 +5427,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
+    "stripes:source_way": "36298438",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -5454,7 +5467,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
+    "stripes:source_way": "36298438",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -5493,7 +5507,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
+    "stripes:source_way": "36298438",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -5532,7 +5547,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
+    "stripes:source_way": "36298438",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -5571,7 +5587,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "36298438"
+    "stripes:source_way": "36298438",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -5823,7 +5840,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "37453900"
+    "stripes:source_way": "37453900",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -5860,7 +5878,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "37453900"
+    "stripes:source_way": "37453900",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -10452,7 +10471,8 @@
     "tiger:county": "San Joaquin, CA",
     "tiger:name_base": "Uop North Service Road",
     "tiger:reviewed": "no",
-    "stripes:source_way": "258179572"
+    "stripes:source_way": "258179572",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -10486,7 +10506,8 @@
     "tiger:county": "San Joaquin, CA",
     "tiger:name_base": "Uop North Service Road",
     "tiger:reviewed": "no",
-    "stripes:source_way": "258179572"
+    "stripes:source_way": "258179572",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -10520,7 +10541,8 @@
     "tiger:county": "San Joaquin, CA",
     "tiger:name_base": "Uop North Service Road",
     "tiger:reviewed": "no",
-    "stripes:source_way": "258179572"
+    "stripes:source_way": "258179572",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -10590,7 +10612,8 @@
     "tiger:name_base": "Uop North Service Road",
     "tiger:reviewed": "no",
     "stripes:source_way": "258179572",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11371,7 +11394,8 @@
    "tags": {
     "highway": "service",
     "service": "parking_aisle",
-    "stripes:source_way": "258179599"
+    "stripes:source_way": "258179599",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11401,7 +11425,8 @@
     "highway": "service",
     "service": "parking_aisle",
     "stripes:cart_preferred": "yes",
-    "stripes:source_way": "258179599"
+    "stripes:source_way": "258179599",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11431,7 +11456,8 @@
     "highway": "service",
     "service": "parking_aisle",
     "stripes:source_way": "258179599",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11461,7 +11487,8 @@
     "highway": "service",
     "service": "parking_aisle",
     "stripes:source_way": "258179599",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11491,7 +11518,8 @@
     "highway": "service",
     "service": "parking_aisle",
     "stripes:source_way": "258179599",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11521,7 +11549,8 @@
     "highway": "service",
     "service": "parking_aisle",
     "stripes:source_way": "258179599",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11551,7 +11580,8 @@
     "highway": "service",
     "service": "parking_aisle",
     "stripes:source_way": "258179599",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11581,7 +11611,8 @@
     "highway": "service",
     "service": "parking_aisle",
     "stripes:source_way": "258179599",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11610,7 +11641,8 @@
    "tags": {
     "highway": "service",
     "service": "parking_aisle",
-    "stripes:source_way": "258179599"
+    "stripes:source_way": "258179599",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11728,7 +11760,8 @@
     "highway": "service",
     "service": "parking_aisle",
     "stripes:cart_preferred": "yes",
-    "stripes:source_way": "258179603"
+    "stripes:source_way": "258179603",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11758,7 +11791,8 @@
     "highway": "service",
     "service": "parking_aisle",
     "stripes:source_way": "258179603",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11832,7 +11866,8 @@
    "tags": {
     "highway": "service",
     "service": "parking_aisle",
-    "stripes:source_way": "258179603"
+    "stripes:source_way": "258179603",
+    "stripes:road_types": "small_cart;large_cart;car"
    }
   },
   {
@@ -11955,7 +11990,8 @@
    "tags": {
     "highway": "service",
     "stripes:cart_preferred": "yes",
-    "stripes:source_way": "258179622"
+    "stripes:source_way": "258179622",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -11984,7 +12020,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12013,7 +12050,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12042,7 +12080,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12071,7 +12110,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12100,7 +12140,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12129,7 +12170,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12158,7 +12200,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12187,7 +12230,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12216,7 +12260,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12245,7 +12290,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12274,7 +12320,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -12303,7 +12350,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "258179622",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -13941,7 +13989,8 @@
     "highway": "service",
     "oneway": "yes",
     "service": "parking_aisle",
-    "stripes:source_way": "261805262"
+    "stripes:source_way": "261805262",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
    }
   },
   {
@@ -13972,7 +14021,8 @@
     "oneway": "yes",
     "service": "parking_aisle",
     "stripes:source_way": "261805262",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
    }
   },
   {
@@ -14003,7 +14053,8 @@
     "oneway": "yes",
     "service": "parking_aisle",
     "stripes:source_way": "261805262",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
    }
   },
   {
@@ -14034,7 +14085,8 @@
     "oneway": "yes",
     "service": "parking_aisle",
     "stripes:source_way": "261805262",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
    }
   },
   {
@@ -14065,7 +14117,8 @@
     "oneway": "yes",
     "service": "parking_aisle",
     "stripes:source_way": "261805262",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
    }
   },
   {
@@ -14079,11 +14132,7 @@
    },
    "nodes": [
     11170992656,
-    -1508,
-    2674334981,
-    2674334982,
-    2636064307,
-    2674334983
+    -1508
    ],
    "geometry": [
     {
@@ -14093,7 +14142,61 @@
     {
      "lat": 37.9806927,
      "lon": -121.3176655
+    }
+   ],
+   "tags": {
+    "highway": "service",
+    "oneway": "yes",
+    "service": "parking_aisle",
+    "stripes:source_way": "261805262",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2011,
+   "bounds": {
+    "minlat": 37.9803883,
+    "minlon": -121.318174,
+    "maxlat": 37.9821078,
+    "maxlon": -121.3171261
+   },
+   "nodes": [
+    -1508,
+    2674334981
+   ],
+   "geometry": [
+    {
+     "lat": 37.9806927,
+     "lon": -121.3176655
     },
+    {
+     "lat": 37.9803883,
+     "lon": -121.3175447
+    }
+   ],
+   "tags": {
+    "highway": "service",
+    "oneway": "yes",
+    "service": "parking_aisle",
+    "stripes:source_way": "261805262",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2012,
+   "bounds": {
+    "minlat": 37.9803883,
+    "minlon": -121.318174,
+    "maxlat": 37.9821078,
+    "maxlon": -121.3171261
+   },
+   "nodes": [
+    2674334981,
+    2674334982
+   ],
+   "geometry": [
     {
      "lat": 37.9803883,
      "lon": -121.3175447
@@ -14101,7 +14204,61 @@
     {
      "lat": 37.9804932,
      "lon": -121.3171261
+    }
+   ],
+   "tags": {
+    "highway": "service",
+    "oneway": "yes",
+    "service": "parking_aisle",
+    "stripes:source_way": "261805262",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2010,
+   "bounds": {
+    "minlat": 37.9803883,
+    "minlon": -121.318174,
+    "maxlat": 37.9821078,
+    "maxlon": -121.3171261
+   },
+   "nodes": [
+    2674334982,
+    2636064307
+   ],
+   "geometry": [
+    {
+     "lat": 37.9804932,
+     "lon": -121.3171261
     },
+    {
+     "lat": 37.9808365,
+     "lon": -121.3172561
+    }
+   ],
+   "tags": {
+    "highway": "service",
+    "oneway": "yes",
+    "service": "parking_aisle",
+    "stripes:source_way": "261805262",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2009,
+   "bounds": {
+    "minlat": 37.9803883,
+    "minlon": -121.318174,
+    "maxlat": 37.9821078,
+    "maxlon": -121.3171261
+   },
+   "nodes": [
+    2636064307,
+    2674334983
+   ],
+   "geometry": [
     {
      "lat": 37.9808365,
      "lon": -121.3172561
@@ -14115,7 +14272,8 @@
     "highway": "service",
     "oneway": "yes",
     "service": "parking_aisle",
-    "stripes:source_way": "261805262"
+    "stripes:source_way": "261805262",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
    }
   },
   {
@@ -14146,7 +14304,8 @@
     "oneway": "yes",
     "service": "parking_aisle",
     "stripes:cart_preferred": "yes",
-    "stripes:source_way": "261805262"
+    "stripes:source_way": "261805262",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
    }
   },
   {
@@ -14160,14 +14319,40 @@
    },
    "nodes": [
     11170992658,
-    2674334987,
-    2674334979
+    2674334987
    ],
    "geometry": [
     {
      "lat": 37.98109,
      "lon": -121.3175755
     },
+    {
+     "lat": 37.9819973,
+     "lon": -121.3179633
+    }
+   ],
+   "tags": {
+    "highway": "service",
+    "oneway": "yes",
+    "service": "parking_aisle",
+    "stripes:source_way": "261805262",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2008,
+   "bounds": {
+    "minlat": 37.9803883,
+    "minlon": -121.318174,
+    "maxlat": 37.9821078,
+    "maxlon": -121.3171261
+   },
+   "nodes": [
+    2674334987,
+    2674334979
+   ],
+   "geometry": [
     {
      "lat": 37.9819973,
      "lon": -121.3179633
@@ -14181,7 +14366,8 @@
     "highway": "service",
     "oneway": "yes",
     "service": "parking_aisle",
-    "stripes:source_way": "261805262"
+    "stripes:source_way": "261805262",
+    "stripes:road_types": "small_cart;large_cart;walk;car"
    }
   },
   {
@@ -15435,7 +15621,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "273526507"
+    "stripes:source_way": "273526507",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -15471,7 +15658,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "273526507"
+    "stripes:source_way": "273526507",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -15507,7 +15695,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "273526507"
+    "stripes:source_way": "273526507",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -15543,7 +15732,8 @@
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "273526507"
+    "stripes:source_way": "273526507",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -15557,11 +15747,7 @@
    },
    "nodes": [
     91002375,
-    2622854788,
-    12089074110,
-    90912712,
-    2635785550,
-    91002378
+    2622854788
    ],
    "geometry": [
     {
@@ -15571,7 +15757,75 @@
     {
      "lat": 37.9753471,
      "lon": -121.3121379
+    }
+   ],
+   "tags": {
+    "highway": "tertiary",
+    "lcn": "proposed",
+    "name": "West Mendocino Avenue",
+    "surface": "asphalt",
+    "tiger:cfcc": "A41",
+    "tiger:county": "San Joaquin, CA",
+    "tiger:name_base": "Mendocino",
+    "tiger:name_direction_prefix": "W",
+    "tiger:name_type": "Ave",
+    "tiger:reviewed": "no",
+    "stripes:source_way": "273526508",
+    "stripes:road_types": "car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2018,
+   "bounds": {
+    "minlat": 37.9742931,
+    "minlon": -121.3161562,
+    "maxlat": 37.9755841,
+    "maxlon": -121.3111836
+   },
+   "nodes": [
+    2622854788,
+    12089074110
+   ],
+   "geometry": [
+    {
+     "lat": 37.9753471,
+     "lon": -121.3121379
     },
+    {
+     "lat": 37.9750582,
+     "lon": -121.3133059
+    }
+   ],
+   "tags": {
+    "highway": "tertiary",
+    "lcn": "proposed",
+    "name": "West Mendocino Avenue",
+    "surface": "asphalt",
+    "tiger:cfcc": "A41",
+    "tiger:county": "San Joaquin, CA",
+    "tiger:name_base": "Mendocino",
+    "tiger:name_direction_prefix": "W",
+    "tiger:name_type": "Ave",
+    "tiger:reviewed": "no",
+    "stripes:source_way": "273526508",
+    "stripes:road_types": "car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2017,
+   "bounds": {
+    "minlat": 37.9742931,
+    "minlon": -121.3161562,
+    "maxlat": 37.9755841,
+    "maxlon": -121.3111836
+   },
+   "nodes": [
+    12089074110,
+    90912712
+   ],
+   "geometry": [
     {
      "lat": 37.9750582,
      "lon": -121.3133059
@@ -15579,7 +15833,75 @@
     {
      "lat": 37.975025,
      "lon": -121.31344
+    }
+   ],
+   "tags": {
+    "highway": "tertiary",
+    "lcn": "proposed",
+    "name": "West Mendocino Avenue",
+    "surface": "asphalt",
+    "tiger:cfcc": "A41",
+    "tiger:county": "San Joaquin, CA",
+    "tiger:name_base": "Mendocino",
+    "tiger:name_direction_prefix": "W",
+    "tiger:name_type": "Ave",
+    "tiger:reviewed": "no",
+    "stripes:source_way": "273526508",
+    "stripes:road_types": "car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2016,
+   "bounds": {
+    "minlat": 37.9742931,
+    "minlon": -121.3161562,
+    "maxlat": 37.9755841,
+    "maxlon": -121.3111836
+   },
+   "nodes": [
+    90912712,
+    2635785550
+   ],
+   "geometry": [
+    {
+     "lat": 37.975025,
+     "lon": -121.31344
     },
+    {
+     "lat": 37.9748346,
+     "lon": -121.3142006
+    }
+   ],
+   "tags": {
+    "highway": "tertiary",
+    "lcn": "proposed",
+    "name": "West Mendocino Avenue",
+    "surface": "asphalt",
+    "tiger:cfcc": "A41",
+    "tiger:county": "San Joaquin, CA",
+    "tiger:name_base": "Mendocino",
+    "tiger:name_direction_prefix": "W",
+    "tiger:name_type": "Ave",
+    "tiger:reviewed": "no",
+    "stripes:source_way": "273526508",
+    "stripes:road_types": "car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2015,
+   "bounds": {
+    "minlat": 37.9742931,
+    "minlon": -121.3161562,
+    "maxlat": 37.9755841,
+    "maxlon": -121.3111836
+   },
+   "nodes": [
+    2635785550,
+    91002378
+   ],
+   "geometry": [
     {
      "lat": 37.9748346,
      "lon": -121.3142006
@@ -15599,7 +15921,9 @@
     "tiger:name_base": "Mendocino",
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
-    "tiger:reviewed": "no"
+    "tiger:reviewed": "no",
+    "stripes:road_types": "car",
+    "stripes:source_way": "273526508"
    }
   },
   {
@@ -15709,14 +16033,50 @@
    },
    "nodes": [
     90932998,
-    7988344293,
-    90920841
+    7988344293
    ],
    "geometry": [
     {
      "lat": 37.9746896,
      "lon": -121.3171809
     },
+    {
+     "lat": 37.9749991,
+     "lon": -121.3173121
+    }
+   ],
+   "tags": {
+    "highway": "secondary",
+    "lanes": "5",
+    "lanes:backward": "2",
+    "lanes:forward": "3",
+    "lcn": "proposed",
+    "name": "North Pershing Avenue",
+    "tiger:cfcc": "A45",
+    "tiger:county": "San Joaquin, CA",
+    "tiger:name_base": "Pershing",
+    "tiger:name_direction_prefix": "N",
+    "tiger:name_type": "Ave",
+    "tiger:reviewed": "no",
+    "turn:lanes:forward": "left||",
+    "stripes:source_way": "392677550",
+    "stripes:road_types": "car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2014,
+   "bounds": {
+    "minlat": 37.9746896,
+    "minlon": -121.3175016,
+    "maxlat": 37.9754463,
+    "maxlon": -121.3171809
+   },
+   "nodes": [
+    7988344293,
+    90920841
+   ],
+   "geometry": [
     {
      "lat": 37.9749991,
      "lon": -121.3173121
@@ -15739,7 +16099,9 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "turn:lanes:forward": "left||"
+    "turn:lanes:forward": "left||",
+    "stripes:road_types": "car",
+    "stripes:source_way": "392677550"
    }
   },
   {
@@ -15778,7 +16140,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "turn:lanes:backward": "left||"
+    "turn:lanes:backward": "left||",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -15818,7 +16181,8 @@
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
     "turn:lanes:backward": "left||",
-    "stripes:source_way": "392677554"
+    "stripes:source_way": "392677554",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -15858,7 +16222,8 @@
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
     "turn:lanes:backward": "left||",
-    "stripes:source_way": "392677554"
+    "stripes:source_way": "392677554",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -15898,7 +16263,8 @@
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
     "turn:lanes:backward": "left||",
-    "stripes:source_way": "392677554"
+    "stripes:source_way": "392677554",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -15937,7 +16303,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "turn:lanes:forward": "left||"
+    "turn:lanes:forward": "left||",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -15951,14 +16318,49 @@
    },
    "nodes": [
     3958660343,
-    90933005,
-    3958660344
+    90933005
    ],
    "geometry": [
     {
      "lat": 37.9760494,
      "lon": -121.3177341
     },
+    {
+     "lat": 37.9764027,
+     "lon": -121.3178732
+    }
+   ],
+   "tags": {
+    "highway": "secondary",
+    "lanes": "4",
+    "lanes:backward": "2",
+    "lanes:forward": "2",
+    "lcn": "yes",
+    "name": "North Pershing Avenue",
+    "tiger:cfcc": "A45",
+    "tiger:county": "San Joaquin, CA",
+    "tiger:name_base": "Pershing",
+    "tiger:name_direction_prefix": "N",
+    "tiger:name_type": "Ave",
+    "tiger:reviewed": "no",
+    "stripes:source_way": "392677557",
+    "stripes:road_types": "car"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2013,
+   "bounds": {
+    "minlat": 37.9760494,
+    "minlon": -121.3181358,
+    "maxlat": 37.9770379,
+    "maxlon": -121.3177341
+   },
+   "nodes": [
+    90933005,
+    3958660344
+   ],
+   "geometry": [
     {
      "lat": 37.9764027,
      "lon": -121.3178732
@@ -15980,7 +16382,9 @@
     "tiger:name_base": "Pershing",
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
-    "tiger:reviewed": "no"
+    "tiger:reviewed": "no",
+    "stripes:road_types": "car",
+    "stripes:source_way": "392677557"
    }
   },
   {
@@ -17439,7 +17843,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "665960727",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart"
    }
   },
   {
@@ -17468,7 +17873,8 @@
    "tags": {
     "highway": "service",
     "stripes:source_way": "665960727",
-    "stripes:cart_preferred": "yes"
+    "stripes:cart_preferred": "yes",
+    "stripes:road_types": "small_cart;large_cart"
    }
   },
   {
@@ -18472,7 +18878,63 @@
    },
    "nodes": [
     2635785862,
+    11170992686
+   ],
+   "geometry": [
+    {
+     "lat": 37.9819162,
+     "lon": -121.3148717
+    },
+    {
+     "lat": 37.9817982,
+     "lon": -121.3147662
+    }
+   ],
+   "tags": {
+    "highway": "service",
+    "stripes:road_types": "small_cart;large_cart;walk",
+    "stripes:source_way": "1205383232"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2001,
+   "bounds": {
+    "minlat": 37.9807005,
+    "minlon": -121.3170777,
+    "maxlat": 37.9819162,
+    "maxlon": -121.3146834
+   },
+   "nodes": [
     11170992686,
+    11170992667
+   ],
+   "geometry": [
+    {
+     "lat": 37.9817982,
+     "lon": -121.3147662
+    },
+    {
+     "lat": 37.9817049,
+     "lon": -121.3146834
+    }
+   ],
+   "tags": {
+    "highway": "service",
+    "stripes:source_way": "1205383232",
+    "stripes:road_types": "small_cart;large_cart;walk"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2002,
+   "bounds": {
+    "minlat": 37.9807005,
+    "minlon": -121.3170777,
+    "maxlat": 37.9819162,
+    "maxlon": -121.3146834
+   },
+   "nodes": [
     11170992667,
     11170992668,
     11170992669,
@@ -18497,14 +18959,6 @@
     11170992685
    ],
    "geometry": [
-    {
-     "lat": 37.9819162,
-     "lon": -121.3148717
-    },
-    {
-     "lat": 37.9817982,
-     "lon": -121.3147662
-    },
     {
      "lat": 37.9817049,
      "lon": -121.3146834
@@ -18595,7 +19049,9 @@
     }
    ],
    "tags": {
-    "highway": "service"
+    "highway": "service",
+    "stripes:source_way": "1205383232",
+    "stripes:road_types": "small_cart;large_cart;walk"
    }
   },
   {
@@ -18880,7 +19336,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Way",
     "tiger:reviewed": "no",
-    "stripes:source_way": "1377000543"
+    "stripes:source_way": "1377000543",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -18917,7 +19374,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Way",
     "tiger:reviewed": "no",
-    "stripes:source_way": "1377000543"
+    "stripes:source_way": "1377000543",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -18954,7 +19412,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Way",
     "tiger:reviewed": "no",
-    "stripes:source_way": "1377000543"
+    "stripes:source_way": "1377000543",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -18991,7 +19450,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Way",
     "tiger:reviewed": "no",
-    "stripes:source_way": "1377000543"
+    "stripes:source_way": "1377000543",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -19154,7 +19614,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
+    "stripes:source_way": "-1",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -19187,7 +19648,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
+    "stripes:source_way": "-1",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -19220,7 +19682,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
+    "stripes:source_way": "-1",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -19253,7 +19716,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
+    "stripes:source_way": "-1",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -19286,7 +19750,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
+    "stripes:source_way": "-1",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -19319,7 +19784,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
+    "stripes:source_way": "-1",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -19352,7 +19818,8 @@
     "tiger:name_direction_prefix": "N",
     "tiger:name_type": "Ave",
     "tiger:reviewed": "no",
-    "stripes:source_way": "-1"
+    "stripes:source_way": "-1",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -19382,7 +19849,8 @@
     "tiger:name_base": "Mendocino",
     "tiger:name_direction_prefix": "W",
     "tiger:name_type": "Ave",
-    "tiger:reviewed": "no"
+    "tiger:reviewed": "no",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -19472,7 +19940,8 @@
     "tiger:cfcc": "A41",
     "tiger:county": "San Joaquin, CA",
     "tiger:name_base": "Brookside",
-    "tiger:name_type": "Rd"
+    "tiger:name_type": "Rd",
+    "stripes:road_types": "car"
    }
   },
   {
@@ -28218,12 +28687,7 @@
    "id": -998,
    "nodes": [
     -999,
-    -1000,
-    -1001,
-    -1016,
-    -1002,
-    -1003,
-    -1004
+    -1000
    ],
    "geometry": [
     {
@@ -28233,7 +28697,45 @@
     {
      "lat": 37.9817457,
      "lon": -121.3149565
+    }
+   ],
+   "tags": {
+    "highway": "footway",
+    "stripes:source_way": "-998",
+    "stripes:road_types": "walk"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2007,
+   "nodes": [
+    -1000,
+    -1001
+   ],
+   "geometry": [
+    {
+     "lat": 37.9817457,
+     "lon": -121.3149565
     },
+    {
+     "lat": 37.981678,
+     "lon": -121.3149244
+    }
+   ],
+   "tags": {
+    "highway": "footway",
+    "stripes:source_way": "-998",
+    "stripes:road_types": "walk"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2006,
+   "nodes": [
+    -1001,
+    -1016
+   ],
+   "geometry": [
     {
      "lat": 37.981678,
      "lon": -121.3149244
@@ -28241,11 +28743,68 @@
     {
      "lat": 37.9816357,
      "lon": -121.3149142
+    }
+   ],
+   "tags": {
+    "highway": "footway",
+    "stripes:source_way": "-998",
+    "stripes:road_types": "walk"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2005,
+   "nodes": [
+    -1016,
+    -1002
+   ],
+   "geometry": [
+    {
+     "lat": 37.9816357,
+     "lon": -121.3149142
     },
     {
      "lat": 37.9815892,
      "lon": -121.3149029
+    }
+   ],
+   "tags": {
+    "highway": "footway",
+    "stripes:source_way": "-998",
+    "stripes:road_types": "walk"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2004,
+   "nodes": [
+    -1002,
+    -1003
+   ],
+   "geometry": [
+    {
+     "lat": 37.9815892,
+     "lon": -121.3149029
     },
+    {
+     "lat": 37.9815596,
+     "lon": -121.3149136
+    }
+   ],
+   "tags": {
+    "highway": "footway",
+    "stripes:source_way": "-998",
+    "stripes:road_types": "walk"
+   }
+  },
+  {
+   "type": "way",
+   "id": -2003,
+   "nodes": [
+    -1003,
+    -1004
+   ],
+   "geometry": [
     {
      "lat": 37.9815596,
      "lon": -121.3149136
@@ -28257,7 +28816,8 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:source_way": "-998"
+    "stripes:source_way": "-998",
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -32298,7 +32858,8 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:source_way": "-1453"
+    "stripes:source_way": "-1453",
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -32320,7 +32881,8 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:source_way": "-1453"
+    "stripes:source_way": "-1453",
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -32342,7 +32904,8 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:source_way": "-1453"
+    "stripes:source_way": "-1453",
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -32364,7 +32927,8 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:source_way": "-1453"
+    "stripes:source_way": "-1453",
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -32386,7 +32950,8 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:source_way": "-1453"
+    "stripes:source_way": "-1453",
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -32408,7 +32973,8 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:source_way": "-1453"
+    "stripes:source_way": "-1453",
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -32430,7 +32996,8 @@
    ],
    "tags": {
     "highway": "footway",
-    "stripes:source_way": "-1453"
+    "stripes:source_way": "-1453",
+    "stripes:road_types": "walk"
    }
   },
   {
@@ -32474,7 +33041,8 @@
     }
    ],
    "tags": {
-    "highway": "footway"
+    "highway": "footway",
+    "stripes:road_types": "walk"
    }
   },
   {
