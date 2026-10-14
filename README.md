@@ -37,7 +37,7 @@ To change the schema, edit `schema.prisma` and run `npm run db:migrate -- --name
 | `API.md`, `lib/types.ts` | `app/sign-in/`, `app/sign-up/`, `app/page.tsx`, `app/layout.tsx`, `app/globals.css` |
 | CI, `Dockerfile`, config files | `components/`, `lib/mocks.ts`, `public/` |
 
-`API.md` and `lib/types.ts` are the contract between the two sides. Change them only when both people agree.
+[`API.md`](API.md) and `lib/types.ts` are the contract between the two sides. Change them only when both people agree.
 
 ## Deploying to AWS
 
