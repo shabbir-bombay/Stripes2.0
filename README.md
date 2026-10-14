@@ -4,11 +4,30 @@ Campus cart rides for University of the Pacific: students request a ride between
 
 One Next.js app serves both the pages and the API (`app/api`). The database is Postgres, accessed through Prisma.
 
+## Run it locally
+
+You need Node 22.18 or newer and Postgres 16 (on a Mac: `brew install postgresql@16`).
+
 ```sh
 npm install
-npm run dev     # http://localhost:3000
-npm run build
+createdb stripes_app
+cp .env.example .env    # then put your Mac user name in DATABASE_URL
+npm run db:migrate      # create the tables
+npm run db:seed         # sample accounts, carts and stops
+npm run dev             # http://localhost:3000
+npm test
 ```
+
+The seed creates `admin@pacific.edu`, `driver1@pacific.edu`, `driver2@pacific.edu` and `student@u.pacific.edu`, all with the password `stripes-dev`, plus 2 carts and 20 campus stops.
+
+## Database
+
+`prisma/schema.prisma` holds the tables: User, DriverProfile, Cart, Stop, Ride and ServiceRule. The first migration also adds rules the database enforces itself:
+- emails must end in `@pacific.edu` or `@u.pacific.edu`;
+- a student has at most one active ride;
+- a ride's pickup and drop-off are different stops.
+
+To change the schema, edit `schema.prisma` and run `npm run db:migrate -- --name what-changed`.
 
 ## Who owns what
 
@@ -22,4 +41,10 @@ npm run build
 
 ## Deploying to AWS
 
-`Dockerfile` builds the image that any AWS container host runs (ECS, App Runner, Lightsail). The app listens on port 3000, and `GET /api/health` returns `{"status":"ok"}` for health checks.
+Nothing in the code is tied to a provider. The app needs one setting, `DATABASE_URL`.
+
+1. Create an RDS Postgres 16 database.
+2. Run `DATABASE_URL=<rds url>?sslmode=require npm run db:deploy` once, and again after every new migration. Run `npm run db:seed` too if you want the sample data; set `SEED_PASSWORD` first so the accounts don't use the public default.
+3. Run the image built from `Dockerfile` on any AWS container host (ECS, App Runner, Lightsail), with `DATABASE_URL` set on the container.
+
+The app listens on port 3000, and `GET /api/health` returns `{"status":"ok"}` for health checks.

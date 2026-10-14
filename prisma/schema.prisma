@@ -1,0 +1,112 @@
+// Week 1 data model. Rules Prisma can't express (email domain, one active ride per student, ...)
+// are added as SQL in the first migration.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/server/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  student
+  driver
+  admin
+}
+
+enum RideStatus {
+  requested
+  assigned
+  en_route
+  arrived
+  in_progress
+  completed
+  canceled
+  no_show
+}
+
+/// Email must end in @pacific.edu or @u.pacific.edu (CHECK in the migration).
+model User {
+  id           String         @id @default(uuid()) @db.Uuid
+  email        String         @unique
+  passwordHash String
+  name         String
+  role         Role           @default(student)
+  suspended    Boolean        @default(false)
+  createdAt    DateTime       @default(now())
+  driver       DriverProfile?
+  rides        Ride[]
+}
+
+/// Exists for every user with the driver role. `cartId` is set only while the driver is on shift.
+model DriverProfile {
+  userId     String    @id @db.Uuid
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /// The only driver identity a student sees, e.g. "Cart 3".
+  callSign   String    @unique
+  /// Unique: one driver per cart.
+  cartId     String?   @unique @db.Uuid
+  cart       Cart?     @relation(fields: [cartId], references: [id])
+  shiftStart DateTime?
+  lat        Float?
+  lng        Float?
+  positionAt DateTime?
+  rides      Ride[]
+}
+
+/// Seats include the driver's seat.
+model Cart {
+  id     String         @id @default(uuid()) @db.Uuid
+  number String         @unique
+  seats  Int
+  active Boolean        @default(true)
+  driver DriverProfile?
+}
+
+model Stop {
+  id       String  @id @default(uuid()) @db.Uuid
+  name     String  @unique
+  lat      Float
+  lng      Float
+  active   Boolean @default(true)
+  pickups  Ride[]  @relation("pickup")
+  dropoffs Ride[]  @relation("dropoff")
+}
+
+/// Status changes go through one function (week 2), never a direct update.
+/// One active ride per student (partial unique index in the migration).
+model Ride {
+  id           String         @id @default(uuid()) @db.Uuid
+  studentId    String         @db.Uuid
+  student      User           @relation(fields: [studentId], references: [id])
+  driverId     String?        @db.Uuid
+  driver       DriverProfile? @relation(fields: [driverId], references: [userId])
+  pickupId     String         @db.Uuid
+  pickup       Stop           @relation("pickup", fields: [pickupId], references: [id])
+  dropoffId    String         @db.Uuid
+  dropoff      Stop           @relation("dropoff", fields: [dropoffId], references: [id])
+  partySize    Int
+  status       RideStatus     @default(requested)
+  requestedAt  DateTime       @default(now())
+  assignedAt   DateTime?
+  arrivedAt    DateTime?
+  startedAt    DateTime?
+  endedAt      DateTime?
+  cancelReason String?
+
+  @@index([status])
+  @@index([studentId])
+  @@index([driverId])
+}
+
+/// Weekly opening hours in campus time (America/Los_Angeles). `end` before `start` runs past midnight.
+model ServiceRule {
+  id    String @id @default(uuid()) @db.Uuid
+  /// 0 = Sunday ... 6 = Saturday, the day the window starts.
+  day   Int
+  /// "HH:MM"
+  start String
+  end   String
+}
