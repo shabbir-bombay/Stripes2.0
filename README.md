@@ -11,7 +11,7 @@ You need Node 22.18 or newer and Postgres 16 (on a Mac: `brew install postgresql
 ```sh
 npm install
 createdb stripes_app
-cp .env.example .env    # then put your Mac user name in DATABASE_URL
+cp .env.example .env    # then put your Mac user name in DATABASE_URL and a random AUTH_SECRET
 npm run db:migrate      # create the tables
 npm run db:seed         # sample accounts, carts and stops
 npm run dev             # http://localhost:3000
@@ -41,10 +41,10 @@ To change the schema, edit `schema.prisma` and run `npm run db:migrate -- --name
 
 ## Deploying to AWS
 
-Nothing in the code is tied to a provider. The app needs one setting, `DATABASE_URL`.
+Nothing in the code is tied to a provider. The app needs two settings: `DATABASE_URL`, and `AUTH_SECRET`, a random string of at least 32 characters (`openssl rand -base64 32`) that signs the session cookie.
 
 1. Create an RDS Postgres 16 database.
 2. Run `DATABASE_URL=<rds url>?sslmode=require npm run db:deploy` once, and again after every new migration. Run `npm run db:seed` too if you want the sample data; set `SEED_PASSWORD` first so the accounts don't use the public default.
-3. Run the image built from `Dockerfile` on any AWS container host (ECS, App Runner, Lightsail), with `DATABASE_URL` set on the container.
+3. Run the image built from `Dockerfile` on any AWS container host (ECS, App Runner, Lightsail), with `DATABASE_URL` and `AUTH_SECRET` set on the container. Serve it over HTTPS: in production the session cookie is only sent over secure connections.
 
 The app listens on port 3000, and `GET /api/health` returns `{"status":"ok"}` for health checks.
