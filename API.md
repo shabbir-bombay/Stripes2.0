@@ -22,10 +22,10 @@ Change this file and `lib/types.ts` only when both sides agree.
 
 | Method | Path | Who | Body | Returns | Week |
 |---|---|---|---|---|---|
-| POST | `/api/auth/sign-up` | public | `SignUpRequest` | `Me`, creates a student account | 1 |
-| POST | `/api/auth/sign-in` | public | `SignInRequest` | `Me` | 1 |
-| POST | `/api/auth/sign-out` | anyone | — | `204` | 1 |
-| GET | `/api/me` | anyone | — | `Me` | 1 |
+| POST | `/api/auth/sign-up` | public | `SignUpRequest` | `Me`, creates a student account | 1 ✅ |
+| POST | `/api/auth/sign-in` | public | `SignInRequest` | `Me` | 1 ✅ |
+| POST | `/api/auth/sign-out` | anyone | — | `204` | 1 ✅ |
+| GET | `/api/me` | anyone | — | `Me` | 1 ✅ |
 | PATCH | `/api/me` | anyone | `UpdateMeRequest` | `Me` | 5 |
 | GET | `/api/me/penalty-points` | student | — | `PenaltyPoint[]`, approved only | 5 |
 
