@@ -188,3 +188,47 @@ a {
   font-size: 0.875rem;
   color: var(--danger);
 }
+
+.form-error {
+  margin: 0;
+  padding: 8px 12px;
+  border-left: 4px solid var(--danger);
+  background: var(--paper);
+  color: var(--danger);
+}
+
+/* "New to Stripes? Create an account" under the sign-in and sign-up forms. */
+.switch {
+  margin-top: var(--space);
+  text-align: center;
+}
+
+.switch a {
+  display: inline-block;
+  min-height: var(--tap);
+  line-height: var(--tap);
+}
+
+/* ---------- Signed-in header ---------- */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px var(--space);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.app-header-brand {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--orange-dark);
+}
+
+.app-header-name {
+  margin-left: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
