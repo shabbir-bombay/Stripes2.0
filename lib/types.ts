@@ -62,6 +62,8 @@ export interface ServiceStatus {
   mode: ServiceMode;
   /** When `open` next flips under the weekly rules. Null in manual mode or with no rules. */
   nextChange: string | null;
+  /** The most riders one request can hold: the largest active cart's seats − 1 (1 if no cart is active). */
+  maxPartySize: number;
 }
 
 export interface ServiceRule {

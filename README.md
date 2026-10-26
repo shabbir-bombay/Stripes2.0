@@ -22,7 +22,7 @@ The seed creates `admin@pacific.edu`, `driver1@pacific.edu`, `driver2@pacific.ed
 
 ## Database
 
-`prisma/schema.prisma` holds the tables: User, DriverProfile, Cart, Stop, Ride and ServiceRule. The first migration also adds rules the database enforces itself:
+`prisma/schema.prisma` holds the tables: User, DriverProfile, Cart, Stop, Ride, ServiceRule and Service (the admin's on / off / automatic switch). The first migration also adds rules the database enforces itself:
 - emails must end in `@pacific.edu` or `@u.pacific.edu`;
 - a student has at most one active ride;
 - a ride's pickup and drop-off are different stops.

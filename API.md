@@ -34,8 +34,8 @@ Change this file and `lib/types.ts` only when both sides agree.
 | Method | Path | Who | Body | Returns | Week |
 |---|---|---|---|---|---|
 | GET | `/api/health` | public | — | `{ "status": "ok" }` | 1 ✅ |
-| GET | `/api/stops` | anyone | — | `Stop[]`, active stops by name | 2 |
-| GET | `/api/service-status` | public | — | `ServiceStatus` | 2 |
+| GET | `/api/stops` | anyone | — | `Stop[]`, active stops by name | 2 ✅ |
+| GET | `/api/service-status` | public | — | `ServiceStatus`, including the largest party size a request may have | 2 ✅ |
 
 ## Student rides
 
@@ -70,7 +70,7 @@ Change this file and `lib/types.ts` only when both sides agree.
 
 | Method | Path | Who | Body | Returns | Week |
 |---|---|---|---|---|---|
-| PUT | `/api/admin/service` | admin | `SetServiceModeRequest` | `ServiceStatus` | 2 |
+| PUT | `/api/admin/service` | admin | `SetServiceModeRequest` | `ServiceStatus` | 2 ✅ |
 | GET | `/api/admin/board` | admin | — | `AdminBoard`. Poll every 3–5 s | 3 |
 | POST | `/api/admin/rides/:id/assign` | admin | `AssignRequest` | `StaffRide`. Also reassigns | 3 |
 | POST | `/api/admin/rides/:id/unassign` | admin | — | `StaffRide`, back to `requested` | 3 |

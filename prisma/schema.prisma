@@ -16,6 +16,12 @@ enum Role {
   admin
 }
 
+enum ServiceMode {
+  automatic
+  on
+  off
+}
+
 enum RideStatus {
   requested
   assigned
@@ -109,4 +115,12 @@ model ServiceRule {
   /// "HH:MM"
   start String
   end   String
+}
+
+/// One row (id 1, CHECK in the migration): how the admin set the service.
+/// `automatic` follows the ServiceRule hours; `on` and `off` override them.
+model Service {
+  id        Int         @id @default(1)
+  mode      ServiceMode @default(automatic)
+  updatedAt DateTime    @default(now()) @updatedAt
 }
