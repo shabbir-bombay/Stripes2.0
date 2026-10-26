@@ -232,3 +232,70 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* ---------- Service banner ---------- */
+
+.banner {
+  margin: 0;
+  padding: 12px var(--space);
+  border-left: 6px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.banner p {
+  margin: 0;
+}
+
+.banner.open {
+  border-left-color: var(--success);
+}
+
+.banner.closed {
+  border-left-color: var(--danger);
+}
+
+.banner-title {
+  font-weight: 700;
+}
+
+/* ---------- Request a ride ---------- */
+
+.field-label {
+  font-weight: 600;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepper .button {
+  min-width: var(--tap);
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.stepper output {
+  min-width: 2ch;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  margin: 0;
+}
+
+.summary dt {
+  color: var(--muted);
+}
+
+.summary dd {
+  margin: 0;
+  font-weight: 600;
+}
