@@ -355,3 +355,37 @@ a {
 .segmented:disabled .segment span {
   opacity: 0.5;
 }
+
+/* ---------- Ride cards (driver queue, admin board) ---------- */
+
+.ride-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ride-status {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.ride-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ride-actions .button {
+  flex: 1 1 auto;
+}
+
+.ride-actions:empty {
+  display: none;
+}
+
+.muted {
+  margin: 0;
+  color: var(--muted);
+}
