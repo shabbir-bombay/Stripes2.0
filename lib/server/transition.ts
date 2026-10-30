@@ -7,14 +7,14 @@ import { isUuid } from "./rides";
 /**
  * Moves a ride to a new status. This is the only code that writes Ride.status.
  * `userId` is who acts: a student may only touch their own ride, and a driver only a ride they hold
- * (or, to claim it, a ride nobody holds). Anything else is 404.
+ * (or any ride, to claim it: the status check then answers 409 if it is taken). Anything else is 404.
  * Returns the updated ride, or the error response to send instead.
  *
  *   const ride = await transition(id, { to: "canceled", by: "student", userId: user.id });
  *   if (ride instanceof Response) return ride;
  */
 export async function transition(rideId: string, move: MoveRequest & { userId: string }): Promise<Ride | Response> {
-  const ride = isUuid(rideId) ?await db.ride.findUnique({ where: { id: rideId } }) : null;
+  const ride = isUuid(rideId) ? await db.ride.findUnique({ where: { id: rideId } }) : null;
   if (!ride || !mayTouch(ride, move)) return fail(404, "No such ride.");
 
   const plan = planMove(ride.status, move);
@@ -31,6 +31,7 @@ export async function transition(rideId: string, move: MoveRequest & { userId: s
 
 function mayTouch(ride: Ride, { by, to, userId }: MoveRequest & { userId: string }) {
   if (by === "student") return ride.studentId === userId;
-  if (by === "driver") return ride.driverId === userId || (to === "assigned" && ride.driverId === null);
+  // Any driver may try to claim, so a claim on a ride someone else just took gets 409 from the status check, not 404.
+  if (by === "driver") return ride.driverId === userId || to === "assigned";
   return true;
 }
