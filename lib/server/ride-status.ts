@@ -89,3 +89,14 @@ function conflictMessage(from: RideStatus) {
   if (from === "in_progress") return "This ride is already under way.";
   return "This ride has changed. Refresh and try again.";
 }
+
+/** The driver endpoints `/api/driver/rides/:id/<action>` and the status each one moves to. */
+export const DRIVER_ACTIONS: Record<string, RideStatus> = {
+  claim: "assigned",
+  "en-route": "en_route",
+  arrived: "arrived",
+  start: "in_progress",
+  complete: "completed",
+  "no-show": "no_show",
+  cancel: "canceled",
+};

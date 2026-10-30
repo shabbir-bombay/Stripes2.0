@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import type { RideStatus } from "../types.ts";
-import { canMove, planMove, STUDENT_CANCEL_REASON, type Actor } from "./ride-status.ts";
+import { canMove, DRIVER_ACTIONS, MOVES, planMove, STUDENT_CANCEL_REASON, type Actor } from "./ride-status.ts";
 
 const STATUSES: RideStatus[] = ["requested", "assigned", "en_route", "arrived", "in_progress", "completed", "canceled", "no_show"];
 const ACTORS: Actor[] = ["student", "driver", "admin"];
@@ -103,4 +103,9 @@ test("a cancel reason is at most 200 characters", () => {
   assert.equal(planMove("requested", { to: "canceled", by: "admin", reason: "x".repeat(200), now }).ok, true);
   const plan = planMove("requested", { to: "canceled", by: "admin", reason: "x".repeat(201), now });
   assert.equal(!plan.ok && plan.status, 400);
+});
+
+test("every driver action is a move the status table lets drivers make", () => {
+  assert.deepEqual(Object.keys(DRIVER_ACTIONS).sort(), ["arrived", "cancel", "claim", "complete", "en-route", "no-show", "start"]);
+  for (const [action, to] of Object.entries(DRIVER_ACTIONS)) assert.ok(MOVES[to].by.includes("driver"), action);
 });

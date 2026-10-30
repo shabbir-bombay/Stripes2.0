@@ -52,17 +52,17 @@ Change this file and `lib/types.ts` only when both sides agree.
 
 | Method | Path | Who | Body | Returns | Week |
 |---|---|---|---|---|---|
-| GET | `/api/carts` | driver, admin | — | `Cart[]` | 3 |
-| POST | `/api/driver/shift` | driver | `StartShiftRequest` | `Shift`. 409 if the cart is in use | 3 |
-| DELETE | `/api/driver/shift` | driver | — | `204`. 409 while holding a ride | 3 |
-| GET | `/api/driver/queue` | driver | — | `DriverQueue`. Poll every 3–5 s on shift | 3 |
-| POST | `/api/driver/rides/:id/claim` | driver | — | `StaffRide`. 409 if someone else got it first | 3 |
-| POST | `/api/driver/rides/:id/en-route` | driver | — | `StaffRide` | 3 |
-| POST | `/api/driver/rides/:id/arrived` | driver | — | `StaffRide` | 3 |
-| POST | `/api/driver/rides/:id/start` | driver | — | `StaffRide` | 3 |
-| POST | `/api/driver/rides/:id/complete` | driver | — | `StaffRide` | 3 |
-| POST | `/api/driver/rides/:id/no-show` | driver | — | `StaffRide` | 3 |
-| POST | `/api/driver/rides/:id/cancel` | driver | `CancelRideRequest`, reason required | `StaffRide` | 3 |
+| GET | `/api/carts` | driver, admin | — | `Cart[]` | 3 ✅ |
+| POST | `/api/driver/shift` | driver | `StartShiftRequest` | `Shift`. 409 if the cart is in use | 3 ✅ |
+| DELETE | `/api/driver/shift` | driver | — | `204`. 409 while holding a ride | 3 ✅ |
+| GET | `/api/driver/queue` | driver | — | `DriverQueue`. Poll every 3–5 s on shift | 3 ✅ |
+| POST | `/api/driver/rides/:id/claim` | driver | — | `StaffRide`. 409 if someone else got it first | 3 ✅ |
+| POST | `/api/driver/rides/:id/en-route` | driver | — | `StaffRide` | 3 ✅ |
+| POST | `/api/driver/rides/:id/arrived` | driver | — | `StaffRide` | 3 ✅ |
+| POST | `/api/driver/rides/:id/start` | driver | — | `StaffRide` | 3 ✅ |
+| POST | `/api/driver/rides/:id/complete` | driver | — | `StaffRide` | 3 ✅ |
+| POST | `/api/driver/rides/:id/no-show` | driver | — | `StaffRide` | 3 ✅ |
+| POST | `/api/driver/rides/:id/cancel` | driver | `CancelRideRequest`, reason required | `StaffRide` | 3 ✅ |
 | POST | `/api/driver/position` | driver | `PositionReport` | `204`. Every 5–10 s on shift | 4 |
 | POST | `/api/driver/rides/:id/penalty-point` | driver | `PenaltyPointRequest` | `PenaltyPoint`, pending until an admin decides | 5 |
 

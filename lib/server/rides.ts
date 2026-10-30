@@ -22,7 +22,7 @@ export const rideInclude = {
 export type RideRow = Prisma.RideGetPayload<{ include: typeof rideInclude }>;
 
 /** First come, first served; the id breaks ties so two rides never share a place. */
-const queueOrder = [{ requestedAt: "asc" }, { id: "asc" }] satisfies Prisma.RideOrderByWithRelationInput[];
+export const queueOrder = [{ requestedAt: "asc" }, { id: "asc" }] satisfies Prisma.RideOrderByWithRelationInput[];
 
 const iso = (date: Date | null) => date?.toISOString() ?? null;
 
