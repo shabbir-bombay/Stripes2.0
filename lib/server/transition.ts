@@ -2,8 +2,7 @@ import { fail } from "./auth";
 import { db } from "./db";
 import type { Ride } from "./generated/prisma/client";
 import { planMove, type MoveRequest } from "./ride-status";
-
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+import { isUuid } from "./rides";
 
 /**
  * Moves a ride to a new status. This is the only code that writes Ride.status.
@@ -15,7 +14,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
  *   if (ride instanceof Response) return ride;
  */
 export async function transition(rideId: string, move: MoveRequest & { userId: string }): Promise<Ride | Response> {
-  const ride = UUID.test(rideId) ? await db.ride.findUnique({ where: { id: rideId } }) : null;
+  const ride = isUuid(rideId) ?await db.ride.findUnique({ where: { id: rideId } }) : null;
   if (!ride || !mayTouch(ride, move)) return fail(404, "No such ride.");
 
   const plan = planMove(ride.status, move);

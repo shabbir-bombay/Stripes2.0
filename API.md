@@ -41,9 +41,9 @@ Change this file and `lib/types.ts` only when both sides agree.
 
 | Method | Path | Who | Body | Returns | Week |
 |---|---|---|---|---|---|
-| POST | `/api/rides` | student | `CreateRideRequest` | `Ride`. 409 if the student already has an active ride or service is closed | 2 |
-| GET | `/api/rides/active` | student | — | `Ride` or `null`. Poll every 3–5 s while a ride is active | 2 |
-| POST | `/api/rides/:id/cancel` | student | `CancelRideRequest` | `Ride`. 409 once the ride is in progress | 2 |
+| POST | `/api/rides` | student | `CreateRideRequest` | `Ride`. 409 if the student already has an active ride or service is closed | 2 ✅ |
+| GET | `/api/rides/active` | student | — | `Ride` or `null`. Poll every 3–5 s while a ride is active | 2 ✅ |
+| POST | `/api/rides/:id/cancel` | student | `CancelRideRequest` | `Ride`. 409 once the ride is in progress | 2 ✅ |
 | GET | `/api/rides/:id/driver-position` | student | — | `Position` or `null`, while the ride is assigned, en route or arrived | 4 |
 | GET | `/api/rides/history?cursor=` | student | — | `HistoryPage`, 20 per page, newest first | 5 |
 | POST | `/api/rides/:id/feedback` | student | `FeedbackRequest` | `Ride`. Completed rides only, once | 5 |

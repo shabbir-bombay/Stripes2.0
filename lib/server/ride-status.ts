@@ -19,6 +19,12 @@ export const MOVES: Record<RideStatus, { from: RideStatus[]; by: Actor[] }> = {
 
 export const FINAL: RideStatus[] = ["completed", "canceled", "no_show"];
 
+/** Not final yet. A student has at most one of these (partial unique index in the first migration). */
+export const ACTIVE: RideStatus[] = ["requested", "assigned", "en_route", "arrived", "in_progress"];
+
+/** A driver holds the ride. */
+export const HELD: RideStatus[] = ["assigned", "en_route", "arrived", "in_progress"];
+
 export const STUDENT_CANCEL_REASON = "Canceled by student";
 
 /** The fields a move writes, besides `status`. `null` clears a field; a missing key leaves it alone. */
