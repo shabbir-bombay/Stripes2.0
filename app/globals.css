@@ -299,3 +299,59 @@ a {
   margin: 0;
   font-weight: 600;
 }
+
+/* ---------- Admin ---------- */
+
+/* A row of radio buttons that look like buttons, e.g. the service mode. */
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.segmented legend {
+  margin-bottom: 4px;
+  padding: 0;
+  font-weight: 600;
+}
+
+.segment {
+  position: relative;
+}
+
+/* The real radio stays on top, invisible, so clicks, keys and screen readers all use it. */
+.segment input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.segment span {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 8px 20px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-weight: 600;
+}
+
+.segment input:checked + span {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.segment input:focus-visible + span {
+  outline: 3px solid var(--orange-dark);
+  outline-offset: 2px;
+}
+
+.segmented:disabled .segment span {
+  opacity: 0.5;
+}

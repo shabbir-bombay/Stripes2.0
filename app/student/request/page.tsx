@@ -1,16 +1,19 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { api } from "@/components/api";
 import { Button, ButtonLink } from "@/components/Button";
 import { SelectField } from "@/components/Field";
+import { RideSummary } from "@/components/RideSummary";
 import { ServiceBanner } from "@/components/ServiceBanner";
 import { Stepper } from "@/components/Stepper";
-import { rides } from "@/lib/mocks";
-import type { ApiError, CreateRideRequest, Ride, ServiceStatus, Stop } from "@/lib/types";
+import type { CreateRideRequest, Ride, ServiceStatus, Stop } from "@/lib/types";
 
-type Step = "choose" | "confirm" | "done";
+type Step = "choose" | "confirm";
 
 export default function RequestRide() {
+  const router = useRouter();
   const [stops, setStops] = useState<Stop[]>();
   const [service, setService] = useState<ServiceStatus>();
   const [loadError, setLoadError] = useState<string>();
@@ -18,20 +21,21 @@ export default function RequestRide() {
   const [request, setRequest] = useState<CreateRideRequest>({ pickupId: "", dropoffId: "", partySize: 1 });
   const [error, setError] = useState<string>();
   const [busy, setBusy] = useState(false);
-  const [ride, setRide] = useState<Ride>();
 
   useEffect(() => {
-    Promise.all([getJson<Stop[]>("/api/stops"), getJson<ServiceStatus>("/api/service-status")])
-      .then(([stops, service]) => {
+    Promise.all([api<Stop[]>("/api/stops"), api<ServiceStatus>("/api/service-status"), api<Ride | null>("/api/rides/active")])
+      .then(([stops, service, ride]) => {
+        // One ride at a time: a student who already has one goes to it instead.
+        if (ride) return router.replace("/student/ride");
         setStops(stops);
         setService(service);
       })
-      .catch((e) => setLoadError(e instanceof TypeError ? "Couldn't reach Stripes. Check your connection and try again." : e.message));
-  }, []);
+      .catch((e: Error) => setLoadError(e.message));
+  }, [router]);
 
   if (loadError) return <Page><p role="alert" className="form-error">{loadError}</p></Page>;
   if (!stops || !service) return <Page><p role="status">Loading stops…</p></Page>;
-  if (!service.open && step !== "done") {
+  if (!service.open) {
     return (
       <Page>
         <ServiceBanner service={service} />
@@ -57,33 +61,19 @@ export default function RequestRide() {
     setBusy(true);
     setError(undefined);
     try {
-      setRide(await requestRide(request, stops!));
-      setStep("done");
+      await api<Ride>("/api/rides", "POST", request);
+      router.push("/student/ride");
     } catch (e) {
       setError((e as Error).message);
-    } finally {
       setBusy(false);
     }
-  }
-
-  if (step === "done" && ride) {
-    return (
-      <Page>
-        <div role="status" className="banner open">
-          <p className="banner-title">Ride requested</p>
-          <p>{ride.queuePosition === 1 ? "You're next in line." : `You're number ${ride.queuePosition} in line.`}</p>
-        </div>
-        <Summary pickup={ride.pickup.name} dropoff={ride.dropoff.name} partySize={ride.partySize} />
-        <ButtonLink href="/student" variant="secondary">Done</ButtonLink>
-      </Page>
-    );
   }
 
   if (step === "confirm") {
     return (
       <Page>
         <p className="lead">Check your ride, then send the request.</p>
-        <Summary pickup={stopName(request.pickupId)} dropoff={stopName(request.dropoffId)} partySize={request.partySize} />
+        <RideSummary pickup={stopName(request.pickupId)} dropoff={stopName(request.dropoffId)} partySize={request.partySize} />
         {error && <p role="alert" className="form-error">{error}</p>}
         <Button onClick={confirm} disabled={busy}>{busy ? "Requesting…" : "Request ride"}</Button>
         <Button variant="secondary" onClick={() => setStep("choose")} disabled={busy}>Change</Button>
@@ -140,31 +130,4 @@ function StopOptions({ stops }: { stops: Stop[] }) {
       ))}
     </>
   );
-}
-
-function Summary({ pickup, dropoff, partySize }: { pickup: string; dropoff: string; partySize: number }) {
-  return (
-    <dl className="card summary">
-      <dt>Pickup</dt>
-      <dd>{pickup}</dd>
-      <dt>Drop-off</dt>
-      <dd>{dropoff}</dd>
-      <dt>Riders</dt>
-      <dd>{partySize}</dd>
-    </dl>
-  );
-}
-
-async function getJson<T>(url: string): Promise<T> {
-  const response = await fetch(url, { cache: "no-store" });
-  const body: T | ApiError = await response.json().catch(() => ({ error: "Something went wrong. Try again." }));
-  if (!response.ok) throw new Error((body as ApiError).error);
-  return body as T;
-}
-
-// Stands in for POST /api/rides until that endpoint exists: answers like the server would, from the mocks.
-async function requestRide(request: CreateRideRequest, stops: Stop[]): Promise<Ride> {
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  const stop = (id: string) => stops.find((s) => s.id === id)!;
-  return { ...rides.requested, pickup: stop(request.pickupId), dropoff: stop(request.dropoffId), partySize: request.partySize };
 }
