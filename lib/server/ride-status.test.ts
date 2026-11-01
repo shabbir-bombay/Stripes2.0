@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import type { RideStatus } from "../types.ts";
-import { canMove, DRIVER_ACTIONS, MOVES, planMove, STUDENT_CANCEL_REASON, type Actor } from "./ride-status.ts";
+import { ADMIN_ACTIONS, canMove, DRIVER_ACTIONS, MOVES, planAssign, planMove, STUDENT_CANCEL_REASON, type Actor } from "./ride-status.ts";
 
 const STATUSES: RideStatus[] = ["requested", "assigned", "en_route", "arrived", "in_progress", "completed", "canceled", "no_show"];
 const ACTORS: Actor[] = ["student", "driver", "admin"];
@@ -108,4 +108,34 @@ test("a cancel reason is at most 200 characters", () => {
 test("every driver action is a move the status table lets drivers make", () => {
   assert.deepEqual(Object.keys(DRIVER_ACTIONS).sort(), ["arrived", "cancel", "claim", "complete", "en-route", "no-show", "start"]);
   for (const [action, to] of Object.entries(DRIVER_ACTIONS)) assert.ok(MOVES[to].by.includes("driver"), action);
+});
+
+test("every admin action is a move an admin may make", () => {
+  for (const [action, to] of Object.entries(ADMIN_ACTIONS)) assert.ok(MOVES[to].by.includes("admin"), action);
+});
+
+test("an admin assign: assign a waiting ride, reassign a held one, leave it with the driver who has it", () => {
+  const target = { driverId: "driver-2", cart: { number: "2", seats: 4 } };
+  const waiting = { status: "requested" as const, partySize: 2, driverId: null };
+  assert.deepEqual(planAssign(waiting, target), { ok: true, steps: ["assign"] });
+  for (const status of ["assigned", "en_route", "arrived"] as const) {
+    assert.deepEqual(planAssign({ status, partySize: 2, driverId: "driver-1" }, target), { ok: true, steps: ["unassign", "assign"] }, status);
+    assert.deepEqual(planAssign({ status, partySize: 2, driverId: "driver-2" }, target), { ok: true, steps: [] }, status);
+  }
+});
+
+test("an admin assign fails for a driver off shift, a party too big for the cart, or a ride under way or over", () => {
+  const waiting = { status: "requested" as const, partySize: 3, driverId: null };
+  assert.deepEqual(planAssign(waiting, { driverId: "driver-2", cart: null }), { ok: false, status: 409, error: "That driver isn't on shift." });
+  assert.deepEqual(planAssign(waiting, { driverId: "driver-2", cart: { number: "2", seats: 3 } }), {
+    ok: false,
+    status: 409,
+    error: "This party of 3 doesn't fit in Cart 2.",
+  });
+  assert.equal(planAssign(waiting, { driverId: "driver-2", cart: { number: "2", seats: 4 } }).ok, true);
+  const target = { driverId: "driver-1", cart: { number: "1", seats: 6 } };
+  for (const status of ["in_progress", "completed", "canceled", "no_show"] as const) {
+    const plan = planAssign({ status, partySize: 1, driverId: "driver-1" }, target);
+    assert.equal(!plan.ok && plan.status, 409, status);
+  }
 });

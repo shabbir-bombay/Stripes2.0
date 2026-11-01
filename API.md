@@ -71,10 +71,10 @@ Change this file and `lib/types.ts` only when both sides agree.
 | Method | Path | Who | Body | Returns | Week |
 |---|---|---|---|---|---|
 | PUT | `/api/admin/service` | admin | `SetServiceModeRequest` | `ServiceStatus` | 2 ✅ |
-| GET | `/api/admin/board` | admin | — | `AdminBoard`. Poll every 3–5 s | 3 |
-| POST | `/api/admin/rides/:id/assign` | admin | `AssignRequest` | `StaffRide`. Also reassigns | 3 |
-| POST | `/api/admin/rides/:id/unassign` | admin | — | `StaffRide`, back to `requested` | 3 |
-| POST | `/api/admin/rides/:id/cancel` | admin | `CancelRideRequest`, reason required | `StaffRide` | 3 |
+| GET | `/api/admin/board` | admin | — | `AdminBoard`. Poll every 3–5 s | 3 ✅ |
+| POST | `/api/admin/rides/:id/assign` | admin | `AssignRequest` | `StaffRide`. Also reassigns | 3 ✅ |
+| POST | `/api/admin/rides/:id/unassign` | admin | — | `StaffRide`, back to `requested` | 3 ✅ |
+| POST | `/api/admin/rides/:id/cancel` | admin | `CancelRideRequest`, reason required | `StaffRide` | 3 ✅ |
 | GET | `/api/admin/driver-positions` | admin | — | `DriverPosition[]` | 4 |
 | GET | `/api/admin/service-rules` | admin | — | `ServiceRule[]` | 4 |
 | POST | `/api/admin/service-rules` | admin | `ServiceRuleInput` | `ServiceRule` | 4 |

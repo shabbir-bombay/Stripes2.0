@@ -100,3 +100,36 @@ export const DRIVER_ACTIONS: Record<string, RideStatus> = {
   "no-show": "no_show",
   cancel: "canceled",
 };
+
+/** The admin endpoints `/api/admin/rides/:id/<action>` and the status each one moves to. */
+export const ADMIN_ACTIONS: Record<string, RideStatus> = {
+  assign: "assigned",
+  unassign: "requested",
+  cancel: "canceled",
+};
+
+export interface AssignTarget {
+  driverId: string;
+  /** The driver's shift cart; null when off shift. */
+  cart: { number: string; seats: number } | null;
+}
+
+export type AssignPlan =
+  | { ok: true; steps: ("unassign" | "assign")[] }
+  | { ok: false; status: 409; error: string };
+
+/**
+ * What an admin assign does to a ride: assign it, or, when another driver holds it, unassign and then assign.
+ * Giving a ride to the driver who already has it changes nothing. The driver must be on shift with room for the party.
+ */
+export function planAssign(ride: { status: RideStatus; partySize: number; driverId: string | null }, target: AssignTarget): AssignPlan {
+  if (!target.cart) return { ok: false, status: 409, error: "That driver isn't on shift." };
+  // The driver's seat is one of the cart's seats.
+  if (ride.partySize > target.cart.seats - 1) {
+    return { ok: false, status: 409, error: `This party of ${ride.partySize} doesn't fit in Cart ${target.cart.number}.` };
+  }
+  if (ride.status === "requested") return { ok: true, steps: ["assign"] };
+  if (!MOVES.requested.from.includes(ride.status)) return { ok: false, status: 409, error: conflictMessage(ride.status) };
+  if (ride.driverId === target.driverId) return { ok: true, steps: [] };
+  return { ok: true, steps: ["unassign", "assign"] };
+}
