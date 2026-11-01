@@ -389,3 +389,30 @@ a {
   margin: 0;
   color: var(--muted);
 }
+
+/* ---------- Admin board ---------- */
+
+/* Waiting, Drivers and On a route side by side on a wide screen; stacked on a phone. */
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.driver-group {
+  padding-left: 12px;
+  border-left: 4px solid var(--orange);
+}
+
+.muted-inline {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* "Look for Cart N" on the student's ride page. */
+.look-for {
+  margin: 0;
+  font-size: 1.25rem;
+  text-align: center;
+}

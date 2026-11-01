@@ -3,7 +3,7 @@ import type { RideStatus, StaffRide } from "@/lib/types";
 
 const STATUS: Partial<Record<RideStatus, string>> = {
   requested: "Waiting",
-  assigned: "Claimed",
+  assigned: "Assigned",
   en_route: "On the way",
   arrived: "At pickup",
   in_progress: "Riding",

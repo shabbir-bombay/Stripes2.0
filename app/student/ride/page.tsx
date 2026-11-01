@@ -71,6 +71,12 @@ export default function RidePage() {
         <p>{text}</p>
         {error && <p className="field-error">{error}</p>}
       </div>
+      {ride.driver && ride.status !== "in_progress" && (
+        <p className="card look-for">
+          Look for <strong>Cart {ride.driver.cartNumber}</strong>
+          <span className="muted-inline"> · driver {ride.driver.callSign}</span>
+        </p>
+      )}
       <RideSummary pickup={ride.pickup.name} dropoff={ride.dropoff.name} partySize={ride.partySize} />
       {cancelError && <p role="alert" className="form-error">{cancelError}</p>}
       {CANCELABLE.includes(ride.status) &&
