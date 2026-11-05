@@ -76,10 +76,10 @@ Change this file and `lib/types.ts` only when both sides agree.
 | POST | `/api/admin/rides/:id/unassign` | admin | — | `StaffRide`, back to `requested` | 3 ✅ |
 | POST | `/api/admin/rides/:id/cancel` | admin | `CancelRideRequest`, reason required | `StaffRide` | 3 ✅ |
 | GET | `/api/admin/driver-positions` | admin | — | `DriverPosition[]`, drivers on shift with a known position, however old | 4 ✅ |
-| GET | `/api/admin/service-rules` | admin | — | `ServiceRule[]` | 4 |
-| POST | `/api/admin/service-rules` | admin | `ServiceRuleInput` | `ServiceRule` | 4 |
-| PUT | `/api/admin/service-rules/:id` | admin | `ServiceRuleInput` | `ServiceRule` | 4 |
-| DELETE | `/api/admin/service-rules/:id` | admin | — | `204` | 4 |
+| GET | `/api/admin/service-rules` | admin | — | `ServiceRule[]` | 4 ✅ |
+| POST | `/api/admin/service-rules` | admin | `ServiceRuleInput` | `ServiceRule` | 4 ✅ |
+| PUT | `/api/admin/service-rules/:id` | admin | `ServiceRuleInput` | `ServiceRule` | 4 ✅ |
+| DELETE | `/api/admin/service-rules/:id` | admin | — | `204` | 4 ✅ |
 | GET | `/api/admin/users?role=&q=` | admin | — | `User[]` | 5 |
 | PATCH | `/api/admin/users/:id` | admin | `UpdateUserRequest` | `User` | 5 |
 | POST | `/api/admin/carts` | admin | `CartInput` | `Cart` | 5 |

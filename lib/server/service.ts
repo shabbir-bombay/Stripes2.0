@@ -1,5 +1,6 @@
 import type { ServiceMode, ServiceStatus } from "../types";
 import { db } from "./db";
+import { scheduleStatus } from "./schedule";
 
 export const SERVICE_MODES: ServiceMode[] = ["automatic", "on", "off"];
 
@@ -11,13 +12,11 @@ export async function serviceStatus(): Promise<ServiceStatus> {
   ]);
   const mode = service?.mode ?? "automatic";
   const seats = carts._max.seats;
-  return {
-    // Automatic mode follows the weekly service rules, which are built in week 4. Until then it counts as closed.
-    open: mode === "on",
-    mode,
-    nextChange: null,
-    maxPartySize: seats ? seats - 1 : 1,
-  };
+  const maxPartySize = seats ? seats - 1 : 1;
+  if (mode !== "automatic") return { open: mode === "on", mode, nextChange: null, maxPartySize };
+
+  const { open, nextChange } = scheduleStatus(await db.serviceRule.findMany());
+  return { open, mode, nextChange: nextChange?.toISOString() ?? null, maxPartySize };
 }
 
 export async function setServiceMode(mode: ServiceMode) {
