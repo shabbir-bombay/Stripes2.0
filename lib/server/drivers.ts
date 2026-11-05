@@ -1,6 +1,7 @@
 import type { BoardDriver, Cart, Shift } from "../types";
 import { db } from "./db";
 import type { Prisma } from "./generated/prisma/client";
+import { storedPosition } from "./position";
 import { HELD } from "./ride-status";
 import { queueOrder, rideInclude, toStaffRide } from "./rides";
 
@@ -47,10 +48,7 @@ export async function boardDrivers(): Promise<BoardDriver[]> {
       name: profile.user.name,
       callSign: profile.callSign,
       cart: toCart(profile.cart!),
-      position:
-        profile.lat !== null && profile.lng !== null && profile.positionAt
-          ? { lat: profile.lat, lng: profile.lng, at: profile.positionAt.toISOString() }
-          : null,
+      position: storedPosition(profile),
       rides: profile.rides.map((row) => toStaffRide(row)),
     }));
 }

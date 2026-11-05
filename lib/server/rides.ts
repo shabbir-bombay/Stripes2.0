@@ -1,6 +1,7 @@
 import type { Ride as RideJson, StaffRide } from "../types";
 import { db } from "./db";
 import { Prisma } from "./generated/prisma/client";
+import { etaToPickup, storedPosition } from "./position";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -16,7 +17,7 @@ export const rideInclude = {
   pickup: stop,
   dropoff: stop,
   student: { select: { id: true, name: true } },
-  driver: { select: { callSign: true, cart: { select: { number: true } } } },
+  driver: { select: { callSign: true, lat: true, lng: true, positionAt: true, cart: { select: { number: true } } } },
 } satisfies Prisma.RideInclude;
 
 export type RideRow = Prisma.RideGetPayload<{ include: typeof rideInclude }>;
@@ -42,8 +43,8 @@ export function toRide(row: RideRow, queuePosition: number | null = null): RideJ
     // The cart is the one the driver is on shift with. Drivers can't end a shift while holding a ride.
     driver: row.driver && { callSign: row.driver.callSign, cartNumber: row.driver.cart?.number ?? "" },
     queuePosition: row.status === "requested" ? queuePosition : null,
-    // ETA comes with driver positions in week 4, and the rating with feedback in week 5.
-    eta: null,
+    eta: etaToPickup(row.status, row.driver && storedPosition(row.driver), row.pickup),
+    // The rating comes with feedback in week 5.
     rating: null,
   };
 }

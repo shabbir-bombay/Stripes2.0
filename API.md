@@ -44,7 +44,7 @@ Change this file and `lib/types.ts` only when both sides agree.
 | POST | `/api/rides` | student | `CreateRideRequest` | `Ride`. 409 if the student already has an active ride or service is closed | 2 ✅ |
 | GET | `/api/rides/active` | student | — | `Ride` or `null`. Poll every 3–5 s while a ride is active | 2 ✅ |
 | POST | `/api/rides/:id/cancel` | student | `CancelRideRequest` | `Ride`. 409 once the ride is in progress | 2 ✅ |
-| GET | `/api/rides/:id/driver-position` | student | — | `Position` or `null`, while the ride is assigned, en route or arrived | 4 |
+| GET | `/api/rides/:id/driver-position` | student | — | `Position` or `null`, while the ride is assigned, en route or arrived and the position is at most 30 s old | 4 ✅ |
 | GET | `/api/rides/history?cursor=` | student | — | `HistoryPage`, 20 per page, newest first | 5 |
 | POST | `/api/rides/:id/feedback` | student | `FeedbackRequest` | `Ride`. Completed rides only, once | 5 |
 
@@ -63,7 +63,7 @@ Change this file and `lib/types.ts` only when both sides agree.
 | POST | `/api/driver/rides/:id/complete` | driver | — | `StaffRide` | 3 ✅ |
 | POST | `/api/driver/rides/:id/no-show` | driver | — | `StaffRide` | 3 ✅ |
 | POST | `/api/driver/rides/:id/cancel` | driver | `CancelRideRequest`, reason required | `StaffRide` | 3 ✅ |
-| POST | `/api/driver/position` | driver | `PositionReport` | `204`. Every 5–10 s on shift | 4 |
+| POST | `/api/driver/position` | driver | `PositionReport` | `204`. Every 5–10 s on shift. 400 if the fix is over 30 s old or over 10 s in the future; 409 when off shift | 4 ✅ |
 | POST | `/api/driver/rides/:id/penalty-point` | driver | `PenaltyPointRequest` | `PenaltyPoint`, pending until an admin decides | 5 |
 
 ## Admin
@@ -75,7 +75,7 @@ Change this file and `lib/types.ts` only when both sides agree.
 | POST | `/api/admin/rides/:id/assign` | admin | `AssignRequest` | `StaffRide`. Also reassigns | 3 ✅ |
 | POST | `/api/admin/rides/:id/unassign` | admin | — | `StaffRide`, back to `requested` | 3 ✅ |
 | POST | `/api/admin/rides/:id/cancel` | admin | `CancelRideRequest`, reason required | `StaffRide` | 3 ✅ |
-| GET | `/api/admin/driver-positions` | admin | — | `DriverPosition[]` | 4 |
+| GET | `/api/admin/driver-positions` | admin | — | `DriverPosition[]`, drivers on shift with a known position, however old | 4 ✅ |
 | GET | `/api/admin/service-rules` | admin | — | `ServiceRule[]` | 4 |
 | POST | `/api/admin/service-rules` | admin | `ServiceRuleInput` | `ServiceRule` | 4 |
 | PUT | `/api/admin/service-rules/:id` | admin | `ServiceRuleInput` | `ServiceRule` | 4 |
