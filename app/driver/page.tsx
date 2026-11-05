@@ -5,6 +5,7 @@ import { api } from "@/components/api";
 import { Button } from "@/components/Button";
 import { Field, SelectField } from "@/components/Field";
 import { RideCard } from "@/components/RideCard";
+import { useLocationSharing } from "@/components/useLocationSharing";
 import { usePolling } from "@/components/usePolling";
 import type { Cart, DriverQueue, RideStatus, Shift, StaffRide } from "@/lib/types";
 
@@ -108,6 +109,7 @@ function StartShift({ reload }: { reload: Reload }) {
 }
 
 function ShiftCard({ shift, reload }: { shift: Shift; reload: Reload }) {
+  const location = useLocationSharing();
   const [error, setError] = useState<string>();
   const [busy, setBusy] = useState(false);
   const since = new Date(shift.startedAt).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" });
@@ -130,7 +132,12 @@ function ShiftCard({ shift, reload }: { shift: Shift; reload: Reload }) {
       <p className="banner-title">
         On shift with Cart {shift.cart.number} since {since}
       </p>
-      {error && <p role="alert" className="form-error">{error}</p>}
+      {location.problem ? (
+        <p role="alert" className="form-error">{location.problem}</p>
+      ) : (
+        <p role="status" className="muted">{location.sharing ? "Sharing your location" : "Finding your location…"}</p>
+      )}
+      {error &&<p role="alert" className="form-error">{error}</p>}
       <Button variant="secondary" onClick={end} disabled={busy}>{busy ? "Ending…" : "End shift"}</Button>
     </div>
   );

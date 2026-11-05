@@ -1,13 +1,19 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState, type ReactNode } from "react";
 import { api } from "@/components/api";
 import { Button, ButtonLink } from "@/components/Button";
+import type { MapPin } from "@/components/CampusMap";
 import { RideSummary } from "@/components/RideSummary";
 import { usePolling } from "@/components/usePolling";
-import type { Ride, RideStatus } from "@/lib/types";
+import type { Position, Ride, RideStatus } from "@/lib/types";
+
+// Leaflet only runs in the browser.
+const CampusMap = dynamic(() => import("@/components/CampusMap"), { ssr: false, loading: () => <div className="map" /> });
 
 const CANCELABLE: RideStatus[] = ["requested", "assigned", "en_route", "arrived"];
+const TRACKABLE: RideStatus[] = ["assigned", "en_route", "arrived"];
 
 export default function RidePage() {
   const [canceled, setCanceled] = useState<Ride>();
@@ -77,6 +83,7 @@ export default function RidePage() {
           <span className="muted-inline"> · driver {ride.driver.callSign}</span>
         </p>
       )}
+      {ride.driver && TRACKABLE.includes(ride.status) && <CartMap key={ride.id} ride={ride} cartNumber={ride.driver.cartNumber} />}
       <RideSummary pickup={ride.pickup.name} dropoff={ride.dropoff.name} partySize={ride.partySize} />
       {cancelError && <p role="alert" className="form-error">{cancelError}</p>}
       {CANCELABLE.includes(ride.status) &&
@@ -90,6 +97,21 @@ export default function RidePage() {
           <Button variant="secondary" onClick={() => setConfirming(true)}>Cancel ride</Button>
         ))}
     </Page>
+  );
+}
+
+/** The pickup, and the cart while its position is fresh. */
+function CartMap({ ride, cartNumber }: { ride: Ride; cartNumber: string }) {
+  const { data: position } = usePolling<Position | null>(`/api/rides/${ride.id}/driver-position`);
+  const { lat, lng } = ride.pickup;
+  const pins: MapPin[] = [{ id: "pickup", kind: "stop", lat, lng, label: "Pickup" }];
+  if (position) pins.push({ id: "cart", kind: "cart", lat: position.lat, lng: position.lng, label: `Cart ${cartNumber}` });
+
+  return (
+    <>
+      <CampusMap pins={pins} label={`Map of your pickup at ${ride.pickup.name} and your cart`} />
+      {!position && <p className="muted">Your cart will show on the map once its location comes in.</p>}
+    </>
   );
 }
 

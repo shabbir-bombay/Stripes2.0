@@ -416,3 +416,34 @@ a {
   font-size: 1.25rem;
   text-align: center;
 }
+
+/* Leaflet map. `isolation` keeps Leaflet's high z-indexes inside the map. */
+.map {
+  height: 320px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--page);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.map-pin {
+  border: 3px solid var(--paper);
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 45%);
+}
+
+.map-pin.stop {
+  background: var(--ink);
+}
+
+.map-pin.cart {
+  background: var(--orange);
+}
+
+.map.leaflet-container .leaflet-control-zoom a {
+  width: var(--tap);
+  height: var(--tap);
+  line-height: var(--tap);
+  font-size: 1.5rem;
+}
