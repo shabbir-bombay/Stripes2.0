@@ -52,6 +52,15 @@ export function classifyGate(dataset,id,value) {
 export const gateNotesIndex = dataset => dataset.headers.findIndex(header => header.trim().toLowerCase() === 'notes');
 export const gateNotes = (point, dataset) => point.cells[gateNotesIndex(dataset)] ?? '';
 
+// Optional columns, added to the file the first time one is filled in.
+const GATE_ALSO_KNOWN_AS = {
+  nickname: {header: 'Nickname', names: ['nickname']},
+  abbreviation: {header: 'Abbreviation', names: ['abbreviation', 'abbrev', 'abbr']},
+};
+const alsoKnownAsIndex = (dataset, field) => dataset.headers.findIndex(header => GATE_ALSO_KNOWN_AS[field].names.includes(header.toLowerCase().replace(/[^a-z0-9]/g, '')));
+export const gateNickname = (point, dataset) => point.cells[alsoKnownAsIndex(dataset, 'nickname')] ?? '';
+export const gateAbbreviation = (point, dataset) => point.cells[alsoKnownAsIndex(dataset, 'abbreviation')] ?? '';
+
 export function moveSortedGate(dataset, id, lat, lng) {
   if (!validLocation(lat, lng)) throw new Error('Choose a valid location for this gate.');
   const point = dataset.points.find(point => point.id === id);
@@ -78,12 +87,21 @@ export function updateGateDetails(dataset, id, changes) {
   let notesIndex = gateNotesIndex(dataset);
   if ('notes' in changes && notesIndex < 0 && changes.notes !== '') {notesIndex = headers.length; headers.push('Notes');}
   if ('building' in changes && mapping.building < 0 && changes.building.trim()) {mapping.building = headers.length; headers.push('Building Name');}
+  const alsoKnownAs = [];
+  for (const field of Object.keys(GATE_ALSO_KNOWN_AS)) {
+    if (!(field in changes)) continue;
+    if (typeof changes[field] !== 'string') throw new Error(`${GATE_ALSO_KNOWN_AS[field].header} must be text.`);
+    let index = alsoKnownAsIndex(dataset, field);
+    if (index < 0 && changes[field].trim()) {index = headers.length; headers.push(GATE_ALSO_KNOWN_AS[field].header);}
+    if (index >= 0) alsoKnownAs.push([index, changes[field].trim()]);
+  }
   const points = dataset.points.map(p => {
     const cells = headers.map((_, index) => p.cells[index] ?? '');
     if (p.id === id) {
       if ('name' in changes) cells[mapping.name] = changes.name.trim();
       if ('building' in changes && mapping.building >= 0) cells[mapping.building] = changes.building.trim();
       if ('notes' in changes && notesIndex >= 0) cells[notesIndex] = changes.notes;
+      for (const [index, value] of alsoKnownAs) cells[index] = value;
     }
     return {...p, cells};
   });

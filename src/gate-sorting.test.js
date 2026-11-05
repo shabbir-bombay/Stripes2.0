@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createDataset,guessMapping,exportCsv,readFileData} from './data.js';
-import {prepareGateSorting,classifyGate,accessStyle,addSortedGate,moveSortedGate,updateGateDetails,gateNotes,deleteSortedGate} from './gate-sorting.js';
+import {prepareGateSorting,classifyGate,accessStyle,addSortedGate,moveSortedGate,updateGateDetails,gateNotes,gateNickname,gateAbbreviation,deleteSortedGate} from './gate-sorting.js';
 const headers=['Building Name','Door Name','Latitude','Longitude','Accessible','Notes'];
 const source=createDataset({name:'Gates',headers,rows:[['Hall','A','37','-121','yes','Keep me'],['Hall','B','37.001','-121','no','Keep too']]},guessMapping(headers),'gates.csv');
 test('new sorting copy starts gray without altering source identities, positions or other cells',()=>{
@@ -100,6 +100,41 @@ test('notes are optional and append a column only when needed on older templates
  assert.equal(before.headers.length,5);
  const restored=prepareGateSorting(JSON.parse(JSON.stringify(updated)));
  assert.equal(gateNotes(restored.points[0],restored),'Ramp by west door');
+});
+
+test('each gate keeps its own nickname and abbreviation, and adds the columns only when needed',()=>{
+ const before=prepareGateSorting(source),text=JSON.stringify(before);
+ assert.equal(gateNickname(before.points[0],before),'');assert.equal(gateAbbreviation(before.points[0],before),'');
+ assert.equal(updateGateDetails(before,'import-0',{nickname:' ',abbreviation:''}),before);
+ const named=updateGateDetails(before,'import-0',{nickname:'  Front door '});
+ assert.deepEqual(named.headers.slice(-2),['Notes','Nickname']);
+ assert.equal(gateNickname(named.points[0],named),'Front door');assert.equal(gateNickname(named.points[1],named),'');
+ const both=updateGateDetails(named,'import-1',{abbreviation:'HB'});
+ assert.equal(both.headers.at(-1),'Abbreviation');
+ assert.equal(gateAbbreviation(both.points[1],both),'HB');assert.equal(gateAbbreviation(both.points[0],both),'');
+ assert.equal(gateNickname(both.points[0],both),'Front door');assert.equal(gateNotes(both.points[1],both),'Keep too');
+ assert.equal(JSON.stringify(before),text);
+ const cleared=updateGateDetails(both,'import-0',{nickname:''});
+ assert.equal(gateNickname(cleared.points[0],cleared),'');assert.equal(cleared.headers.length,both.headers.length);
+ assert.equal(updateGateDetails(cleared,'import-0',{nickname:''}),cleared);
+ assert.throws(()=>updateGateDetails(before,'import-0',{abbreviation:7}),/must be text/);
+});
+test('nickname and abbreviation survive draft restore and a CSV round-trip without changing the gate name',async()=>{
+ let next=updateGateDetails(prepareGateSorting(source),'import-0',{nickname:'Hall, "main" door',abbreviation:'HMD'});
+ next=prepareGateSorting(JSON.parse(JSON.stringify(next)));
+ const [table]=await readFileData(new TextEncoder().encode(exportCsv(next)),'gates.csv');
+ const mapping=guessMapping(table.headers),loaded=prepareGateSorting(createDataset(table,mapping,'gates.csv'));
+ assert.equal(table.headers[mapping.name],'Door Name');
+ assert.equal(gateNickname(loaded.points[0],loaded),'Hall, "main" door');assert.equal(gateAbbreviation(loaded.points[0],loaded),'HMD');
+ assert.equal(loaded.points[0].cells[loaded.mapping.name],'A');assert.equal(gateAbbreviation(loaded.points[1],loaded),'');
+});
+test('existing nickname and abbreviation columns are reused, whatever their spelling',()=>{
+ const spelled=['Door Name','Latitude','Longitude','Nick Name','ABBR'];
+ const gates=prepareGateSorting(createDataset({name:'Gates',headers:spelled,rows:[['A','37','-121','Old','O']]},guessMapping(spelled),'gates.csv'));
+ assert.equal(gateNickname(gates.points[0],gates),'Old');assert.equal(gateAbbreviation(gates.points[0],gates),'O');
+ const updated=updateGateDetails(gates,'import-0',{nickname:'New',abbreviation:'N'});
+ assert.equal(updated.headers.length,gates.headers.length);
+ assert.equal(gateNickname(updated.points[0],updated),'New');assert.equal(gateAbbreviation(updated.points[0],updated),'N');
 });
 
 test('deleting a gate removes only that point and leaves an immutable snapshot for undo',()=>{

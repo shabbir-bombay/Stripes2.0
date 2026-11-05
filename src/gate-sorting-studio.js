@@ -2,13 +2,14 @@ import L from 'leaflet';
 import { setupBasemap } from './basemap.js';
 import { icon } from './icons.js';
 import { emptyDataset,pointName,validLocation,exportCsv,readFileData,createDataset,guessMapping } from './data.js';
-import { ACCESS_STATES,GATE_SORTING_STORAGE_KEY,GATE_SORTING_FILE,prepareGateSorting,classifyGate,accessStyle,addSortedGate,moveSortedGate,updateGateDetails,gateNotes,deleteSortedGate } from './gate-sorting.js';
+import { ACCESS_STATES,GATE_SORTING_STORAGE_KEY,GATE_SORTING_FILE,prepareGateSorting,classifyGate,accessStyle,addSortedGate,moveSortedGate,updateGateDetails,gateNotes,gateNickname,gateAbbreviation,deleteSortedGate } from './gate-sorting.js';
 import { isEditingField } from './sorting-shortcuts.js';
 const $=s=>document.querySelector(s);
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 let started=false,map,layer,toast,hasDataset=false,busy=false;
 let dataset=emptyDataset(),brush='yes',undo=[],redo=[],search='',filter='all';
 let mode='paint',selectedId=null,historyGroup=null,pendingDelete=null;
+const alsoKnownAs=point=>[gateNickname(point,dataset),gateAbbreviation(point,dataset)].filter(Boolean).join(' · ');
 
 export function showGateSorting(showToast) {
   toast=showToast;
@@ -25,7 +26,7 @@ function start() {
       <button id="gate-sort-edit-mode" class="full-width" aria-pressed="false">Edit gates & notes <kbd>E</kbd></button>
       <p id="gate-sort-paint-note" role="status"></p><p id="gate-sort-progress"></p><progress id="gate-sort-meter" max="1" value="0" aria-label="Classified gates"></progress>
       <p id="gate-sort-invalid" class="gate-sort-note" hidden></p>
-      <label class="search-box">${icon('search')}<input id="gate-sort-search" type="search" placeholder="Search building or gate…" aria-label="Search gate sorting points"></label>
+      <label class="search-box">${icon('search')}<input id="gate-sort-search" type="search" placeholder="Search name, nickname, abbreviation…" aria-label="Search gates by name, nickname or abbreviation"></label>
       <label class="sr-only" for="gate-sort-filter">Filter accessibility</label><select id="gate-sort-filter"><option value="all">All points</option>${ACCESS_STATES.map(s=>`<option value="${s.value}">${s.label}</option>`).join('')}</select>
     </div><div class="point-list" id="gate-sort-list"></div>
     <div class="sidebar-bottom"><span id="gate-sort-storage" role="status">Draft saved in this browser</span><small>1: Accessible · 2: Not accessible · 3: Undefined · 4: Ground floor only<br>E: Edit · A: Add point · M: Move · N: Delete<br>Z/Y: Undo/Redo · F: Fit · Esc: Cancel tool. Shortcuts pause in fields.</small></div>
@@ -82,7 +83,7 @@ function start() {
     act(()=>{mode='edit';commit(deleteSortedGate(dataset,pending.id));toast('Point deleted. Press Z to undo.');});
   };
   $('#gate-sort-editor').onchange=e=>{
-    const field={'gate-sort-name':'name','gate-sort-building':'building'}[e.target.id];
+    const field={'gate-sort-name':'name','gate-sort-building':'building','gate-sort-nickname':'nickname','gate-sort-abbreviation':'abbreviation'}[e.target.id];
     if(!field||busy)return;
     try{commit(updateGateDetails(dataset,selectedId,{[field]:e.target.value}),null,true);}
     catch(error){toast(error.message);e.target.value=dataset.points.find(p=>p.id===selectedId).cells[dataset.mapping[field]]??'';}
@@ -155,7 +156,7 @@ function selectPoint(id){
 function step(forward){if(busy)return;const [from,to]=forward?[redo,undo]:[undo,redo];if(!from.length)return;to.push(dataset);dataset=from.pop();historyGroup=null;if(mode==='add'||mode==='move')mode='edit';persist();render();}
 function renderBrush(){
   for(const button of document.querySelectorAll('[data-gate-brush]')){button.setAttribute('aria-pressed',String(mode==='paint'&&button.dataset.gateBrush===brush));button.disabled=busy;}
-  $('#gate-sort-paint-note').textContent={paint:`Painting: ${ACCESS_STATES.find(s=>s.value===brush).label}. Click dots or list entries to apply.`,edit:'Click a gate for its name and optional notes. Drag dots to move them.',add:'Click the map to place a new undefined gate. Esc cancels.',move:'Click the new location for the selected gate. Esc cancels.'}[mode];
+  $('#gate-sort-paint-note').textContent={paint:`Painting: ${ACCESS_STATES.find(s=>s.value===brush).label}. Click dots or list entries to apply.`,edit:'Click a gate for its name, nickname, abbreviation and notes. Drag dots to move them.',add:'Click the map to place a new undefined gate. Esc cancels.',move:'Click the new location for the selected gate. Esc cancels.'}[mode];
   $('#gate-sort-edit-mode').setAttribute('aria-pressed',String(mode==='edit'));
   $('#gate-sort-add').setAttribute('aria-pressed',String(mode==='add'));
   $('#gate-sort-edit-mode').disabled=$('#gate-sort-add').disabled=busy;
@@ -175,7 +176,7 @@ function render(keepEditor=false){
   renderBrush();renderList();if(!keepEditor)renderEditor();layer.clearLayers();
   for(const point of dataset.points){
     if(!validLocation(point.lat,point.lng))continue;
-    const style=accessStyle(point,dataset),name=pointName(point,dataset.mapping);
+    const style=accessStyle(point,dataset),name=[pointName(point,dataset.mapping),alsoKnownAs(point)].filter(Boolean).join(' · ');
     const marker=L.marker([point.lat,point.lng],{keyboard:true,draggable:mode==='edit'&&!busy,bubblingMouseEvents:false,title:`${name} · ${style.label}`,icon:L.divIcon({className:`gate-sort-dot ${point.id===selectedId&&mode!=='paint'?'selected':''}`,html:`<span style="background:${style.color}"></span>`,iconSize:[16,16]})}).addTo(layer);
     marker.bindTooltip(`${escape(name)} · ${style.label}`);marker.on('click',()=>selectPoint(point.id));
     marker.on('dragend',()=>{
@@ -186,8 +187,8 @@ function render(keepEditor=false){
   }
 }
 function renderList(){
-  const points=dataset.points.filter(p=>(filter==='all'||accessStyle(p,dataset).value===filter)&&`${pointName(p,dataset.mapping)} ${gateNotes(p,dataset)}`.toLowerCase().includes(search));
-  $('#gate-sort-list').innerHTML=points.length?points.map(p=>{const style=accessStyle(p,dataset);return `<button class="point-row ${p.id===selectedId&&mode!=='paint'?'selected':''}" data-gate-point="${escape(p.id)}" ${busy?'disabled':''}><i class="sorting-swatch" style="background:${style.color}"></i><span class="point-row-text"><strong>${escape(pointName(p,dataset.mapping))}</strong><small>${style.label}${gateNotes(p,dataset)?' · Has notes':''}${validLocation(p.lat,p.lng)?'':' · Needs coordinates'}</small></span></button>`;}).join(''):'<div class="empty-list"><strong>No matching points</strong><p>Upload a CSV or change the filter.</p></div>';
+  const points=dataset.points.filter(p=>(filter==='all'||accessStyle(p,dataset).value===filter)&&`${pointName(p,dataset.mapping)} ${gateNickname(p,dataset)} ${gateAbbreviation(p,dataset)} ${gateNotes(p,dataset)}`.toLowerCase().includes(search));
+  $('#gate-sort-list').innerHTML=points.length?points.map(p=>{const style=accessStyle(p,dataset);return `<button class="point-row ${p.id===selectedId&&mode!=='paint'?'selected':''}" data-gate-point="${escape(p.id)}" ${busy?'disabled':''}><i class="sorting-swatch" style="background:${style.color}"></i><span class="point-row-text"><strong>${escape(pointName(p,dataset.mapping))}</strong><small>${alsoKnownAs(p)?`${escape(alsoKnownAs(p))} · `:''}${style.label}${gateNotes(p,dataset)?' · Has notes':''}${validLocation(p.lat,p.lng)?'':' · Needs coordinates'}</small></span></button>`;}).join(''):'<div class="empty-list"><strong>No matching points</strong><p>Upload a CSV or change the filter.</p></div>';
 }
 function renderEditor(){
   const panel=$('#gate-sort-editor'),point=dataset.points.find(p=>p.id===selectedId);
@@ -197,6 +198,8 @@ function renderEditor(){
     <p class="gate-sort-note">${accessStyle(point,dataset).label} · Changes save automatically.</p>
     <label>Gate name<input id="gate-sort-name" value="${escape(point.cells[dataset.mapping.name])}" required ${busy?'disabled':''}></label>
     <label>Building (optional)<input id="gate-sort-building" value="${escape(point.cells[dataset.mapping.building]??'')}" ${busy?'disabled':''}></label>
+    <label>Nickname (optional)<input id="gate-sort-nickname" value="${escape(gateNickname(point,dataset))}" ${busy?'disabled':''}></label>
+    <label>Abbreviation (optional)<input id="gate-sort-abbreviation" value="${escape(gateAbbreviation(point,dataset))}" ${busy?'disabled':''}></label>
     <label>Notes (optional)<textarea id="gate-sort-notes" rows="4" placeholder="Entry instructions, access details…" ${busy?'disabled':''}>${escape(gateNotes(point,dataset))}</textarea></label>
     <p class="gate-sort-note">${validLocation(point.lat,point.lng)?`${point.lat.toFixed(7)}, ${point.lng.toFixed(7)}`:'No valid location yet'}</p>
     <button id="gate-sort-move" ${busy?'disabled':''}>Move point <kbd>M</kbd></button><p class="gate-sort-note">Drag the dot, or choose Move point and click its new location.</p><button id="gate-sort-delete" class="text-danger" ${busy?'disabled':''}>Delete point <kbd>N</kbd></button>`;
