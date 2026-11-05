@@ -3,7 +3,9 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { api } from "@/components/api";
 import { Button } from "@/components/Button";
+import type { MapPin } from "@/components/CampusMap";
 import { Field, SelectField } from "@/components/Field";
+import { LazyCampusMap } from "@/components/LazyCampusMap";
 import { RideCard } from "@/components/RideCard";
 import { useLocationSharing } from "@/components/useLocationSharing";
 import { usePolling } from "@/components/usePolling";
@@ -27,7 +29,7 @@ export default function DriverHome() {
   return (
     <Page>
       {error && <p role="alert" className="form-error">{error}</p>}
-      {queue.shift ? <ShiftCard shift={queue.shift} reload={refresh} /> : <StartShift reload={refresh} />}
+      {queue.shift ? <OnShift shift={queue.shift} mine={queue.mine} reload={refresh} /> : <StartShift reload={refresh} />}
       {(queue.shift || queue.mine.length > 0) && (
         <section className="stack" aria-labelledby="mine-heading">
           <h2 id="mine-heading">Your rides</h2>
@@ -108,8 +110,37 @@ function StartShift({ reload }: { reload: Reload }) {
   );
 }
 
-function ShiftCard({ shift, reload }: { shift: Shift; reload: Reload }) {
+/** Where to go next: the drop-off for riders on board, otherwise the oldest ride's pickup. */
+function nextStop(mine: StaffRide[]) {
+  const ride = mine.find((held) => held.status === "in_progress") ?? mine[0];
+  if (!ride) return null;
+  return ride.status === "in_progress"
+    ? { label: "Drop-off", stop: ride.dropoff }
+    : { label: "Pickup", stop: ride.pickup };
+}
+
+/** Mounted only while on shift, so location sharing starts and stops with the shift. */
+function OnShift({ shift, mine, reload }: { shift: Shift; mine: StaffRide[]; reload: Reload }) {
   const location = useLocationSharing();
+  const next = nextStop(mine);
+  const pins: MapPin[] = [];
+  if (next) pins.push({ id: next.stop.id, kind: "stop", lat: next.stop.lat, lng: next.stop.lng, label: next.label });
+  if (location.position) pins.push({ id: "me", kind: "cart", ...location.position, label: "You" });
+
+  return (
+    <>
+      <ShiftCard shift={shift} location={location} reload={reload} />
+      {next && (
+        <p className="card next-stop">
+          Next: <strong>{next.label} at {next.stop.name}</strong>
+        </p>
+      )}
+      {pins.length > 0 && <LazyCampusMap pins={pins} label={next ? `Map of your next stop, ${next.stop.name}, and your cart` : "Map of your cart"} />}
+    </>
+  );
+}
+
+function ShiftCard({ shift, location, reload }: { shift: Shift; location: ReturnType<typeof useLocationSharing>; reload: Reload }) {
   const [error, setError] = useState<string>();
   const [busy, setBusy] = useState(false);
   const since = new Date(shift.startedAt).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" });

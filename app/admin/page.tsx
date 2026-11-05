@@ -3,10 +3,13 @@
 import { useState, type FormEvent } from "react";
 import { api } from "@/components/api";
 import { Button } from "@/components/Button";
+import type { MapPin } from "@/components/CampusMap";
 import { Field, SelectField } from "@/components/Field";
+import { LazyCampusMap } from "@/components/LazyCampusMap";
 import { RideCard } from "@/components/RideCard";
 import { ServiceSwitch } from "@/components/ServiceSwitch";
 import { usePolling } from "@/components/usePolling";
+import { isFresh } from "@/lib/server/position";
 import type { AdminBoard, BoardDriver, RideStatus, StaffRide } from "@/lib/types";
 
 type Reload = () => Promise<void>;
@@ -28,6 +31,7 @@ export default function AdminHome() {
       ) : (
         <>
           {error && <p role="alert" className="form-error">{error}</p>}
+          <LazyCampusMap pins={boardPins(board)} label="Map of drivers and waiting pickups" />
           <div className="board">
             <section className="stack" aria-labelledby="waiting-heading">
               <h2 id="waiting-heading">Waiting ({board.waiting.length})</h2>
@@ -68,6 +72,28 @@ export default function AdminHome() {
       )}
     </main>
   );
+}
+
+/** Every driver with a known position, and every stop with riders waiting (one pin per stop). */
+function boardPins(board: AdminBoard): MapPin[] {
+  const pins: MapPin[] = [];
+  for (const { id, callSign, position } of board.drivers) {
+    if (!position) continue;
+    const live = isFresh(position);
+    pins.push({
+      id,
+      kind: live ? "cart" : "stale",
+      lat: position.lat,
+      lng: position.lng,
+      label: live ? callSign : `${callSign}: no recent location`,
+    });
+  }
+  for (const { pickup } of board.waiting) {
+    const waiting = board.waiting.filter((ride) => ride.pickup.id === pickup.id).length;
+    if (pins.some((pin) => pin.id === pickup.id)) continue;
+    pins.push({ id: pickup.id, kind: "stop", lat: pickup.lat, lng: pickup.lng, label: `${pickup.name}: ${waiting} waiting` });
+  }
+  return pins;
 }
 
 function DriverName({ driver }: { driver: BoardDriver }) {

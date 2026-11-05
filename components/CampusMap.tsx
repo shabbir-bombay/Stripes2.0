@@ -7,7 +7,8 @@ import { useEffect, useRef } from "react";
 export interface MapPin {
   /** Stays the same while the pin moves, so its marker moves instead of being redrawn. */
   id: string;
-  kind: "stop" | "cart";
+  /** `stale` is a cart whose position is out of date. */
+  kind: "stop" | "cart" | "stale";
   lat: number;
   lng: number;
   /** Shown next to the pin, so the pins differ by more than color. */
@@ -16,16 +17,20 @@ export interface MapPin {
 
 const CAMPUS: L.LatLngTuple = [37.98, -121.3115];
 
+const pinIcon = (kind: MapPin["kind"]) => L.divIcon({ className: `map-pin ${kind}`, iconSize: [20, 20] });
+
 /**
- * A map of campus with pins on it. Leaflet needs a browser, so load this with `next/dynamic` and `ssr: false`.
- * The view frames the pins again whenever one appears or leaves, or moves out of sight, until the user drags the map.
+ * A map of campus with pins on it. Leaflet needs a browser, so use it through `LazyCampusMap`.
+ * The view frames the pins whenever one appears or leaves. It also follows a pin moving out of sight,
+ * until the user drags or zooms the map themselves.
  */
 export default function CampusMap({ pins, label }: { pins: MapPin[]; label: string }) {
   const element = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
   const markers = useRef(new Map<string, L.Marker>());
   const framed = useRef<string | null>(null);
-  const dragged = useRef(false);
+  const movedByUser = useRef(false);
+  const framing = useRef(false);
 
   useEffect(() => {
     const created = L.map(element.current!).setView(CAMPUS, 16);
@@ -33,8 +38,11 @@ export default function CampusMap({ pins, label }: { pins: MapPin[]; label: stri
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(created);
-    created.on("dragstart", () => {
-      dragged.current = true;
+    created.on("dragstart zoomstart", () => {
+      if (!framing.current) movedByUser.current = true;
+    });
+    created.on("moveend", () => {
+      framing.current = false;
     });
     map.current = created;
     const placed = markers.current;
@@ -60,10 +68,10 @@ export default function CampusMap({ pins, label }: { pins: MapPin[]; label: stri
       const marker = markers.current.get(pin.id);
       if (marker) {
         marker.setLatLng([pin.lat, pin.lng]);
-        marker.setTooltipContent(pin.label);
+        if (marker.getTooltip()?.getContent() !== pin.label) marker.setTooltipContent(pin.label);
+        if (marker.options.icon?.options.className !== `map-pin ${pin.kind}`) marker.setIcon(pinIcon(pin.kind));
       } else {
-        const icon = L.divIcon({ className: `map-pin ${pin.kind}`, iconSize: [20, 20] });
-        const created = L.marker([pin.lat, pin.lng], { icon, keyboard: false, alt: pin.label })
+        const created = L.marker([pin.lat, pin.lng], { icon: pinIcon(pin.kind), keyboard: false, alt: pin.label })
           .bindTooltip(pin.label, { permanent: true, direction: "top", offset: [0, -10] })
           .addTo(leaflet);
         markers.current.set(pin.id, created);
@@ -72,9 +80,10 @@ export default function CampusMap({ pins, label }: { pins: MapPin[]; label: stri
 
     const ids = pins.map((pin) => pin.id).join();
     const hidden = pins.some((pin) => !leaflet.getBounds().contains([pin.lat, pin.lng]));
-    if (pins.length > 0 && (ids !== framed.current || (hidden && !dragged.current))) {
-      if (ids !== framed.current) dragged.current = false;
+    if (pins.length > 0 && (ids !== framed.current || (hidden && !movedByUser.current))) {
+      if (ids !== framed.current) movedByUser.current = false;
       framed.current = ids;
+      framing.current = true;
       const bounds = L.latLngBounds(pins.map((pin): L.LatLngTuple => [pin.lat, pin.lng]));
       leaflet.fitBounds(bounds, { padding: [56, 56], maxZoom: 17 });
     }

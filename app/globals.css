@@ -417,6 +417,12 @@ a {
   text-align: center;
 }
 
+/* The driver's next stop. */
+.next-stop {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
 /* Leaflet map. `isolation` keeps Leaflet's high z-indexes inside the map. */
 .map {
   height: 320px;
@@ -439,6 +445,10 @@ a {
 
 .map-pin.cart {
   background: var(--orange);
+}
+
+.map-pin.stale {
+  background: var(--muted);
 }
 
 .map.leaflet-container .leaflet-control-zoom a {

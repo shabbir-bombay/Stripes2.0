@@ -16,6 +16,7 @@ export function RideCard({ ride, children }: { ride: StaffRide; children?: React
     <article className="card ride-card">
       <p className="ride-status">
         {ride.status === "requested" ? `#${ride.queuePosition} in line` : STATUS[ride.status]} · {waited} min since request
+        {ride.eta && ` · pickup in ${ride.eta.minMinutes}–${ride.eta.maxMinutes} min`}
       </p>
       <dl className="summary">
         <dt>From</dt>

@@ -1,16 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useEffect, useState, type ReactNode } from "react";
 import { api } from "@/components/api";
 import { Button, ButtonLink } from "@/components/Button";
 import type { MapPin } from "@/components/CampusMap";
+import { LazyCampusMap } from "@/components/LazyCampusMap";
 import { RideSummary } from "@/components/RideSummary";
 import { usePolling } from "@/components/usePolling";
 import type { Position, Ride, RideStatus } from "@/lib/types";
-
-// Leaflet only runs in the browser.
-const CampusMap = dynamic(() => import("@/components/CampusMap"), { ssr: false, loading: () => <div className="map" /> });
 
 const CANCELABLE: RideStatus[] = ["requested", "assigned", "en_route", "arrived"];
 const TRACKABLE: RideStatus[] = ["assigned", "en_route", "arrived"];
@@ -75,6 +72,7 @@ export default function RidePage() {
       <div role="status" className="banner open">
         <p className="banner-title">{title}</p>
         <p>{text}</p>
+        {ride.eta && <p>Your cart should reach you in about {ride.eta.minMinutes}–{ride.eta.maxMinutes} min.</p>}
         {error && <p className="field-error">{error}</p>}
       </div>
       {ride.driver && ride.status !== "in_progress" && (
@@ -109,7 +107,7 @@ function CartMap({ ride, cartNumber }: { ride: Ride; cartNumber: string }) {
 
   return (
     <>
-      <CampusMap pins={pins} label={`Map of your pickup at ${ride.pickup.name} and your cart`} />
+      <LazyCampusMap pins={pins} label={`Map of your pickup at ${ride.pickup.name} and your cart`} />
       {!position && <p className="muted">Your cart will show on the map once its location comes in.</p>}
     </>
   );
