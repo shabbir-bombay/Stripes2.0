@@ -247,7 +247,7 @@ export interface PenaltyPoint {
   rideId: string | null;
   reason: string;
   status: PenaltyPointStatus;
-  /** Name of the driver or admin who asked for it. */
+  /** Name of the driver or admin who asked for it. A student's own view has a call sign or "An admin" instead. */
   requestedBy: string;
   createdAt: string;
 }

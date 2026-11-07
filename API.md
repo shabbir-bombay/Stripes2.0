@@ -26,8 +26,8 @@ Change this file and `lib/types.ts` only when both sides agree.
 | POST | `/api/auth/sign-in` | public | `SignInRequest` | `Me` | 1 ✅ |
 | POST | `/api/auth/sign-out` | anyone | — | `204` | 1 ✅ |
 | GET | `/api/me` | anyone | — | `Me` | 1 ✅ |
-| PATCH | `/api/me` | anyone | `UpdateMeRequest` | `Me` | 5 |
-| GET | `/api/me/penalty-points` | student | — | `PenaltyPoint[]`, approved only | 5 |
+| PATCH | `/api/me` | anyone | `UpdateMeRequest` | `Me` | 5 ✅ |
+| GET | `/api/me/penalty-points` | student | — | `PenaltyPoint[]`, approved only, newest first. `requestedBy` is a call sign or "An admin", never a staff name | 5 ✅ |
 
 ## Stops and service
 
@@ -45,8 +45,8 @@ Change this file and `lib/types.ts` only when both sides agree.
 | GET | `/api/rides/active` | student | — | `Ride` or `null`. Poll every 3–5 s while a ride is active | 2 ✅ |
 | POST | `/api/rides/:id/cancel` | student | `CancelRideRequest` | `Ride`. 409 once the ride is in progress | 2 ✅ |
 | GET | `/api/rides/:id/driver-position` | student | — | `Position` or `null`, while the ride is assigned, en route or arrived and the position is at most 30 s old | 4 ✅ |
-| GET | `/api/rides/history?cursor=` | student | — | `HistoryPage`, 20 per page, newest first | 5 |
-| POST | `/api/rides/:id/feedback` | student | `FeedbackRequest` | `Ride`. Completed rides only, once | 5 |
+| GET | `/api/rides/history?cursor=` | student | — | `HistoryPage`, 20 per page, newest first | 5 ✅ |
+| POST | `/api/rides/:id/feedback` | student | `FeedbackRequest` | `Ride`. Completed rides only, once | 5 ✅ |
 
 ## Driver
 
@@ -64,7 +64,7 @@ Change this file and `lib/types.ts` only when both sides agree.
 | POST | `/api/driver/rides/:id/no-show` | driver | — | `StaffRide` | 3 ✅ |
 | POST | `/api/driver/rides/:id/cancel` | driver | `CancelRideRequest`, reason required | `StaffRide` | 3 ✅ |
 | POST | `/api/driver/position` | driver | `PositionReport` | `204`. Every 5–10 s on shift. 400 if the fix is over 30 s old or over 10 s in the future; 409 when off shift | 4 ✅ |
-| POST | `/api/driver/rides/:id/penalty-point` | driver | `PenaltyPointRequest` | `PenaltyPoint`, pending until an admin decides | 5 |
+| POST | `/api/driver/rides/:id/penalty-point` | driver | `PenaltyPointRequest` | `PenaltyPoint`, pending until an admin decides. Rides this driver holds or drove. 409 if the ride already has a pending or approved point | 5 ✅ |
 
 ## Admin
 
@@ -84,17 +84,17 @@ Change this file and `lib/types.ts` only when both sides agree.
 | PATCH | `/api/admin/users/:id` | admin | `UpdateUserRequest` | `User`. 409 for your own role or suspension, a taken call sign, or someone in a live ride | 5 ✅ |
 | POST | `/api/admin/carts` | admin | `CartInput` | `Cart`. 409 if the number exists | 5 ✅ |
 | PATCH | `/api/admin/carts/:id` | admin | `Partial<CartInput>` | `Cart`. 409 if the number exists or the cart is on shift | 5 ✅ |
-| GET | `/api/admin/penalty-points?status=pending` | admin | — | `PenaltyPoint[]` | 5 |
-| POST | `/api/admin/penalty-points` | admin | `PenaltyPointRequest & { studentId: string }` | `PenaltyPoint`, approved at once | 5 |
-| POST | `/api/admin/penalty-points/:id/approve` | admin | — | `PenaltyPoint` | 5 |
-| POST | `/api/admin/penalty-points/:id/reject` | admin | — | `PenaltyPoint` | 5 |
+| GET | `/api/admin/penalty-points?status=pending` | admin | — | `PenaltyPoint[]`, up to 100. Pending oldest first, decided newest first | 5 ✅ |
+| POST | `/api/admin/penalty-points` | admin | `PenaltyPointRequest & { studentId: string }` | `PenaltyPoint`, approved at once | 5 ✅ |
+| POST | `/api/admin/penalty-points/:id/approve` | admin | — | `PenaltyPoint`. 409 once decided | 5 ✅ |
+| POST | `/api/admin/penalty-points/:id/reject` | admin | — | `PenaltyPoint`. 409 once decided | 5 ✅ |
 
 ## Notifications
 
 | Method | Path | Who | Body | Returns | Week |
 |---|---|---|---|---|---|
-| GET | `/api/notifications` | anyone | — | `Notification[]`, newest 50 | 5 |
-| POST | `/api/notifications/:id/read` | anyone | — | `204` | 5 |
+| GET | `/api/notifications` | anyone | — | `Notification[]`, newest 50 | 5 ✅ |
+| POST | `/api/notifications/:id/read` | anyone | — | `204` | 5 ✅ |
 
 ## Ride status
 

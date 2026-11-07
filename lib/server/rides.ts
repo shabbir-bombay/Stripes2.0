@@ -18,6 +18,7 @@ export const rideInclude = {
   dropoff: stop,
   student: { select: { id: true, name: true } },
   driver: { select: { callSign: true, lat: true, lng: true, positionAt: true } },
+  feedback: { select: { rating: true } },
 } satisfies Prisma.RideInclude;
 
 export type RideRow = Prisma.RideGetPayload<{ include: typeof rideInclude }>;
@@ -44,8 +45,7 @@ export function toRide(row: RideRow, queuePosition: number | null = null): RideJ
     driver: row.driver && { callSign: row.driver.callSign, cartNumber: row.cartNumber ?? "" },
     queuePosition: row.status === "requested" ? queuePosition : null,
     eta: etaToPickup(row.status, row.driver && storedPosition(row.driver), row.pickup),
-    // The rating comes with feedback in week 5.
-    rating: null,
+    rating: row.feedback?.rating ?? null,
   };
 }
 
