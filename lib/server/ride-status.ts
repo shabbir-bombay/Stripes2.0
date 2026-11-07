@@ -30,6 +30,7 @@ export const STUDENT_CANCEL_REASON = "Canceled by student";
 /** The fields a move writes, besides `status`. `null` clears a field; a missing key leaves it alone. */
 export interface RidePatch {
   driverId?: string | null;
+  cartNumber?: string | null;
   assignedAt?: Date | null;
   arrivedAt?: Date | null;
   startedAt?: Date;
@@ -42,6 +43,8 @@ export interface MoveRequest {
   by: Actor;
   /** The driver who gets the ride. Required for `assigned`. */
   driverId?: string;
+  /** That driver's cart, kept on the ride so history still shows it after the shift ends. */
+  cartNumber?: string | null;
   /** Required when a driver or admin cancels. */
   reason?: string;
   now?: Date;
@@ -56,16 +59,16 @@ export function canMove(from: RideStatus, to: RideStatus, by: Actor) {
 }
 
 /** Checks a move against the status table and works out what it writes. */
-export function planMove(from: RideStatus, { to, by, driverId, reason, now = new Date() }: MoveRequest): MovePlan {
+export function planMove(from: RideStatus, { to, by, driverId, cartNumber = null, reason, now = new Date() }: MoveRequest): MovePlan {
   if (!MOVES[to].by.includes(by)) return { ok: false, status: 403, error: "You can't make this change to a ride." };
   if (!MOVES[to].from.includes(from)) return { ok: false, status: 409, error: conflictMessage(from) };
 
   switch (to) {
     case "assigned":
       if (!driverId) return { ok: false, status: 400, error: "Choose a driver." };
-      return { ok: true, patch: { driverId, assignedAt: now } };
+      return { ok: true, patch: { driverId, cartNumber, assignedAt: now } };
     case "requested":
-      return { ok: true, patch: { driverId: null, assignedAt: null, arrivedAt: null } };
+      return { ok: true, patch: { driverId: null, cartNumber: null, assignedAt: null, arrivedAt: null } };
     case "arrived":
       return { ok: true, patch: { arrivedAt: now } };
     case "in_progress":

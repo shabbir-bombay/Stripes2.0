@@ -17,7 +17,7 @@ export const rideInclude = {
   pickup: stop,
   dropoff: stop,
   student: { select: { id: true, name: true } },
-  driver: { select: { callSign: true, lat: true, lng: true, positionAt: true, cart: { select: { number: true } } } },
+  driver: { select: { callSign: true, lat: true, lng: true, positionAt: true } },
 } satisfies Prisma.RideInclude;
 
 export type RideRow = Prisma.RideGetPayload<{ include: typeof rideInclude }>;
@@ -40,8 +40,8 @@ export function toRide(row: RideRow, queuePosition: number | null = null): RideJ
     startedAt: iso(row.startedAt),
     endedAt: iso(row.endedAt),
     cancelReason: row.cancelReason,
-    // The cart is the one the driver is on shift with. Drivers can't end a shift while holding a ride.
-    driver: row.driver && { callSign: row.driver.callSign, cartNumber: row.driver.cart?.number ?? "" },
+    // The cart stored when the driver got the ride. Rides that ended before carts were stored have none ("").
+    driver: row.driver && { callSign: row.driver.callSign, cartNumber: row.cartNumber ?? "" },
     queuePosition: row.status === "requested" ? queuePosition : null,
     eta: etaToPickup(row.status, row.driver && storedPosition(row.driver), row.pickup),
     // The rating comes with feedback in week 5.

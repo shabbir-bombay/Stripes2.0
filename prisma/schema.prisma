@@ -1,5 +1,5 @@
-// Week 1 data model. Rules Prisma can't express (email domain, one active ride per student, ...)
-// are added as SQL in the first migration.
+// Data model. Rules Prisma can't express (email domain, one active ride per student, ...)
+// are added as SQL in the migrations.
 
 generator client {
   provider = "prisma-client"
@@ -33,6 +33,19 @@ enum RideStatus {
   no_show
 }
 
+enum PenaltyPointStatus {
+  pending
+  approved
+  rejected
+}
+
+enum NotificationType {
+  ride_assigned
+  driver_arrived
+  ride_canceled
+  penalty_point
+}
+
 /// Email must end in @pacific.edu or @u.pacific.edu (CHECK in the migration).
 model User {
   id           String         @id @default(uuid()) @db.Uuid
@@ -44,9 +57,14 @@ model User {
   createdAt    DateTime       @default(now())
   driver       DriverProfile?
   rides        Ride[]
+  penaltyPoints          PenaltyPoint[] @relation("penaltyPointStudent")
+  requestedPenaltyPoints PenaltyPoint[] @relation("penaltyPointRequester")
+  decidedPenaltyPoints   PenaltyPoint[] @relation("penaltyPointDecider")
+  notifications          Notification[]
 }
 
-/// Exists for every user with the driver role. `cartId` is set only while the driver is on shift.
+/// Exists for every user with the driver role, and stays if they stop being one so old rides keep their call sign.
+/// `cartId` is set only while the driver is on shift.
 model DriverProfile {
   userId     String    @id @db.Uuid
   user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -101,6 +119,11 @@ model Ride {
   startedAt    DateTime?
   endedAt      DateTime?
   cancelReason String?
+  /// The cart the driver had when given the ride, so history keeps it after the shift ends.
+  cartNumber   String?
+  feedback      Feedback?
+  penaltyPoints PenaltyPoint[]
+  notifications Notification[]
 
   @@index([status])
   @@index([studentId])
@@ -123,4 +146,48 @@ model Service {
   id        Int         @id @default(1)
   mode      ServiceMode @default(automatic)
   updatedAt DateTime    @default(now()) @updatedAt
+}
+
+/// A driver's request waits for an admin; an admin's own point is approved at once. Students only see approved ones.
+/// One live point per ride (partial unique index in the migration); a rejected one may be asked for again.
+model PenaltyPoint {
+  id            String             @id @default(uuid()) @db.Uuid
+  studentId     String             @db.Uuid
+  student       User               @relation("penaltyPointStudent", fields: [studentId], references: [id])
+  rideId        String?            @db.Uuid
+  ride          Ride?              @relation(fields: [rideId], references: [id], onDelete: SetNull)
+  reason        String
+  status        PenaltyPointStatus @default(pending)
+  requestedById String             @db.Uuid
+  requestedBy   User               @relation("penaltyPointRequester", fields: [requestedById], references: [id])
+  decidedById   String?            @db.Uuid
+  decidedBy     User?              @relation("penaltyPointDecider", fields: [decidedById], references: [id])
+  decidedAt     DateTime?
+  createdAt     DateTime           @default(now())
+
+  @@index([studentId, status])
+  @@index([status, createdAt])
+}
+
+model Notification {
+  id        String           @id @default(uuid()) @db.Uuid
+  userId    String           @db.Uuid
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType
+  text      String
+  rideId    String?          @db.Uuid
+  ride      Ride?            @relation(fields: [rideId], references: [id], onDelete: SetNull)
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  @@index([userId, createdAt])
+}
+
+/// One per completed ride. The rating is 1 to 5 (CHECK in the migration).
+model Feedback {
+  rideId    String   @id @db.Uuid
+  ride      Ride     @relation(fields: [rideId], references: [id], onDelete: Cascade)
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
 }

@@ -59,9 +59,9 @@ test("final statuses never change", () => {
 });
 
 test("assigning sets the driver and the time, and needs a driver", () => {
-  assert.deepEqual(planMove("requested", { to: "assigned", by: "admin", driverId: "d1", now }), {
+  assert.deepEqual(planMove("requested", { to: "assigned", by: "admin", driverId: "d1", cartNumber: "3", now }), {
     ok: true,
-    patch: { driverId: "d1", assignedAt: now },
+    patch: { driverId: "d1", cartNumber: "3", assignedAt: now },
   });
   const plan = planMove("requested", { to: "assigned", by: "driver", now });
   assert.equal(!plan.ok && plan.status, 400);
@@ -70,7 +70,7 @@ test("assigning sets the driver and the time, and needs a driver", () => {
 test("unassigning clears the driver and the times that came with it", () => {
   assert.deepEqual(planMove("arrived", { to: "requested", by: "admin", now }), {
     ok: true,
-    patch: { driverId: null, assignedAt: null, arrivedAt: null },
+    patch: { driverId: null, cartNumber: null, assignedAt: null, arrivedAt: null },
   });
 });
 

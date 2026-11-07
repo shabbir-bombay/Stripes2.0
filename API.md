@@ -80,10 +80,10 @@ Change this file and `lib/types.ts` only when both sides agree.
 | POST | `/api/admin/service-rules` | admin | `ServiceRuleInput` | `ServiceRule` | 4 ✅ |
 | PUT | `/api/admin/service-rules/:id` | admin | `ServiceRuleInput` | `ServiceRule` | 4 ✅ |
 | DELETE | `/api/admin/service-rules/:id` | admin | — | `204` | 4 ✅ |
-| GET | `/api/admin/users?role=&q=` | admin | — | `User[]` | 5 |
-| PATCH | `/api/admin/users/:id` | admin | `UpdateUserRequest` | `User` | 5 |
-| POST | `/api/admin/carts` | admin | `CartInput` | `Cart` | 5 |
-| PATCH | `/api/admin/carts/:id` | admin | `Partial<CartInput>` | `Cart` | 5 |
+| GET | `/api/admin/users?role=&q=` | admin | — | `User[]`, by name, up to 100 | 5 ✅ |
+| PATCH | `/api/admin/users/:id` | admin | `UpdateUserRequest` | `User`. 409 for your own role or suspension, a taken call sign, or someone in a live ride | 5 ✅ |
+| POST | `/api/admin/carts` | admin | `CartInput` | `Cart`. 409 if the number exists | 5 ✅ |
+| PATCH | `/api/admin/carts/:id` | admin | `Partial<CartInput>` | `Cart`. 409 if the number exists or the cart is on shift | 5 ✅ |
 | GET | `/api/admin/penalty-points?status=pending` | admin | — | `PenaltyPoint[]` | 5 |
 | POST | `/api/admin/penalty-points` | admin | `PenaltyPointRequest & { studentId: string }` | `PenaltyPoint`, approved at once | 5 |
 | POST | `/api/admin/penalty-points/:id/approve` | admin | — | `PenaltyPoint` | 5 |
