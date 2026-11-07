@@ -5,7 +5,7 @@ import { api } from "@/components/api";
 import { Button } from "@/components/Button";
 import { Field, SelectField } from "@/components/Field";
 import { usePolling } from "@/components/usePolling";
-import type { Role, UpdateUserRequest, User } from "@/lib/types";
+import type { PenaltyPointRequest, Role, UpdateUserRequest, User } from "@/lib/types";
 
 const ROLE_LABEL: Record<Role, string> = { student: "Student", driver: "Driver", admin: "Admin" };
 const LIMIT = 100;
@@ -46,6 +46,7 @@ export default function UsersPage() {
 
 function UserCard({ user, reload }: { user: User; reload: () => Promise<void> }) {
   const [editing, setEditing] = useState(false);
+  const [giving, setGiving] = useState(false);
   const [error, setError] = useState<string>();
   const [busy, setBusy] = useState(false);
 
@@ -89,12 +90,22 @@ function UserCard({ user, reload }: { user: User; reload: () => Promise<void> })
       </dl>
       {editing && <UserEditor user={user} busy={busy} save={save} cancel={() => setEditing(false)} />}
       {error && <p role="alert" className="form-error">{error}</p>}
-      {!editing && (
+      {giving && (
+        <GivePoint
+          student={user}
+          done={async (given) => {
+            setGiving(false);
+            if (given) await reload();
+          }}
+        />
+      )}
+      {!editing && !giving && (
         <div className="ride-actions">
           <Button variant="secondary" onClick={() => { setError(undefined); setEditing(true); }} disabled={busy}>Edit</Button>
           <Button variant="secondary" onClick={() => save({ suspended: !user.suspended })} disabled={busy}>
             {user.suspended ? "Reinstate" : "Suspend"}
           </Button>
+          {user.role === "student" && <Button variant="secondary" onClick={() => setGiving(true)} disabled={busy}>Add penalty point</Button>}
         </div>
       )}
     </article>
@@ -128,6 +139,44 @@ function UserEditor({ user, busy, save, cancel }: { user: User; busy: boolean; s
       <div className="ride-actions">
         <Button type="submit" disabled={busy}>{busy ? "Saving…" : "Save"}</Button>
         <Button type="button" variant="secondary" onClick={cancel} disabled={busy}>Back</Button>
+      </div>
+    </form>
+  );
+}
+
+/** An admin's own point counts straight away and tells the student. */
+function GivePoint({ student, done }: { student: User; done: (given: boolean) => void }) {
+  const [reason, setReason] = useState("");
+  const [error, setError] = useState<string>();
+  const [busy, setBusy] = useState(false);
+
+  async function submit(event: FormEvent) {
+    event.preventDefault();
+    setBusy(true);
+    setError(undefined);
+    try {
+      await api("/api/admin/penalty-points", "POST", { studentId: student.id, reason } satisfies PenaltyPointRequest & { studentId: string });
+      done(true);
+    } catch (e) {
+      setError((e as Error).message);
+      setBusy(false);
+    }
+  }
+
+  return (
+    <form className="stack" onSubmit={submit}>
+      <Field
+        label="Why give this point?"
+        hint={`It counts at once, and ${student.name} is told the reason.`}
+        value={reason}
+        onChange={(e) => setReason(e.target.value)}
+        maxLength={200}
+        error={error}
+        required
+      />
+      <div className="ride-actions">
+        <Button type="submit" disabled={busy}>{busy ? "Adding…" : "Add point"}</Button>
+        <Button type="button" variant="secondary" onClick={() => done(false)} disabled={busy}>Back</Button>
       </div>
     </form>
   );

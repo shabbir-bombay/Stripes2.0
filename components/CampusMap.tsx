@@ -44,13 +44,33 @@ export default function CampusMap({ pins, label }: { pins: MapPin[]; label: stri
     created.on("moveend", () => {
       framing.current = false;
     });
+    let zooming = false;
+    created.on("zoomstart", () => {
+      zooming = true;
+    });
+    created.on("zoomend", () => {
+      zooming = false;
+    });
     map.current = created;
     const placed = markers.current;
     return () => {
-      created.remove();
       map.current = null;
       placed.clear();
       framed.current = null;
+      // Leaflet ends a zoom animation on a timer that remove() doesn't cancel, and that timer throws once the map is
+      // gone. So a map closed mid-zoom (the ride ends, the driver leaves the page) is removed once the zoom is over.
+      let removed = false;
+      const remove = () => {
+        if (removed) return;
+        removed = true;
+        created.remove();
+      };
+      if (zooming) {
+        created.once("zoomend", remove);
+        setTimeout(remove, 1000);
+      } else {
+        remove();
+      }
     };
   }, []);
 

@@ -9,7 +9,7 @@ import { LazyCampusMap } from "@/components/LazyCampusMap";
 import { RideCard } from "@/components/RideCard";
 import { useLocationSharing } from "@/components/useLocationSharing";
 import { usePolling } from "@/components/usePolling";
-import type { Cart, DriverQueue, RideStatus, Shift, StaffRide } from "@/lib/types";
+import type { Cart, DriverQueue, PenaltyPointRequest, RideStatus, Shift, StaffRide } from "@/lib/types";
 
 type Reload = () => Promise<void>;
 
@@ -17,6 +17,8 @@ export default function DriverHome() {
   const { data: queue, error, refresh } = usePolling<DriverQueue>("/api/driver/queue");
   // Kept here, not on the ride's card: a ride someone else claimed first leaves the list, card and all.
   const [claimError, setClaimError] = useState<string>();
+  // Kept here too: a no-show ride leaves the list straight away, and this is the moment a driver asks for a point.
+  const [noShow, setNoShow] = useState<StaffRide>();
 
   if (!queue) {
     return (
@@ -30,13 +32,20 @@ export default function DriverHome() {
     <Page>
       {error && <p role="alert" className="form-error">{error}</p>}
       {queue.shift ? <OnShift shift={queue.shift} mine={queue.mine} reload={refresh} /> : <StartShift reload={refresh} />}
+      {noShow && (
+        <div className="card stack">
+          <p className="banner-title">{noShow.student.name} was marked as a no-show</p>
+          <p className="muted">Do you want to ask an admin for a penalty point?</p>
+          <PenaltyForm ride={noShow} initialReason="Didn't show up" onDone={() => setNoShow(undefined)} cancelLabel="No thanks" />
+        </div>
+      )}
       {(queue.shift || queue.mine.length > 0) && (
         <section className="stack" aria-labelledby="mine-heading">
           <h2 id="mine-heading">Your rides</h2>
           {queue.mine.length === 0 && <p className="muted">None yet. Claim a waiting ride below.</p>}
           {queue.mine.map((ride) => (
             <RideCard key={ride.id} ride={ride}>
-              <MyRideActions ride={ride} reload={refresh} />
+              <MyRideActions ride={ride} reload={refresh} onNoShow={setNoShow} />
             </RideCard>
           ))}
         </section>
@@ -212,8 +221,71 @@ const NEXT: Partial<Record<RideStatus, { action: string; label: string }[]>> = {
 
 const CANCELABLE: RideStatus[] = ["assigned", "en_route", "arrived"];
 
-function MyRideActions({ ride, reload }: { ride: StaffRide; reload: Reload }) {
-  const [confirm, setConfirm] = useState<"no-show" | "cancel">();
+/** The spec's reasons a driver can pick from. "Other" asks them to type it. */
+const PENALTY_REASONS = [
+  "Late to pickup",
+  "Didn't show up",
+  "Rude or abusive to the driver",
+  "Unsafe behavior in the cart",
+  "Damage to the cart",
+  "Wrong pickup location given",
+];
+const OTHER = "Other";
+
+/** Asks an admin for a penalty point on this ride. */
+function PenaltyForm({ ride, initialReason = PENALTY_REASONS[0], onDone, cancelLabel = "Back" }: {
+  ride: StaffRide;
+  initialReason?: string;
+  onDone: (sent: boolean) => void;
+  cancelLabel?: string;
+}) {
+  const [choice, setChoice] = useState(initialReason);
+  const [typed, setTyped] = useState("");
+  const [error, setError] = useState<string>();
+  const [busy, setBusy] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  async function submit(event: FormEvent) {
+    event.preventDefault();
+    setBusy(true);
+    setError(undefined);
+    try {
+      await api(`/api/driver/rides/${ride.id}/penalty-point`, "POST", { reason: choice === OTHER ? typed : choice } satisfies PenaltyPointRequest);
+      setSent(true);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (sent) {
+    return (
+      <div className="stack">
+        <p role="status">Sent. An admin will decide, and {ride.student.name} only sees it if it's approved.</p>
+        <Button variant="secondary" onClick={() => onDone(true)}>Done</Button>
+      </div>
+    );
+  }
+
+  return (
+    <form className="stack" onSubmit={submit}>
+      <SelectField label="Reason" value={choice} onChange={(e) => setChoice(e.target.value)}>
+        {PENALTY_REASONS.map((reason) => <option key={reason} value={reason}>{reason}</option>)}
+        <option value={OTHER}>{OTHER}</option>
+      </SelectField>
+      {choice === OTHER && <Field label="What happened?" value={typed} onChange={(e) => setTyped(e.target.value)} maxLength={200} required />}
+      {error && <p role="alert" className="form-error">{error}</p>}
+      <div className="ride-actions">
+        <Button type="submit" disabled={busy}>{busy ? "Sending…" : "Request penalty point"}</Button>
+        <Button type="button" variant="secondary" onClick={() => onDone(false)} disabled={busy}>{cancelLabel}</Button>
+      </div>
+    </form>
+  );
+}
+
+function MyRideActions({ ride, reload, onNoShow }: { ride: StaffRide; reload: Reload; onNoShow: (ride: StaffRide) => void }) {
+  const [confirm, setConfirm] = useState<"no-show" | "cancel" | "penalty">();
   const [reason, setReason] = useState("");
   const [error, setError] = useState<string>();
   const [busy, setBusy] = useState(false);
@@ -223,6 +295,7 @@ function MyRideActions({ ride, reload }: { ride: StaffRide; reload: Reload }) {
     setError(undefined);
     try {
       await api(`/api/driver/rides/${ride.id}/${action}`, "POST", body);
+      if (action === "no-show") onNoShow(ride);
       setConfirm(undefined);
       await reload();
     } catch (e) {
@@ -231,6 +304,8 @@ function MyRideActions({ ride, reload }: { ride: StaffRide; reload: Reload }) {
       setBusy(false);
     }
   }
+
+  if (confirm === "penalty") return <PenaltyForm ride={ride} onDone={() => setConfirm(undefined)} />;
 
   if (confirm === "no-show") {
     return (
@@ -274,6 +349,7 @@ function MyRideActions({ ride, reload }: { ride: StaffRide; reload: Reload }) {
         {CANCELABLE.includes(ride.status) && (
           <Button variant="secondary" onClick={() => setConfirm("cancel")} disabled={busy}>Cancel ride</Button>
         )}
+        <Button variant="secondary" onClick={() => setConfirm("penalty")} disabled={busy}>Request penalty point</Button>
       </div>
     </div>
   );

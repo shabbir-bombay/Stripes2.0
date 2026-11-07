@@ -61,7 +61,8 @@ export default function RidePage() {
     return (
       <Page>
         <p role="status" className="lead">{hadRide ? "Your ride is over." : "You don't have a ride right now."}</p>
-        <ButtonLink href="/student">Back</ButtonLink>
+        {hadRide && <ButtonLink href="/student/history">See it and rate it</ButtonLink>}
+        <ButtonLink href="/student" variant={hadRide ? "secondary" : "primary"}>Back</ButtonLink>
       </Page>
     );
   }

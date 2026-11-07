@@ -263,6 +263,18 @@ a {
   border-bottom-color: var(--orange);
 }
 
+/* How many things wait behind a menu link. */
+.nav-count {
+  min-width: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.8125rem;
+  line-height: 22px;
+  text-align: center;
+}
+
 /* A short label beside a name, e.g. "Suspended". */
 .tag {
   display: inline-block;
@@ -501,4 +513,44 @@ a {
   height: var(--tap);
   line-height: var(--tap);
   font-size: 1.5rem;
+}
+
+/* ---------- Notifications ---------- */
+
+/* The newest unread notice, in the same column as the page under it. */
+.notice-wrap {
+  padding-bottom: 0;
+}
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-left-color: var(--orange);
+}
+
+.notice-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.notice-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+}
+
+.note {
+  gap: 4px;
+}
+
+.note.unread {
+  border-left: 6px solid var(--orange);
+}
+
+.note-text {
+  margin: 0;
+  overflow-wrap: anywhere;
 }
