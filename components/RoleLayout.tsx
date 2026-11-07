@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import type { Role } from "@/lib/types";
 import { sessionUser } from "@/lib/server/auth";
+import { RoleNav } from "./RoleNav";
 import { SignOutButton } from "./SignOutButton";
 
 /** Header with the user's name and Sign out, for every page in a role's area. Anyone else goes to sign-in. */
@@ -16,6 +17,7 @@ export async function RoleLayout({ role, children }: { role: Role; children: Rea
         <span className="app-header-name">{user.name}</span>
         <SignOutButton />
       </header>
+      <RoleNav role={role} />
       {children}
     </>
   );

@@ -233,6 +233,51 @@ a {
   white-space: nowrap;
 }
 
+/* The pages of a role's area, under the header. Wraps on a phone rather than hiding anything. */
+.role-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px var(--space);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.role-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--tap);
+  padding: 0 12px;
+  border-bottom: 3px solid transparent;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.role-nav a:hover {
+  background: var(--page);
+}
+
+.role-nav a[aria-current="page"] {
+  border-bottom-color: var(--orange);
+}
+
+/* A short label beside a name, e.g. "Suspended". */
+.tag {
+  display: inline-block;
+  padding: 0 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.tag.danger {
+  color: var(--danger);
+}
+
 /* ---------- Service banner ---------- */
 
 .banner {
