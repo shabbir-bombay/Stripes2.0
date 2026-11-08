@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 import { api } from "./api";
 import { Button } from "./Button";
+import { PushToggle } from "./PushToggle";
 import { campusDateTime } from "./time";
 import { usePolling } from "./usePolling";
 import type { Notification } from "@/lib/types";
@@ -101,6 +102,7 @@ export function NotificationList() {
   return (
     <main className="page stack">
       <h1>Notifications</h1>
+      <PushToggle />
       {(actionError ?? error) && <p role="alert" className="form-error">{actionError ?? error}</p>}
       {!notifications && !error && <p role="status">Loading notifications…</p>}
       {notifications?.length === 0 && <p className="muted">Nothing yet. Updates about your rides show up here.</p>}
