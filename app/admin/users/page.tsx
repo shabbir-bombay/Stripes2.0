@@ -47,6 +47,7 @@ export default function UsersPage() {
 function UserCard({ user, reload }: { user: User; reload: () => Promise<void> }) {
   const [editing, setEditing] = useState(false);
   const [giving, setGiving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState<string>();
   const [busy, setBusy] = useState(false);
 
@@ -99,13 +100,23 @@ function UserCard({ user, reload }: { user: User; reload: () => Promise<void> })
           }}
         />
       )}
-      {!editing && !giving && (
+      {deleting && (
+        <DeleteUser
+          user={user}
+          done={async (deleted) => {
+            setDeleting(false);
+            if (deleted) await reload();
+          }}
+        />
+      )}
+      {!editing && !giving && !deleting && (
         <div className="ride-actions">
           <Button variant="secondary" onClick={() => { setError(undefined); setEditing(true); }} disabled={busy}>Edit</Button>
           <Button variant="secondary" onClick={() => save({ suspended: !user.suspended })} disabled={busy}>
             {user.suspended ? "Reinstate" : "Suspend"}
           </Button>
           {user.role === "student" && <Button variant="secondary" onClick={() => setGiving(true)} disabled={busy}>Add penalty point</Button>}
+          <Button variant="secondary" onClick={() => { setError(undefined); setDeleting(true); }} disabled={busy}>Delete</Button>
         </div>
       )}
     </article>
@@ -179,5 +190,37 @@ function GivePoint({ student, done }: { student: User; done: (given: boolean) =>
         <Button type="button" variant="secondary" onClick={() => done(false)} disabled={busy}>Back</Button>
       </div>
     </form>
+  );
+}
+
+/** Deleting can't be undone, so it asks first and says what goes with the account. */
+function DeleteUser({ user, done }: { user: User; done: (deleted: boolean) => void }) {
+  const [error, setError] = useState<string>();
+  const [busy, setBusy] = useState(false);
+
+  async function confirm() {
+    setBusy(true);
+    setError(undefined);
+    try {
+      await api(`/api/admin/users/${user.id}`, "DELETE");
+      done(true);
+    } catch (e) {
+      setError((e as Error).message);
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="stack" role="group" aria-labelledby={`delete-${user.id}`}>
+      <p id={`delete-${user.id}`}>
+        <strong>Delete {user.name}?</strong> Their account, the rides they asked for and the penalty points they got are
+        deleted for good. Rides they drove stay, without their name.
+      </p>
+      {error && <p role="alert" className="form-error">{error}</p>}
+      <div className="ride-actions">
+        <Button variant="danger" onClick={confirm} disabled={busy}>{busy ? "Deleting…" : "Delete account"}</Button>
+        <Button variant="secondary" onClick={() => done(false)} disabled={busy}>Back</Button>
+      </div>
+    </div>
   );
 }
