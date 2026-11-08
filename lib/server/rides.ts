@@ -87,3 +87,8 @@ export async function waitingRides() {
 export function isUniqueViolation(error: unknown) {
   return error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002";
 }
+
+/** A row is still referenced, e.g. a user who has rides. */
+export function isForeignKeyViolation(error: unknown) {
+  return error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2003";
+}

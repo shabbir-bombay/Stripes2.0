@@ -158,8 +158,9 @@ model PenaltyPoint {
   ride          Ride?              @relation(fields: [rideId], references: [id], onDelete: SetNull)
   reason        String
   status        PenaltyPointStatus @default(pending)
-  requestedById String             @db.Uuid
-  requestedBy   User               @relation("penaltyPointRequester", fields: [requestedById], references: [id])
+  /// Null once the person who asked for it has been deleted; the point stays on the student's record.
+  requestedById String?            @db.Uuid
+  requestedBy   User?              @relation("penaltyPointRequester", fields: [requestedById], references: [id], onDelete: SetNull)
   decidedById   String?            @db.Uuid
   decidedBy     User?              @relation("penaltyPointDecider", fields: [decidedById], references: [id])
   decidedAt     DateTime?

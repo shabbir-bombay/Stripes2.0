@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { parseName, parseUserUpdate, planUserUpdate, type UserTarget } from "./accounts.ts";
+import { parseName, parseUserUpdate, planUserDelete, planUserUpdate, type UserTarget } from "./accounts.ts";
 
 const student: UserTarget = { id: "s1", name: "Sam", role: "student", suspended: false, callSign: null, onShift: false, ridesAsStudent: 0, ridesAsDriver: 0 };
 const driver: UserTarget = { ...student, id: "d1", name: "Dana", role: "driver", callSign: "Tiger 1" };
@@ -73,4 +73,24 @@ test("reinstating someone is always allowed", () => {
   assert.deepEqual(planUserUpdate(suspended, "a1", { suspended: false }), { ok: true, user: { suspended: false }, endShift: false });
   // Already suspended, so sending true again takes nothing away.
   assert.equal(planUserUpdate(suspended, "a1", { suspended: true }).ok, true);
+});
+
+test("an admin can't delete their own account", () => {
+  const plan = planUserDelete(admin, "a1");
+  assert.equal(plan.ok, false);
+  assert.equal(!plan.ok && plan.status, 409);
+  assert.deepEqual(planUserDelete(admin, "a2"), { ok: true });
+});
+
+test("an account in a live ride can't be deleted", () => {
+  const asStudent = planUserDelete({ ...student, ridesAsStudent: 1 }, "a1");
+  assert.equal(!asStudent.ok && asStudent.status, 409);
+  const asDriver = planUserDelete({ ...driver, ridesAsDriver: 1 }, "a1");
+  assert.equal(!asDriver.ok && asDriver.status, 409);
+});
+
+test("anyone else can be deleted, including a driver on shift with no ride", () => {
+  for (const target of [student, { ...student, suspended: true }, { ...driver, onShift: true }, admin]) {
+    assert.deepEqual(planUserDelete(target, "someone-else"), { ok: true }, target.name);
+  }
 });

@@ -33,7 +33,13 @@ export function toPenaltyPoint(row: PenaltyRow, viewer: "staff" | "student"): Pe
     rideId: row.rideId,
     reason: row.reason,
     status: row.status,
-    requestedBy: viewer === "staff" ? requestedBy.name : requestedBy.role === "admin" ? "An admin" : (requestedBy.driver?.callSign ?? "A driver"),
+    requestedBy: !requestedBy
+      ? "A deleted account"
+      : viewer === "staff"
+        ? requestedBy.name
+        : requestedBy.role === "admin"
+          ? "An admin"
+          : (requestedBy.driver?.callSign ?? "A driver"),
     createdAt: row.createdAt.toISOString(),
   };
 }

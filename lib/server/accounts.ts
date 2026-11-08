@@ -91,3 +91,17 @@ export function planUserUpdate(target: UserTarget, adminId: string, update: Upda
     endShift: losingAccess && target.onShift,
   };
 }
+
+export type DeletePlan = { ok: true } | { ok: false; status: 409; error: string };
+
+/**
+ * Whether an admin may delete this account. Deleting takes the rides they asked for and the penalty points they got
+ * with it, so it waits until no ride of theirs is live, for the same reason as taking access away. An admin can't
+ * delete themselves, which also means one admin always remains.
+ */
+export function planUserDelete(target: UserTarget, adminId: string): DeletePlan {
+  if (target.id === adminId) return { ok: false, status: 409, error: "You can't delete your own account. Ask another admin." };
+  if (target.ridesAsStudent > 0) return { ok: false, status: 409, error: `${target.name} has a ride that isn't over. Cancel it first.` };
+  if (target.ridesAsDriver > 0) return { ok: false, status: 409, error: `${target.name} is holding a ride. Reassign or cancel it first.` };
+  return { ok: true };
+}

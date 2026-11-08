@@ -27,7 +27,7 @@ Change this file and `lib/types.ts` only when both sides agree.
 | POST | `/api/auth/sign-out` | anyone | — | `204` | 1 ✅ |
 | GET | `/api/me` | anyone | — | `Me` | 1 ✅ |
 | PATCH | `/api/me` | anyone | `UpdateMeRequest` | `Me` | 5 ✅ |
-| GET | `/api/me/penalty-points` | student | — | `PenaltyPoint[]`, approved only, newest first. `requestedBy` is a call sign or "An admin", never a staff name | 5 ✅ |
+| GET | `/api/me/penalty-points` | student | — | `PenaltyPoint[]`, approved only, newest first. `requestedBy` is a call sign, "An admin" or "A deleted account", never a staff name | 5 ✅ |
 
 ## Stops and service
 
@@ -82,6 +82,7 @@ Change this file and `lib/types.ts` only when both sides agree.
 | DELETE | `/api/admin/service-rules/:id` | admin | — | `204` | 4 ✅ |
 | GET | `/api/admin/users?role=&q=` | admin | — | `User[]`, by name, up to 100 | 5 ✅ |
 | PATCH | `/api/admin/users/:id` | admin | `UpdateUserRequest` | `User`. 409 for your own role or suspension, a taken call sign, or someone in a live ride | 5 ✅ |
+| DELETE | `/api/admin/users/:id` | admin | — | `204`. Also deletes the rides they asked for and the penalty points they got; rides they drove and points they asked for stay, without them. 409 for your own account or someone in a live ride | 6 ✅ |
 | POST | `/api/admin/carts` | admin | `CartInput` | `Cart`. 409 if the number exists | 5 ✅ |
 | PATCH | `/api/admin/carts/:id` | admin | `Partial<CartInput>` | `Cart`. 409 if the number exists or the cart is on shift | 5 ✅ |
 | GET | `/api/admin/penalty-points?status=pending` | admin | — | `PenaltyPoint[]`, up to 100. Pending oldest first, decided newest first | 5 ✅ |
