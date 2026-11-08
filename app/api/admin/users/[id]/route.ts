@@ -1,6 +1,7 @@
 import { parseUserUpdate, planUserDelete, planUserUpdate } from "@/lib/server/accounts";
 import { fail, readBody, requireUser } from "@/lib/server/auth";
 import { db } from "@/lib/server/db";
+import { deleteLogin } from "@/lib/server/identity";
 import { ACTIVE, HELD } from "@/lib/server/ride-status";
 import { isForeignKeyViolation, isUniqueViolation, isUuid } from "@/lib/server/rides";
 import { toUser, userInclude } from "@/lib/server/users";
@@ -119,5 +120,7 @@ export async function DELETE(_request: Request, { params }: RouteContext<"/api/a
     if (isForeignKeyViolation(error)) return fail(409, `${target.name} just asked for a ride. Cancel it first.`);
     throw error;
   }
+  // The account is gone, so this can't fail the request. A login left behind is cleared if the email signs up again.
+  await deleteLogin(target.email).catch((error) => console.error(`Couldn't remove the Cognito login for ${target.email}:`, error));
   return new Response(null, { status: 204 });
 }

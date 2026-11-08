@@ -19,6 +19,8 @@ export type ServiceMode = "automatic" | "on" | "off";
 export interface ApiError {
   /** Safe to show to the user as is. */
   error: string;
+  /** Set when the client has a specific next step: `unconfirmed` means open the enter-your-code screen. */
+  code?: "unconfirmed";
 }
 
 // ---------- Auth ----------
@@ -33,6 +35,31 @@ export interface SignUpRequest {
 
 export interface SignInRequest {
   email: string;
+  password: string;
+}
+
+/**
+ * What sign-up returns. On AWS the email must be confirmed first: `{ confirm: true }` and no session, then
+ * `POST /api/auth/confirm` and sign-in. Locally there is no email, so it returns `Me` and is signed in at once.
+ */
+export type SignUpResult = Me | { confirm: true; email: string };
+
+export interface ConfirmEmailRequest {
+  email: string;
+  /** 6 digits, from the email. */
+  code: string;
+}
+
+/** For `resend-code` and `forgot-password`. */
+export interface EmailRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  email: string;
+  /** 6 digits, from the email. */
+  code: string;
+  /** The new password, at least 8 characters. */
   password: string;
 }
 
@@ -267,4 +294,21 @@ export interface Notification {
   rideId: string | null;
   read: boolean;
   createdAt: string;
+}
+
+// ---------- Push alerts ----------
+
+/** The key a browser needs to turn on alerts. Null when alerts aren't set up on this server (e.g. locally). */
+export interface PushKey {
+  publicKey: string | null;
+}
+
+/** `PushSubscription.toJSON()` from the browser, as is. */
+export interface PushSubscriptionInput {
+  endpoint: string;
+  keys: { p256dh: string; auth: string };
+}
+
+export interface PushUnsubscribe {
+  endpoint: string;
 }

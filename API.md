@@ -17,13 +17,18 @@ Change this file and `lib/types.ts` only when both sides agree.
 | 403 | Signed in with the wrong role, or the account is suspended |
 | 404 | No such item, or it isn't yours |
 | 409 | The action no longer fits the current state, e.g. another driver claimed the ride first |
+| 429 | Too many tries; wait a few minutes (sign-in codes and passwords on AWS) |
 
 ## Auth and profile
 
 | Method | Path | Who | Body | Returns | Week |
 |---|---|---|---|---|---|
-| POST | `/api/auth/sign-up` | public | `SignUpRequest` | `Me`, creates a student account | 1 ✅ |
-| POST | `/api/auth/sign-in` | public | `SignInRequest` | `Me` | 1 ✅ |
+| POST | `/api/auth/sign-up` | public | `SignUpRequest` | `SignUpResult`, creates a student account. On AWS: `{ confirm: true, email }` and no session until the emailed code is confirmed. Locally: `Me`, signed in at once. 409 if the email is taken | 1 ✅ |
+| POST | `/api/auth/sign-in` | public | `SignInRequest` | `Me`. 403 with `code: "unconfirmed"` if the email isn't confirmed yet: open the enter-your-code screen | 1 ✅ |
+| POST | `/api/auth/confirm` | public | `ConfirmEmailRequest` | `204`, then sign in. 400 for a wrong or expired code | 6 ✅ |
+| POST | `/api/auth/resend-code` | public | `EmailRequest` | `204` whether or not the account exists | 6 ✅ |
+| POST | `/api/auth/forgot-password` | public | `EmailRequest` | `204` whether or not the account exists. Emails a 6-digit code (locally it is printed in the server log) | 6 ✅ |
+| POST | `/api/auth/reset-password` | public | `ResetPasswordRequest` | `204`, then sign in with the new password. 400 for a wrong or expired code or a short password | 6 ✅ |
 | POST | `/api/auth/sign-out` | anyone | — | `204` | 1 ✅ |
 | GET | `/api/me` | anyone | — | `Me` | 1 ✅ |
 | PATCH | `/api/me` | anyone | `UpdateMeRequest` | `Me` | 5 ✅ |
@@ -113,3 +118,13 @@ Every status change goes through one server function, so these are the only move
 | `requested`, `assigned`, `en_route`, `arrived` | `canceled` | student, driver or admin |
 
 `completed`, `canceled` and `no_show` are final. Any other move returns 409.
+
+## Push alerts
+
+Every notification is also sent as an alert to the phones and browsers where its owner turned alerts on, within about 2 seconds. Admins get no notifications, so they have no alerts.
+
+| Method | Path | Who | Body | Returns | Week |
+|---|---|---|---|---|---|
+| GET | `/api/push/key` | anyone | — | `PushKey`. `publicKey` is null when alerts aren't set up on this server (locally): hide the switch | 6 ✅ |
+| POST | `/api/push/subscriptions` | student, driver | `PushSubscriptionInput` | `204`. A browser another account used moves to this one | 6 ✅ |
+| DELETE | `/api/push/subscriptions` | anyone | `PushUnsubscribe` | `204`. Only your own. Call it before signing out | 6 ✅ |

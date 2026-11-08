@@ -1,12 +1,12 @@
 import { cookies } from "next/headers";
-import type { Me, Role } from "../types";
+import type { ApiError, Me, Role } from "../types";
 import { db } from "./db";
 import type { User } from "./generated/prisma/client";
 import { createSessionToken, readSessionToken, SESSION_COOKIE, sessionCookieOptions } from "./session";
 
-/** Sends an ApiError with the given status. */
-export function fail(status: number, error: string) {
-  return Response.json({ error }, { status });
+/** Sends an ApiError with the given status, and a `code` when the client has a specific next step to take. */
+export function fail(status: number, error: string, code?: ApiError["code"]) {
+  return Response.json(code ? { error, code } : { error }, { status });
 }
 
 /** The JSON body as an object, or null if it isn't one. */

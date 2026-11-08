@@ -41,10 +41,13 @@ To change the schema, edit `schema.prisma` and run `npm run db:migrate -- --name
 
 ## Deploying to AWS
 
-Nothing in the code is tied to a provider. The app needs two settings: `DATABASE_URL`, and `AUTH_SECRET`, a random string of at least 32 characters (`openssl rand -base64 32`) that signs the session cookie.
+The app needs two settings: `DATABASE_URL`, and `AUTH_SECRET`, a random string of at least 32 characters (`openssl rand -base64 32`) that signs the session cookie. Two features are optional and need more (see `.env.example`):
+
+- **Amazon Cognito** for passwords, with emailed codes to confirm new accounts and reset forgotten passwords: `COGNITO_USER_POOL_ID` and `COGNITO_CLIENT_ID`. Create a user pool that signs in with email, verifies email, and has an app client with no secret and `ALLOW_USER_PASSWORD_AUTH`. The container's AWS role needs `cognito-idp:AdminCreateUser`, `AdminSetUserPassword` and `AdminDeleteUser` on the pool. Accounts made before Cognito move over on their next sign-in.
+- **Push alerts**: `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` and `VAPID_SUBJECT`.
 
 1. Create an RDS Postgres 16 database.
-2. Run `DATABASE_URL=<rds url>?sslmode=require npm run db:deploy` once, and again after every new migration. Run `npm run db:seed` too if you want the sample data; set `SEED_PASSWORD` first so the accounts don't use the public default.
+2. Run `DATABASE_URL="<rds url>?sslmode=verify-full&sslrootcert=<path to the RDS CA bundle>" npm run db:deploy` once, and again after every new migration. Run `npm run db:seed` too if you want the sample data; set `SEED_PASSWORD` first so the accounts don't use the public default.
 3. Run the image built from `Dockerfile` on any AWS container host (ECS, App Runner, Lightsail), with `DATABASE_URL` and `AUTH_SECRET` set on the container. Serve it over HTTPS: in production the session cookie is only sent over secure connections.
 
 The app listens on port 3000, and `GET /api/health` returns `{"status":"ok"}` for health checks.

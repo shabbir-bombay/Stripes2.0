@@ -47,10 +47,12 @@ enum NotificationType {
 }
 
 /// Email must end in @pacific.edu or @u.pacific.edu (CHECK in the migration).
+/// On AWS, Amazon Cognito holds the password and `passwordHash` is null; an account made before Cognito keeps its hash
+/// until its first sign-in moves the password over. Locally and in CI there is no Cognito and every account has a hash.
 model User {
   id           String         @id @default(uuid()) @db.Uuid
   email        String         @unique
-  passwordHash String
+  passwordHash String?
   name         String
   role         Role           @default(student)
   suspended    Boolean        @default(false)
@@ -61,6 +63,7 @@ model User {
   requestedPenaltyPoints PenaltyPoint[] @relation("penaltyPointRequester")
   decidedPenaltyPoints   PenaltyPoint[] @relation("penaltyPointDecider")
   notifications          Notification[]
+  pushSubscriptions      PushSubscription[]
 }
 
 /// Exists for every user with the driver role, and stays if they stop being one so old rides keep their call sign.
@@ -180,8 +183,25 @@ model Notification {
   ride      Ride?            @relation(fields: [rideId], references: [id], onDelete: SetNull)
   read      Boolean          @default(false)
   createdAt DateTime         @default(now())
+  /// When the push sender took it. Null means not sent yet.
+  pushedAt  DateTime?
 
   @@index([userId, createdAt])
+  @@index([pushedAt, createdAt])
+}
+
+/// A browser or phone that turned on alerts. The push service gives the endpoint and keys; a 404 or 410 from it means
+/// the subscription is gone, and the row is deleted.
+model PushSubscription {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 /// One per completed ride. The rating is 1 to 5 (CHECK in the migration).

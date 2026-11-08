@@ -2,9 +2,14 @@ import { parseName } from "@/lib/server/accounts";
 import { fail, readBody, startSession, toMe } from "@/lib/server/auth";
 import { db } from "@/lib/server/db";
 import { isPacificEmail, normalizeEmail } from "@/lib/server/email";
-import { hashPassword } from "@/lib/server/password";
+import { createLogin } from "@/lib/server/identity";
+import { isUniqueViolation } from "@/lib/server/rides";
+import type { SignUpResult } from "@/lib/types";
 
-// Creates a student account and signs it in. Staff accounts come from the seed, or an admin changes the role.
+const TAKEN = "An account with this email already exists. Sign in instead.";
+
+// Creates a student account. Staff accounts come from the seed, or an admin changes the role.
+// On AWS, Cognito emails a code and the account signs in after confirming it; locally it is signed in at once.
 export async function POST(request: Request) {
   const body = await readBody(request);
   const { email, password, name } = body ?? {};
@@ -16,14 +21,18 @@ export async function POST(request: Request) {
   const parsedName = parseName(name);
   if (!parsedName.ok) return fail(400, parsedName.error);
 
+  const address = normalizeEmail(email);
+  if (await db.user.findUnique({ where: { email: address }, select: { id: true } })) return fail(409, TAKEN);
+  const login = await createLogin(address, password);
+  if (!login.ok) return fail(login.status, login.error);
+
   try {
-    const user = await db.user.create({
-      data: { email: normalizeEmail(email), passwordHash: await hashPassword(password), name: parsedName.value },
-    });
+    const user = await db.user.create({ data: { email: address, passwordHash: login.passwordHash, name: parsedName.value } });
+    if (login.confirm) return Response.json({ confirm: true, email: address } satisfies SignUpResult, { status: 201 });
     await startSession(user);
-    return Response.json(toMe(user), { status: 201 });
+    return Response.json(toMe(user) satisfies SignUpResult, { status: 201 });
   } catch (error) {
-    if ((error as { code?: string }).code === "P2002") return fail(409, "An account with this email already exists. Sign in instead.");
+    if (isUniqueViolation(error)) return fail(409, TAKEN);
     throw error;
   }
 }
