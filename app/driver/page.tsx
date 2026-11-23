@@ -54,7 +54,16 @@ function StartShift({ reload, offer }: { reload: Reload; offer: ReactNode }) {
 
   const loadCarts = () =>
     api<Cart[]>("/api/carts")
-      .then((carts) => setCarts(carts.filter((cart) => cart.active)))
+      .then((all) => {
+        const carts = all.filter((cart) => cart.active);
+        setCarts(carts);
+        // The first free cart starts picked, so most shifts start with one tap. A pick that someone else
+        // has since taken moves to the next free cart.
+        setCartId((picked) => {
+          const free = carts.filter((cart) => !cart.inUseBy);
+          return free.some((cart) => cart.id === picked) ? picked : (free[0]?.id ?? "");
+        });
+      })
       .catch((e: Error) => setError(e.message));
   useEffect(() => {
     loadCarts();
@@ -157,9 +166,12 @@ function OnShift({ shift, queue, error, reload, offer, onNoShow }: {
   const current = currentRide(queue.mine);
   const others = queue.mine.filter((ride) => ride !== current);
 
+  // Cleared when another ride becomes current. Keyed to the id, not the object: a poll that left before
+  // "Complete ride" can land just after it with the finished ride, and that mustn't hide the message.
+  const currentId = current?.id;
   useEffect(() => {
-    if (current) setJustCompleted(false);
-  }, [current]);
+    if (currentId) setJustCompleted(false);
+  }, [currentId]);
 
   const pins: MapPin[] = [];
   if (current) {

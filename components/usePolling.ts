@@ -53,6 +53,9 @@ export function usePolling<T>(url: string | null, ms = 4000) {
     load();
     return () => {
       controller.abort();
+      // Coming back to this URL later is a fresh start: e.g. a ride unassigned and then given to another
+      // driver has the same position URL, and the old driver's answer must not show as the new cart.
+      setLoaded((previous) => (previous?.url === url ? undefined : previous));
       clearTimeout(timer);
       loadNow.current = async () => {};
       document.removeEventListener("visibilitychange", onVisibilityChange);

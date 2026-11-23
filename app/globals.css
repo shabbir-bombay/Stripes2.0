@@ -727,7 +727,7 @@ button.chip {
   width: 48px;
   height: 48px;
   border-radius: 13px;
-  background: #16130f;
+  background: var(--ink);
   color: #f47920;
 }
 
