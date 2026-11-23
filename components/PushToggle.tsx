@@ -8,8 +8,8 @@ import type { PushKey, PushSubscriptionInput } from "@/lib/types";
 
 type State = "loading" | "hidden" | "no" | "install-first" | "blocked" | "off" | "on";
 
-/** Turns phone alerts on or off for this device. Hidden where the server has no alerts set up (e.g. locally). */
-export function PushToggle() {
+/** Turns phone alerts on or off for this device, as a row at the top of Alerts. Hidden where the server has no alerts set up (e.g. locally). */
+export function PushToggle({ offText }: { offText: string }) {
   const [state, setState] = useState<State>("loading");
   const [key, setKey] = useState<string>();
   const [error, setError] = useState<string>();
@@ -55,19 +55,24 @@ export function PushToggle() {
   }
 
   if (state === "loading" || state === "hidden") return null;
+  const text = {
+    on: "On. You'll get these even with the screen locked.",
+    off: offText,
+    "install-first": "On iPhone, add Stripes to your Home Screen first: tap Share, then “Add to Home Screen”. Open Stripes from there and turn alerts on.",
+    blocked: "Alerts are blocked for this site. Allow notifications in your browser's settings, then come back.",
+    no: "This browser can't show alerts.",
+  }[state];
   return (
-    <section className="card stack" aria-labelledby="alerts-title">
-      <h2 id="alerts-title">Alerts on this device</h2>
-      {state === "on" && <p>On. You&apos;ll get an alert when something changes on your rides, even with the screen locked.</p>}
-      {state === "off" && <p>Get an alert when something changes on your rides, even with Stripes closed.</p>}
-      {state === "install-first" && (
-        <p>On iPhone, add Stripes to your Home Screen first: tap Share, then &ldquo;Add to Home Screen&rdquo;. Open Stripes from there and turn alerts on.</p>
-      )}
-      {state === "blocked" && <p className="muted">Alerts are blocked for this site. Allow notifications in your browser&apos;s settings, then come back.</p>}
-      {state === "no" && <p className="muted">This browser can&apos;t show alerts.</p>}
-      {error && <p role="alert" className="form-error">{error}</p>}
-      {state === "off" && <Button onClick={turnOn} disabled={busy}>{busy ? "Turning on…" : "Turn on alerts"}</Button>}
-      {state === "on" && <Button variant="secondary" onClick={turnOff} disabled={busy}>Turn off alerts</Button>}
+    <section className="list" aria-labelledby="alerts-title">
+      <div className="list-item center">
+        <div>
+          <h2 id="alerts-title" className="list-item-title">Phone alerts</h2>
+          <p className="list-item-meta">{text}</p>
+          {error && <p role="alert" className="field-error">{error}</p>}
+        </div>
+        {state === "off" && <Button size="small" onClick={turnOn} disabled={busy}>{busy ? "Turning on…" : "Turn on"}</Button>}
+        {state === "on" && <Button size="small" variant="tonal" onClick={turnOff} disabled={busy}>Turn off</Button>}
+      </div>
     </section>
   );
 }

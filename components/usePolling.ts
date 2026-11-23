@@ -9,8 +9,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * `refresh()` loads again at once, e.g. right after the user changed something; it resolves once the new data is in.
  */
 export function usePolling<T>(url: string | null, ms = 4000) {
-  const [data, setData] = useState<T>();
-  const [error, setError] = useState<string>();
+  // Each answer is kept with the URL it came from. A different URL is a different thing, so the old one's
+  // answer is never shown, not even for the one render before the new load starts.
+  const [loaded, setLoaded] = useState<{ url: string; data?: T; error?: string }>();
   const loadNow = useRef<() => Promise<void>>(async () => {});
 
   useEffect(() => {
@@ -24,13 +25,16 @@ export function usePolling<T>(url: string | null, ms = 4000) {
       if (controller.signal.aborted || document.hidden) return;
       try {
         const response = await fetch(url!, { cache: "no-store", signal: controller.signal });
-        const body = await response.json().catch(() => ({ error: "Something went wrong. Retrying…" }));
-        if (!response.ok) throw new Error(body.error);
-        setData(body);
-        setError(undefined);
+        const body = await response.json().catch(() => undefined);
+        // Stopped part-way (the URL changed): this answer belongs to nothing on screen.
+        if (controller.signal.aborted) return;
+        if (!response.ok || body === undefined) throw new Error(body?.error ?? "Something went wrong. Retrying…");
+        setLoaded({ url: url!, data: body });
       } catch (e) {
         if (controller.signal.aborted) return;
-        setError(e instanceof TypeError ? "Can't reach Stripes. Retrying…" : (e as Error).message);
+        const error = e instanceof TypeError ? "Can't reach Stripes. Retrying…" : (e as Error).message;
+        // A failed try keeps the last good answer from this URL on screen, with the reason beside it.
+        setLoaded((previous) => ({ url: url!, data: previous?.url === url ? previous.data : undefined, error }));
       }
     }
 
@@ -56,5 +60,6 @@ export function usePolling<T>(url: string | null, ms = 4000) {
   }, [url, ms]);
 
   const refresh = useCallback(() => loadNow.current(), []);
-  return { data, error, refresh };
+  const current = url && loaded?.url === url ? loaded : undefined;
+  return { data: current?.data, error: current?.error, refresh };
 }

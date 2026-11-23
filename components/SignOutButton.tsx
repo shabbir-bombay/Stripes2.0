@@ -1,10 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import type { ComponentProps } from "react";
 import { Button } from "./Button";
+import { Icon } from "./Icon";
 import { stopAlerts } from "./push";
 
-export function SignOutButton() {
+export function SignOutButton({ variant = "secondary", className }: { variant?: ComponentProps<typeof Button>["variant"]; className?: string }) {
   const router = useRouter();
 
   async function signOut() {
@@ -15,7 +17,8 @@ export function SignOutButton() {
   }
 
   return (
-    <Button variant="secondary" onClick={signOut}>
+    <Button variant={variant} className={className} onClick={signOut}>
+      {variant !== "secondary" && <Icon name="signOut" small />}
       Sign out
     </Button>
   );

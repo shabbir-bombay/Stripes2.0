@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { Wordmark } from "@/components/Wordmark";
 import { ConfirmForm } from "./ConfirmForm";
 
 export default async function Confirm({ searchParams }: PageProps<"/sign-up/confirm">) {
   const { email } = await searchParams;
   return (
-    <main className="page center">
+    <main className="auth">
+      <Wordmark />
       <h1>Confirm your email</h1>
       <ConfirmForm email={typeof email === "string" ? email : ""} />
       <p className="switch">

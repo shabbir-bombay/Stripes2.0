@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AuthForm } from "@/components/AuthForm";
 import { Field } from "@/components/Field";
+import { Wordmark } from "@/components/Wordmark";
 
 const DONE: Record<string, string> = {
   confirmed: "Your email is confirmed. Sign in to start.",
@@ -13,15 +14,16 @@ export default async function SignIn({ searchParams }: PageProps<"/sign-in">) {
   const email = typeof params.email === "string" ? params.email : undefined;
 
   return (
-    <main className="page center">
+    <main className="auth">
+      <Wordmark />
       <h1>Sign in</h1>
       {done && <p role="status" className="banner open">{DONE[done]}</p>}
       <AuthForm endpoint="/api/auth/sign-in" submitLabel="Sign in">
-        <Field label="Pacific email" name="email" type="email" autoComplete="email" defaultValue={email} required />
+        <Field label="Pacific email" name="email" type="email" autoComplete="email" placeholder="tiger@u.pacific.edu" defaultValue={email} required />
         <Field label="Password" name="password" type="password" autoComplete="current-password" required />
       </AuthForm>
       <p className="switch">
-        <Link href="/sign-in/forgot">Forgot your password?</Link>
+        <Link href="/sign-in/forgot">Forgot password?</Link>
       </p>
       <p className="switch">
         New to Stripes? <Link href="/sign-up">Create an account</Link>

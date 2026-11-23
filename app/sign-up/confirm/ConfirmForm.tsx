@@ -62,7 +62,7 @@ export function ConfirmForm({ email: initialEmail }: { email: string }) {
       {sent && <p role="status" className="banner open">{sent}</p>}
       {error && <p role="alert" className="form-error">{error}</p>}
       <Button type="submit" disabled={busy}>{busy ? "Please wait…" : "Confirm"}</Button>
-      <Button type="button" variant="secondary" onClick={resend} disabled={busy || !email}>Send a new code</Button>
+      <Button type="button" variant="tonal" onClick={resend} disabled={busy || !email}>Send a new code</Button>
     </form>
   );
 }

@@ -29,7 +29,7 @@ const LINKS: Record<Role, { href: string; label: string }[]> = {
   ],
 };
 
-/** The pages of a role's area, with a count on anything waiting for this person. */
+/** The admin's menu, with a count of penalty requests waiting. Students and drivers use the tab bar instead. */
 export function RoleNav({ role }: { role: Role }) {
   const pathname = usePathname();
   const { unread } = useInbox();

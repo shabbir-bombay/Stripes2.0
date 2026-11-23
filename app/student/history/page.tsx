@@ -1,13 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { api } from "@/components/api";
-import { Button, ButtonLink } from "@/components/Button";
-import { Field } from "@/components/Field";
+import { Button } from "@/components/Button";
+import { Icon } from "@/components/Icon";
+import { RatingForm } from "@/components/RatingForm";
 import { campusDateTime } from "@/components/time";
-import type { FeedbackRequest, HistoryPage, Ride, RideStatus } from "@/lib/types";
-
-const OUTCOME: Partial<Record<RideStatus, string>> = { completed: "Completed", canceled: "Canceled", no_show: "No-show" };
+import { STUDENT_CANCEL_REASON } from "@/lib/server/ride-status";
+import type { HistoryPage, Ride } from "@/lib/types";
 
 export default function HistoryPageView() {
   const [rides, setRides] = useState<Ride[]>();
@@ -39,83 +39,72 @@ export default function HistoryPageView() {
 
   return (
     <main className="page stack">
-      <h1>Your rides</h1>
+      <h1 className="page-title">History</h1>
       {!rides && !error && <p role="status">Loading your rides…</p>}
       {rides?.length === 0 && (
-        <>
-          <p className="muted">Your finished rides will show up here.</p>
-          <ButtonLink href="/student" variant="secondary">Back to Ride</ButtonLink>
-        </>
+        <div className="empty-state">
+          <Icon name="history" />
+          <h2>No rides yet</h2>
+          <p className="sub">Your finished rides will show up here.</p>
+        </div>
       )}
-      {rides?.map((ride) => <HistoryCard key={ride.id} ride={ride} onRated={rated} />)}
+      {rides && rides.length > 0 && (
+        <ul className="list">
+          {rides.map((ride) => <HistoryRow key={ride.id} ride={ride} onRated={rated} />)}
+        </ul>
+      )}
       {error && <p role="alert" className="form-error">{error}</p>}
-      {next && <Button variant="secondary" onClick={() => load(next)} disabled={busy}>{busy ? "Loading…" : "Show older rides"}</Button>}
+      {next && <Button variant="quiet" onClick={() => load(next)} disabled={busy}>{busy ? "Loading…" : "Show older rides"}</Button>}
     </main>
   );
 }
 
-function HistoryCard({ ride, onRated }: { ride: Ride; onRated: (ride: Ride) => void }) {
+/** One short row: where to (what people remember), where from, when and which cart, and a pill for the outcome. */
+function HistoryRow({ ride, onRated }: { ride: Ride; onRated: (ride: Ride) => void }) {
+  const [rating, setRating] = useState(false);
+  const cart = ride.driver?.cartNumber ? ` · Cart ${ride.driver.cartNumber}` : "";
+
   return (
-    <article className="card ride-card">
-      <p className="ride-status">{OUTCOME[ride.status]} · {campusDateTime(ride.requestedAt)}</p>
-      <dl className="summary">
-        <dt>From</dt>
-        <dd>{ride.pickup.name}</dd>
-        <dt>To</dt>
-        <dd>{ride.dropoff.name}</dd>
-        <dt>Riders</dt>
-        <dd>{ride.partySize}</dd>
-        {ride.driver && (
-          <>
-            <dt>Driver</dt>
-            <dd>{ride.driver.callSign}{ride.driver.cartNumber && `, Cart ${ride.driver.cartNumber}`}</dd>
-          </>
-        )}
-        {ride.cancelReason && (
-          <>
-            <dt>Reason</dt>
-            <dd>{ride.cancelReason}</dd>
-          </>
-        )}
-      </dl>
-      {ride.status === "completed" &&
-        (ride.rating ? <p className="muted">You rated this ride {ride.rating} out of 5.</p> : <RatingForm ride={ride} onRated={onRated} />)}
-    </article>
+    <li>
+      <div className="list-item">
+        <div>
+          <p className="list-item-title">{ride.dropoff.name}</p>
+          <p className="list-item-meta">From {ride.pickup.name}</p>
+          <p className="list-item-meta num">{campusDateTime(ride.requestedAt)}{cart}</p>
+          {ride.status === "canceled" && ride.cancelReason && ride.cancelReason !== STUDENT_CANCEL_REASON && (
+            <p className="list-item-meta">Canceled: {ride.cancelReason}</p>
+          )}
+        </div>
+        <Outcome ride={ride} rating={rating} onRate={() => setRating(!rating)} />
+      </div>
+      {rating && ride.status === "completed" && !ride.rating && (
+        <div className="row-form">
+          <RatingForm ride={ride} legend={`Rate your ride to ${ride.dropoff.name}, 1 is poor and 5 is great`} onRated={onRated} />
+        </div>
+      )}
+    </li>
   );
 }
 
-function RatingForm({ ride, onRated }: { ride: Ride; onRated: (ride: Ride) => void }) {
-  const [rating, setRating] = useState<FeedbackRequest["rating"]>();
-  const [comment, setComment] = useState("");
-  const [error, setError] = useState<string>();
-  const [busy, setBusy] = useState(false);
-
-  async function submit(event: FormEvent) {
-    event.preventDefault();
-    setBusy(true);
-    setError(undefined);
-    try {
-      onRated(await api<Ride>(`/api/rides/${ride.id}/feedback`, "POST", { rating: rating!, comment } satisfies FeedbackRequest));
-    } catch (e) {
-      setError((e as Error).message);
-      setBusy(false);
+function Outcome({ ride, rating, onRate }: { ride: Ride; rating: boolean; onRate: () => void }) {
+  if (ride.status === "completed") {
+    if (ride.rating) {
+      return (
+        <span className="pill">
+          <Icon name="starFilled" small />
+          <span className="sr-only">You rated it </span>
+          {ride.rating}
+          <span className="sr-only"> out of 5</span>
+        </span>
+      );
     }
+    return (
+      <button type="button" className="pill accent" aria-expanded={rating} onClick={onRate}>
+        <Icon name="star" small />
+        Rate
+      </button>
+    );
   }
-
-  return (
-    <form className="stack" onSubmit={submit}>
-      <fieldset className="segmented" disabled={busy}>
-        <legend>How was this ride? (1 is poor, 5 is great)</legend>
-        {([1, 2, 3, 4, 5] as const).map((value) => (
-          <label key={value} className="segment">
-            <input type="radio" name={`rating-${ride.id}`} checked={rating === value} onChange={() => setRating(value)} aria-label={`${value} out of 5`} />
-            <span>{value}</span>
-          </label>
-        ))}
-      </fieldset>
-      <Field label="Comment (optional)" value={comment} onChange={(e) => setComment(e.target.value)} maxLength={500} disabled={busy} />
-      {error && <p role="alert" className="form-error">{error}</p>}
-      <Button type="submit" disabled={busy || !rating}>{busy ? "Sending…" : "Send rating"}</Button>
-    </form>
-  );
+  if (ride.status === "no_show") return <span className="pill">No-show</span>;
+  return <span className="pill">{ride.cancelReason === STUDENT_CANCEL_REASON ? "You canceled" : "Canceled"}</span>;
 }

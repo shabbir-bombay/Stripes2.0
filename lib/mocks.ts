@@ -23,9 +23,9 @@ export const serviceOpen: ServiceStatus = {
   open: true,
   mode: "automatic",
   nextChange: new Date(Date.now() + 3 * 3_600_000).toISOString(),
-  maxPartySize: 5,
+  maxPartySize: 3,
 };
-export const serviceClosed: ServiceStatus = { open: false, mode: "off", nextChange: null, maxPartySize: 5 };
+export const serviceClosed: ServiceStatus = { open: false, mode: "off", nextChange: null, maxPartySize: 3 };
 
 export const carts: Cart[] = [
   { id: "cart-1", number: "1", seats: 6, active: true, inUseBy: "Tiger 1" },

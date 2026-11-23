@@ -14,6 +14,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  // Lets the layout reach the screen's edges on iPhones; the CSS keeps content clear of the notch and home bar.
+  viewportFit: "cover",
   themeColor: "#f47920",
 };
 

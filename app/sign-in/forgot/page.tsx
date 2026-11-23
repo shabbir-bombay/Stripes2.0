@@ -6,6 +6,7 @@ import { useState, type FormEvent } from "react";
 import { api } from "@/components/api";
 import { Button } from "@/components/Button";
 import { Field } from "@/components/Field";
+import { Wordmark } from "@/components/Wordmark";
 import type { EmailRequest, ResetPasswordRequest } from "@/lib/types";
 
 /** Two steps: the email gets a 6-digit code, then the code and a new password. */
@@ -47,14 +48,15 @@ export default function ForgotPassword() {
   }
 
   return (
-    <main className="page center">
+    <main className="auth">
+      <Wordmark />
       <h1>Reset your password</h1>
       {!sent ? (
         <form className="stack" onSubmit={sendCode}>
-          <p className="lead">Enter your Pacific email and we&apos;ll send you a code.</p>
-          <Field label="Pacific email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <p className="lead">We&apos;ll email a 6-digit code to your Pacific address.</p>
+          <Field label="Pacific email" type="email" autoComplete="email" placeholder="tiger@u.pacific.edu" value={email} onChange={(e) => setEmail(e.target.value)} required />
           {error && <p role="alert" className="form-error">{error}</p>}
-          <Button type="submit" disabled={busy}>{busy ? "Please wait…" : "Send code"}</Button>
+          <Button type="submit" disabled={busy}>{busy ? "Please wait…" : "Email me a code"}</Button>
         </form>
       ) : (
         <form className="stack" onSubmit={reset}>
@@ -83,7 +85,7 @@ export default function ForgotPassword() {
           />
           {error && <p role="alert" className="form-error">{error}</p>}
           <Button type="submit" disabled={busy}>{busy ? "Please wait…" : "Change password"}</Button>
-          <Button type="button" variant="secondary" onClick={() => sendCode()} disabled={busy}>Send a new code</Button>
+          <Button type="button" variant="tonal" onClick={() => sendCode()} disabled={busy}>Send a new code</Button>
         </form>
       )}
       <p className="switch">
