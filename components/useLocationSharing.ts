@@ -9,11 +9,19 @@ const POST_EVERY_MS = 7000;
 /** The server stops treating a position as live at this age, so riders lose the cart: the driver should know. */
 const FIX_GOES_OLD_MS = 30_000;
 
-function describe(error: GeolocationPositionError) {
-  if (error.code !== error.PERMISSION_DENIED) return "Can't find your location right now. Still trying…";
-  return window.isSecureContext
-    ? "Location is off. Allow location for this site so riders can see your cart."
-    : "Location only works over a secure (HTTPS) connection.";
+/** A short GPS gap is common and fixes itself ("paused"); anything else needs the driver to act ("error"). */
+export type LocationProblem = { kind: "paused" | "error"; text: string };
+
+function describe(error: GeolocationPositionError, hadFix: boolean): LocationProblem {
+  if (error.code !== error.PERMISSION_DENIED) {
+    return { kind: "paused", text: hadFix ? "We haven't had your location for 30 s. Still trying." : "Can't find your location yet. Still trying." };
+  }
+  return {
+    kind: "error",
+    text: window.isSecureContext
+      ? "Location is off. Allow location for this site so riders can see your cart."
+      : "Location only works over a secure (HTTPS) connection.",
+  };
 }
 
 /**
@@ -24,11 +32,11 @@ function describe(error: GeolocationPositionError) {
 export function useLocationSharing() {
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [sharing, setSharing] = useState(false);
-  const [problem, setProblem] = useState<string>();
+  const [problem, setProblem] = useState<LocationProblem>();
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setProblem("This browser can't share your location.");
+      setProblem({ kind: "error", text: "This browser can't share your location." });
       return;
     }
 
@@ -60,7 +68,7 @@ export function useLocationSharing() {
       } catch (e) {
         if (!stopped) {
           setSharing(false);
-          setProblem((e as Error).message);
+          setProblem({ kind: "error", text: (e as Error).message });
         }
       } finally {
         posting = false;
@@ -79,7 +87,7 @@ export function useLocationSharing() {
       // A slow answer is no problem while recent fixes are still coming in.
       if (error.code !== error.PERMISSION_DENIED && latest && Date.now() - latest.timestamp < FIX_GOES_OLD_MS) return;
       setSharing(false);
-      setProblem(describe(error));
+      setProblem(describe(error, !!latest));
     }
 
     const options = { enableHighAccuracy: true, maximumAge: 0, timeout: 20_000 };
