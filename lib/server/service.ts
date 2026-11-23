@@ -1,5 +1,6 @@
 import type { ServiceMode, ServiceStatus } from "../types";
 import { db } from "./db";
+import { partyLimit } from "./party";
 import { scheduleStatus } from "./schedule";
 
 export const SERVICE_MODES: ServiceMode[] = ["automatic", "on", "off"];
@@ -11,8 +12,7 @@ export async function serviceStatus(): Promise<ServiceStatus> {
     db.cart.aggregate({ where: { active: true }, _max: { seats: true } }),
   ]);
   const mode = service?.mode ?? "automatic";
-  const seats = carts._max.seats;
-  const maxPartySize = seats ? seats - 1 : 1;
+  const maxPartySize = partyLimit(carts._max.seats);
   if (mode !== "automatic") return { open: mode === "on", mode, nextChange: null, maxPartySize };
 
   const { open, nextChange } = scheduleStatus(await db.serviceRule.findMany());

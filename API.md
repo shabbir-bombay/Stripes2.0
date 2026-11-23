@@ -40,7 +40,7 @@ Change this file and `lib/types.ts` only when both sides agree.
 |---|---|---|---|---|---|
 | GET | `/api/health` | public | — | `{ "status": "ok" }` | 1 ✅ |
 | GET | `/api/stops` | anyone | — | `Stop[]`, active stops by name | 2 ✅ |
-| GET | `/api/service-status` | public | — | `ServiceStatus`, including the largest party size a request may have | 2 ✅ |
+| GET | `/api/service-status` | public | — | `ServiceStatus`, including the largest party size a request may have (at most 3) | 2 ✅ |
 
 ## Student rides
 
